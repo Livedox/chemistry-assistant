@@ -1,0 +1,103 @@
+#calculator{
+    display: none;
+    position: fixed;
+    left: 50px;top: 0;
+    width: 400px;
+    background-color: white;
+    margin-right: 0;
+    z-index: 50;
+    border-radius: 0  0 5px 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    max-height: 100%;
+}
+#calculator.active{
+    display: block;
+}
+#calculator-top{
+    width: 100%;
+    height: 20px;
+    background-color: #2d3436;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    cursor: move;
+}
+#calculator-close{
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    fill: #dfe6e9;
+    cursor: pointer;
+}
+#calculator-content{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 480px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2d3436 rgba(0,0,0,0);
+    padding: 15px;
+}
+#calculator-container-input{
+    display: flex;
+}
+#calculator-input{
+    outline: none;
+    border: 1px solid black;
+    margin-right: 10px;
+    border-radius: 5px;
+    flex: 1 0 auto;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+}
+#calculator-button{
+    outline: none;
+    border: none;
+    background-color: #ffd737;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+}
+
+#calculator-result-elements{
+    margin-top: 15px;
+}
+
+#calculator-result{
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.calculator-column{
+    border-top: 1px solid #dfe6e9;
+    padding: 10px 5px;
+    text-align: center;
+}
+
+@media (max-width: 400px), (orientation: portrait) {
+    #calculator{
+        left: 0px;
+        top: 50px;
+    }
+}
+
+@media (max-width: 400px) {
+    #calculator{
+        left: 0px !important;
+        top: 50px !important;
+        width: 100%;
+        font-size: 0.8rem;
+    }
+    #calculator-top{
+        display: none;
+    }
+    #calculator-result{
+        white-space: nowrap;
+        text-align: center;
+    }
+    #calculator-content{
+        display: block;
+    }
+}

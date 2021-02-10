@@ -1,0 +1,111 @@
+.header{
+    position: fixed;
+    top: 0;bottom: 0;
+    left: 0;
+    width: 50px;
+    background-color: #2d3436;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#menu {
+	display: none;
+	top: 0px;left: 50px;
+	background-color: #2f353b;
+	position: fixed;
+	transition: 1s;
+	z-index: 99;
+	width: 300px;
+}
+#menu.active{
+	display: block;
+}
+#menu a {
+	text-align: center;
+	padding: 15px 0 15px 0;
+	text-decoration: none;
+	display: block;
+	width: 100%;
+	color: #b2bec3;
+	border-bottom: 1px solid #636e72;
+	border-top: 1px solid #636e72;
+	transition: 0.2s;
+}
+#menu a:hover {
+	background-color: #636e72;
+	color: white;
+}
+#menu a:active {
+	background-color: #636e72;
+	color: white;
+}
+
+.menu-icon-dash {
+	fill: #dfe6e9;
+	transform-origin: 50% 50%;
+	opacity: 100;
+	transition: transform 0.3s, opacity 0.3s;
+}
+
+#menu-icon {
+	margin: 10px 5px;
+	width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#menu-icon.menuexpanded #dash-top {
+	transform: translateY(16.75%) translateX(-16.9%) rotate(45deg);
+}
+#menu-icon.menuexpanded #dash-bottom {
+	transform: translateY(16.75%) translateX(16.9%) rotate(135deg);
+}
+#menu-icon.menuexpanded #dash-middle {
+	transform: rotate(135deg);
+	opacity: 0;
+}
+
+.calculator-open{
+    width: 40px;
+    height: 40px;
+    fill: #dfe6e9;
+    cursor: pointer;
+    margin: 10px 5px;
+}
+
+.setting-open{
+    fill: #dfe6e9;
+	cursor: pointer;
+	height: 40px;
+    width: 40px;
+    transition: 1s;
+    margin: 10px 5px;
+}
+
+.setting-open.active {
+	transform: rotate(360deg);
+}
+
+.link-help svg{
+	fill: #dfe6e9;
+	cursor: pointer;
+	height: 40px;
+    width: 40px;
+    transition: 1s;
+    margin: 5px 5px;
+}
+
+@media screen and (max-width: 460px), (orientation: portrait) {
+	.header{
+		left: 0;right: 0;
+		top: 0;
+		height: 50px;
+		width: auto;
+		flex-direction: row;
+	}
+	#menu {
+		top: 50px;left: 0;
+		width: 100%;
+	}
+}

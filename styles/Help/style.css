@@ -1,0 +1,33 @@
+.round-link{
+    position: relative;
+    border-radius: 25px;
+    border: 3px solid #5ca7e0;
+    color: #5ca7e0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    background: #fff;
+    margin: 5px auto 20px auto;
+    transition: 0.5s;
+    flex-grow: 0;
+}
+
+.round-link:hover{
+    color: #fff;
+    background: #5ca7e0;
+}
+
+.round-link:hover .about-us-icon{
+    fill: #fff;
+}
+
+.about-us-icon{
+    transition: 0.5s;
+    position: relative;
+    z-index: 1;
+    fill: #5ca7e0;
+    width: 30px;
+    margin-left: 20px;
+}
