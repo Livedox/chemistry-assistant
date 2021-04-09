@@ -35,7 +35,6 @@ const Info:NextPage<Props> = ({ pageData }) => {
 
 
 Info.getInitialProps = async ({ query }: NextPageContext) => {
-    console.error(server);
     const res = await fetch(server+"/api/info", {
         method: "POST",
         headers: {
