@@ -34,7 +34,7 @@ const Info:NextPage<Props> = ({ pageData }) => {
 
 
 Info.getInitialProps = async ({ query }: NextPageContext) => {
-    const res = await fetch("http://localhost:3000/api/info", {
+    const res = await fetch("../api/info", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
