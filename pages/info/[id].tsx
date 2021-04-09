@@ -2,6 +2,7 @@ import { NextPage, NextPageContext } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import Header from "../../components/HeaderTest/Header";
+import { server } from "../../config";
 
 interface Props {
     pageData?: any;
@@ -34,7 +35,7 @@ const Info:NextPage<Props> = ({ pageData }) => {
 
 
 Info.getInitialProps = async ({ query }: NextPageContext) => {
-    const res = await fetch("../api/info", {
+    const res = await fetch(server+"/api/info", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
