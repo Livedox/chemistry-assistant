@@ -8,9 +8,6 @@
 
 .periodic-table {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     margin: 15px 0;
 }
 
@@ -379,5 +376,170 @@
     }
     .group{
         width: 5.5vw;
+    }
+}
+
+
+//ывааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааааа
+
+.periodic-table{
+    display: flex;
+    &__period-container{
+        margin: 20px 3px 0 0;
+    }
+    &__period, &__group, &__main-container, &__row, &__row-inner, &__row-bottom{
+        display: flex;
+    }
+    &__period{
+        height: 5.3vw;
+        align-items: center;
+        box-sizing: border-box;
+        margin-top: -1px;
+    }
+    &__group{
+        justify-content: center;
+        align-items: flex-end;
+        width: 5.2vw;
+        box-sizing: border-box;
+        margin-left: -1px;
+    }
+    &__main-container{
+        flex-direction: column;
+        width: calc(93.6vw-17px);
+    }   
+    &__row{
+        justify-content: space-between;
+    }
+    &__row-bottom{
+        justify-content: center;
+    }
+    &__row-bottom_top{
+        margin-top: 1vw;
+    }
+}
+
+.chemical-element{
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    height: 5.3vw;
+    width: 5.2vw;
+    font-size: 0.05vw;
+    padding: 0.1vw;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid #000;
+    margin: -1px 0 0 -1px;
+    box-sizing: border-box;
+    &:hover{
+        transform: scale(1.3);
+    }
+    &__name-ru, &__name-la, &__oxidation, &__ar, &__number{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14.6em;
+    }
+    &__symbol{
+        font-size: 53em;
+        line-height: 0.8;
+    }
+    &__storage-row{
+        display: flex;
+        justify-content: space-between;
+    }
+    &__storage-column{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    &__storage-center{
+        height: 20%;
+    }
+    &__radiation{
+        width: 1.5vw;
+    }
+    &.s{
+        background: #fe83b5;
+    }
+    &.p{
+        background: #ffd737;
+    }
+    &.d{
+        background: #5ca7e0;
+    }
+    &.f-top{
+        background: #90cd8e;
+    } 
+    &.f-bottom{
+        background: #78bd62;
+    }
+}
+
+
+.header{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    left: 0;top:0;
+    background: #fff;
+    box-shadow: 0 0 10px 0 #000;
+    width: 50px;
+    height: 100%;
+    z-index: 1;
+    transition: 0.2s ease-in-out;
+    overflow: hidden;
+    &.active, &:hover{
+        width: 310px;
+    }
+    &__logo-container{
+        margin-top: 40px;
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        width: 100%;
+        justify-content: flex-start;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+    }
+    &__logo {
+        max-width: 30px;
+        padding: 0 10px;
+        max-height: 30px;
+    }
+    &__logo-name{
+        flex: 0 0 auto;
+        margin: 0;
+        font-size: 1.25rem;
+    }
+}
+
+.nav{
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    width: 100%;
+    &__logo-link{
+        max-width: 25px;
+        padding: 0 13.25px;
+        max-height: 25px;
+    }
+    &_middle{
+        margin-top: 40px;
+        flex: 1 1 auto;
+        border-bottom: 1px solid #ccc;
+    }
+    &__link{
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+        flex: 0 0 auto;
+        cursor: pointer;
+        &:hover{
+            background: #ccc;
+        }
+    }
+    &__link-text{
+        font-size: 0.95rem;
+        display: flex;
+        flex: 0 0 auto;
     }
 }

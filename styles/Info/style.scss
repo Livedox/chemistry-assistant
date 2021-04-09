@@ -1,0 +1,27 @@
+.info{
+    display: flex;
+    margin-top: 3rem;
+    justify-content: center;
+    &__inner{
+        width: 90%;
+        display: flex;
+    }
+    &__link-container{
+        width: 15%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        border: 1px solid grey;
+        border-radius: 5px;
+        margin: 0 1rem;
+    }
+    &__main{
+        width: 75%;
+        background: #fff;
+        border-radius: 5px;
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+}
+
