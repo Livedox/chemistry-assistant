@@ -1,3 +1,5 @@
+@import "../var.scss";
+
 .main-periodic-table{
     position: fixed;
     top: 0;left: 50px;
@@ -477,38 +479,57 @@
 
 .header{
     position: fixed;
-    display: flex;
-    flex-direction: column;
     left: 0;top:0;
-    background: #fff;
+    background: $color-dracula-orchid;
     box-shadow: 0 0 10px 0 #000;
     width: 50px;
-    height: 100%;
+    min-height: 100%;
     z-index: 1;
     transition: 0.2s ease-in-out;
-    overflow: hidden;
-    &.active, &:hover{
-        width: 310px;
-    }
-    &__logo-container{
-        margin-top: 40px;
-        display: flex;
-        flex: 0 0 auto;
-        align-items: center;
+    &__container{
         width: 100%;
-        justify-content: flex-start;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #ccc;
+        min-height: 100%;
+        max-width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        scrollbar-width: thin;
+        &::-webkit-scrollbar {
+            width: 5px; 
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            border: 3px solid $color-city-lights;
+        }
     }
-    &__logo {
-        max-width: 30px;
-        padding: 0 10px;
-        max-height: 30px;
+    &__menu{
+        .menu-icon-dash {
+            fill: #dfe6e9;
+            transform-origin: 50% 50%;
+            opacity: 100;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        &.menuexpanded .dash-top {
+            transform: translateY(16.75%) translateX(-16.9%) rotate(45deg);
+        }
+        &.menuexpanded .dash-bottom {
+            transform: translateY(16.75%) translateX(16.9%) rotate(135deg);
+        }
+        &.menuexpanded .dash-middle {
+            transform: rotate(135deg);
+            opacity: 0;
+        }
+        
     }
-    &__logo-name{
-        flex: 0 0 auto;
-        margin: 0;
-        font-size: 1.25rem;
+    &.active{
+        width: 310px;
+        .nav__link-text{
+            visibility: visible;
+            background: none;
+        }
+        .nav__link:hover{
+            background: #5c696d;
+        }
     }
 }
 
@@ -517,15 +538,29 @@
     flex-direction: column;
     flex: 0 0 auto;
     width: 100%;
+    padding: 5px 0;
     &__logo-link{
-        max-width: 25px;
-        padding: 0 13.25px;
-        max-height: 25px;
+        max-width: 40px;
+        max-height: 40px;
+        padding: 0 5px;    
     }
-    &_middle{
-        margin-top: 40px;
-        flex: 1 1 auto;
-        border-bottom: 1px solid #ccc;
+    &__logo-periodic-table{
+        font-size: 30px;
+        line-height: 0.9;
+        color: $color-city-lights;
+        &:hover{
+            color: $color-soothing-breeze; 
+        }
+    }
+    &__menu-icon{
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+        cursor: pointer;
+        fill: $color-city-lights;
+        &:hover{
+            fill: $color-soothing-breeze;
+        }
     }
     &__link{
         display: flex;
@@ -533,13 +568,69 @@
         padding: 8px 0;
         flex: 0 0 auto;
         cursor: pointer;
+        svg{
+            fill: $color-city-lights;
+            stroke: $color-city-lights;
+            max-width: 40px;
+            max-height: 40px;
+            width: 40px;
+            height: 40px;
+            &:hover{
+                fill: $color-soothing-breeze;
+                stroke: $color-city-lights; 
+            }
+        }
         &:hover{
-            background: #ccc;
+            .nav__link-text{
+                visibility: visible;
+            }
         }
     }
     &__link-text{
-        font-size: 0.95rem;
+        background-color: $color-dracula-orchid;
+        color: $color-city-lights;
+        margin-left: 4px;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 1.05rem;
         display: flex;
+        visibility: hidden;
         flex: 0 0 auto;
+    }
+}
+
+@media screen and (max-height: 400px) {
+    .header{
+        width: 55px;
+        &__container{
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+}
+@media screen and (orientation: portrait) {
+    .header{
+        height: 50px;
+        width: 100%;
+        min-height: auto;
+        overflow: hidden;
+        &__container{
+            height: 50px;
+            padding: 0;
+            
+        }
+        &.active{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .nav{
+        padding: 0;
+        &__link{
+            padding: 5px 0;
+        }
+        &__link-text{
+            visibility: visible;
+        }
     }
 }

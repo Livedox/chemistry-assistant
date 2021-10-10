@@ -48,12 +48,7 @@
 	transition: transform 0.3s, opacity 0.3s;
 }
 
-#menu-icon {
-	margin: 10px 5px;
-	width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
+
 
 #menu-icon.menuexpanded #dash-top {
 	transform: translateY(16.75%) translateX(-16.9%) rotate(45deg);
@@ -65,7 +60,12 @@
 	transform: rotate(135deg);
 	opacity: 0;
 }
-
+#menu-icon {
+	margin: 10px 5px;
+	width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
 .calculator-open{
     width: 40px;
     height: 40px;
