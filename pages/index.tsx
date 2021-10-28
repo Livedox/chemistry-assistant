@@ -7,6 +7,7 @@ import {  useEffect, useState } from "react";
 import { ISettingPeriodicTable } from "../components/interface";
 import Context from "../components/Context/ContextSettingPeriodicTabe";
 import { ISetting } from "../components/Context/ContextSetting";
+import Head from "next/head";
 
 export default function Table() {
     const setting: ISetting = {
@@ -26,6 +27,18 @@ export default function Table() {
         setSettingState(setting);
     }, []);
     return (
+        <>
+        <Head>
+            <title>Таблица Менделеева</title>
+            <meta
+                name="description"
+                content="Интерактивная периодическая таблица химических элементов. Создана в помощь при решении заданий по химии для учеников и студентов."
+            />
+            <meta
+                name="keywords"
+                content="Periodic table, Table of chemistry elements, Table of Mendeleev, Chemistry assistant, Ипсхэ, Интерактивная таблица Менделеева, Интерактивная периодическая таблица химических элементов, Химический ассистент, Химический помощник, Таблица элементов"
+            />
+        </Head>
         <ContextSetting.Provider value={value}>
             <Layout>    
                 <Context.Provider value={settingState}>
@@ -34,5 +47,6 @@ export default function Table() {
                 </Context.Provider>
             </Layout>
         </ContextSetting.Provider>
+        </>
     )
 }

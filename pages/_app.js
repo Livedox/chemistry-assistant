@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/globals.scss';
 import "../styles/style.css";
 import "../styles/Header/style.css";
 import "../styles/Caluclator/style.css";

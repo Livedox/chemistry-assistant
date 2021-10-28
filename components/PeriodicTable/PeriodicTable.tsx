@@ -2,12 +2,20 @@ import ChemicalElement from "../Test/ChemicalElement";
 import chemicalElements from "../Test/chemicalElements";
 import getId from "../getId";
 import Context from "../Context/ContextSettingPeriodicTabe";
-import { useContext } from "react";
-
+import ContextElement from "../Context/ContextElement";
+import { useContext, useMemo, useState } from "react";
+import chemicalData from "./chemicalData";
+import Link from "next/link";
 
 export default function Table() {
     const context = useContext(Context);
     context.hidden = context.hidden ? context.hidden : {};
+    const ctxElement = useContext(ContextElement);
+    const [element, setElement] = useState(ctxElement.element);
+    const value = useMemo(
+        () => ({ element, setElement }),
+        [element]
+    );
 
     let classTable = "periodic-table ";
     if(context.hidden.mass) classTable += "periodic-table_no-mass ";
@@ -19,6 +27,8 @@ export default function Table() {
     if(context.highlight) classTable += `periodic-table_${context.highlight} `;
     if(!context.mobileIsWidth) classTable += "periodic-table_height";
     return (
+    <>
+    <ContextElement.Provider value={value}>
     <div className={classTable}>
         <div className="periodic-table__period-container">
             {[1, 2, 3, 4, 5, 6, 7].map((item: number) => <div className="periodic-table__period" key={"k"+item}>{item}</div>)}
@@ -92,5 +102,22 @@ export default function Table() {
             </div>
         </div>  
     </div>
+    <div className="legend">
+        <ChemicalElement element={{...element, class: element.class + " chemical-element_legend"}} />
+        <div className="legend__content">
+            <div>
+                <div dangerouslySetInnerHTML={{__html: chemicalData[element.symbol as keyof typeof chemicalData].info as string}}></div>
+                <div className="legend__link">
+                    <Link href={`./info/${element.symbol}`}>
+                        <a>Подробнее ➝</a>
+                    </Link>
+                </div>
+            </div>
+        </div>
+    </div>
+    </ContextElement.Provider>
+    
+    
+    </>
     )
 }
