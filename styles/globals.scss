@@ -17,17 +17,26 @@ font { color: inherit !important; font: inherit !important; color: inherit !impo
 marquee { overflow: inherit !important; -moz-binding: none; }
 blink { text-decoration: none; }
 nobr { white-space: normal; }
-
-
+input{ border: none; background: none; }
+button{border: none;outline:none}
+@import "./var.scss";
 body{
   font-family: 'Montserrat', sans-serif;
   overflow-y: hidden;
   line-height: 1.25;
 }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $color-dracula-orchid;
+  border-radius: 3px;
+}
 
-#main{
+#main , .main{
+  display: flex;
   position: fixed;
-  left: 50px;
+  left: 60px;
   right: 0;
   top: 0;
   bottom: 0;
@@ -49,14 +58,18 @@ b{
   font-weight: 600;
 }
 
+h1{
+  font-weight: bold;
+  font-size: 2.25rem;
+}
+
 h2{
   font-size: 2em;
   font-weight: 600;
   margin-bottom: 0.5em;
 }
 h3{
-  font-size: 1.5em;
-  font-weight: 600;
+  font-size: 1.25em;
   margin-bottom: 0.25em;
   margin-top: 0.75em;
 }
@@ -75,6 +88,7 @@ h5{
 
 p{
   font-size: 1em;
+  margin: 1em 0;
 }
 
 p.m{
@@ -98,7 +112,7 @@ i{
 }
 
 
-@media screen and (max-width: 460px), (orientation: portrait) {
+@media screen and (orientation: portrait) {
 #main{
       left: 0;
       right: 0;

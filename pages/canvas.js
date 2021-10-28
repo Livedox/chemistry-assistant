@@ -5,7 +5,7 @@ import VectorBox from "../components/Canvas/VectorBox";
 import MenuItem from "../components/Canvas/MenuItem";
 import RightBarHead from "../components/Canvas/RightBarHead";
 import RightBarBottom from "../components/Canvas/RightBarBottom";
-import Layout from "../components/Header/Layout";
+import Layout from "../components/HeaderTest/Layout";
 import Head from "next/head";
 
 export default function Canvas() {
@@ -182,8 +182,7 @@ export default function Canvas() {
                 content="Редактор, Химический редактор, Редактор химических формул, Редактор органических формул, Chemistry Assistant"
             />
         </Head>
-        <Layout />
-        <div id="main">
+        <Layout>
             <div id="editor" ref={editorRef}>
                 <Editor />
                 {items.map( item => {
@@ -298,7 +297,7 @@ export default function Canvas() {
                     <RightBarBottom items={items} toggleSelect={toggleSelect} remove={remove} />
                 </div>) : null
             }
-        </div>
+        </Layout>
         </>
     )
 }

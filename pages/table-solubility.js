@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import HeaderCell from "../components/TableSolubility/HeaderCell";
 import FixedCell from "../components/TableSolubility/FixedCell";
 import Cell from "../components/TableSolubility/Cell";
-import Layout from "../components/Header/LayoutWithSetting";
-import SettingSolubilityTable from "../components/Setting/SettingSolubilityTable";
+import Layout from "../components/HeaderTest/Layout";
 import Alert from "../components/Alert/Alert";
 import Head from "next/head";
 
@@ -62,10 +61,8 @@ export default function SolubilityTable() {
                 content="Таблица растворимости, Интерактивная таблица растворимости, Solubility Table, Таблица растворимости ЕГЭ, Растворимость вещест ЕГЭ, Растворимость веществ"
             />
         </Head>
-        <Layout toggleSetting={toggleSetting} />
-        <SettingSolubilityTable color={color} setColor={setColor} isSettingActive={isSettingActive} />
+        <Layout>
         <Alert alertClass={alertClass} html={htmlAlert} coords={coords} />
-        <div id="main">
             <div className="outer">
                 <div className="inner">                              
                     <table id="solubility-table" onMouseOver={(e) => highlightColumnAndRow(e)} onMouseOut={(e) => highlightColumnAndRow(e)}>
@@ -536,7 +533,7 @@ export default function SolubilityTable() {
                     </table>
                 </div>
             </div>
-        </div>
+        </Layout>
         </>
     )
 }

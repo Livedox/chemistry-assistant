@@ -1,0 +1,103 @@
+@media screen and (orientation: portrait) {
+    .periodic-table{
+        .chemical-element{
+            width: 5.5vw;
+        }
+        &__group{
+            width: 5.5vw;
+        }
+        margin: 5px auto 0 auto;
+        &_height{
+            align-items: center;
+            margin: 0 5px;
+            .periodic-table__period{
+                height: 7vh;
+                font-size: 2vh;
+            }
+            .periodic-table__period-container{
+                margin-top: -13vh;
+            }
+            .periodic-table__group{
+                width: 7.2vh;
+                font-size: 2vh;
+            }
+            .chemical-element{
+                height: 7vh;
+                width: 7.2vh;
+                font-size: 0.07vh;
+                padding: 0.1vh;
+            }
+            .periodic-table__row-bottom_top{
+                margin-top: 1vh;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .periodic-table{
+        &__period, &__group{
+            font-size: 12px;
+        }
+        &__period-container{
+            margin-top: 12px;
+        }
+    }
+}
+@media screen and (max-height: 400px) {
+    .header{
+        width: 55px;
+        &__container{
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+}
+@media screen and (max-width: 950px) {
+    .legend{
+        display: none;
+    }
+    .periodic-table__group{
+        width: 4.95vw;
+    }
+    .chemical-element{
+        justify-content: center;
+        align-items: center;
+        width: 4.95vw;
+        &__symbol{
+            margin-top: 0.25em;
+            font-size: 70em;
+        }
+        &__oxidation, &__name-ru, &__name-la, &__ar, &__storage-column{
+            display: none;
+        }
+    }
+}
+
+
+
+@media screen and (orientation: portrait) {
+    .header{
+        height: 50px;
+        width: 100%;
+        min-height: auto;
+        overflow: hidden;
+        &__container{
+            height: 50px;
+            padding: 0;
+        }
+        &.active{
+            width: 100%;
+            height: 340px;
+        }
+    }
+    .nav{
+        padding: 0;
+        &__link{
+            padding: 5px 0;
+        }
+        &__link-text{
+            visibility: visible;
+        }
+    }
+}
