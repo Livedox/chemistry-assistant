@@ -40,32 +40,10 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
         const shiftY = e.clientY - circle.getBoundingClientRect().top + parent.top;
 
         function onMouseMove(e: any) {
-            
             let x:percent = (e.pageX - shiftX)*100/parent.width;
             let y:percent  = (e.pageY - shiftY)*100/parent.height;
 
-            // Checking for coordinates less than acceptable
-            if (x < 0) x = 0;
-            if (y < 0) y = 0;
-
-            // Checking for coordinates more than acceptable
-            if (x > 100-CIRCLE_WIDTH_PERCENT) x = 100-CIRCLE_WIDTH_PERCENT;
-            if (y > 100-CIRCLE_HEIGHT_PERCENT) y = 100-CIRCLE_HEIGHT_PERCENT;
-
-
-            circle.style.left = x + "%";
-            circle.style.top = y + "%";
-
-            //Changes the color of the circle when it drops below 50% of the height
-            if ( y > 50 ) circle.style.borderColor = "#fff";
-            else          circle.style.borderColor = "#000";
-
-
-            HSV.saturation = x/(100-CIRCLE_WIDTH_PERCENT);
-            HSV.value = 1 - y/(100-CIRCLE_HEIGHT_PERCENT);
-            const newColor = hsvToHex(HSV.hue, HSV.saturation, HSV.value);
-            setColor(newColor);
-            callback(newColor);
+            updateCircleAndColor(circle, x, y);
         }
 
         document.addEventListener("mousemove", onMouseMove);
@@ -76,8 +54,43 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
         };
     }
 
+    function clickPicker(e: React.MouseEvent) {
+        const elem = e.currentTarget as HTMLElement;
+        const coords = elem.getBoundingClientRect();
+        const circle:HTMLElement = elem.querySelector(".color-picker__circle")!;
 
-    function moveLine(e: MouseEvent) {
+        let x:percent = ((e.pageX-coords.left)*100)/coords.width-CIRCLE_WIDTH_PERCENT/2;
+        let y:percent  = ((e.pageY-coords.top)*100)/coords.height-CIRCLE_HEIGHT_PERCENT/2;
+
+        updateCircleAndColor(circle, x, y);
+    }
+
+    function updateCircleAndColor(circle: HTMLElement, x: percent, y: percent) {
+        // Checking for coordinates less than acceptable
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+
+        // Checking for coordinates more than acceptable
+        if (x > 100-CIRCLE_WIDTH_PERCENT) x = 100-CIRCLE_WIDTH_PERCENT;
+        if (y > 100-CIRCLE_HEIGHT_PERCENT) y = 100-CIRCLE_HEIGHT_PERCENT;
+
+
+        circle.style.left = x + "%";
+        circle.style.top = y + "%";
+
+        //Changes the color of the circle when it drops below 50% of the height
+        if ( y > 50 ) circle.style.borderColor = "#fff";
+        else          circle.style.borderColor = "#000";
+
+        HSV.saturation = x/(100-CIRCLE_WIDTH_PERCENT);
+        HSV.value = 1 - y/(100-CIRCLE_HEIGHT_PERCENT);
+        const newColor = hsvToHex(HSV.hue, HSV.saturation, HSV.value);
+        setColor(newColor);
+        callback(newColor);
+    }
+
+
+    function moveLine(e: React.MouseEvent) {
         const parent = (e.target as HTMLElement).parentElement!.getBoundingClientRect();
         const line = e.currentTarget as HTMLElement;
         let shiftY = e.pageY - line.getBoundingClientRect().top + parent.top;
@@ -85,16 +98,7 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
         function onMouseMove(e: any) {
             let y:percent  = (e.pageY - shiftY)*100/parent.height;
 
-            // Checking for coordinates less than acceptable
-            if (y < 0) y = 0;
-
-            // Checking for coordinates more than acceptable
-            if (y > 100-LINE_HEIGHT_PERCENT) y = 100-LINE_HEIGHT_PERCENT;
-
-            line.style.top = y + "%";
-
-            HSV.hue = 1 - y/(100-LINE_HEIGHT_PERCENT);
-            setGradientColor(hsvToHex(HSV.hue, 1, 1));
+            updateLine(line, y);
         }
 
         document.addEventListener("mousemove", onMouseMove);
@@ -103,6 +107,27 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
             document.removeEventListener("mousemove", onMouseMove);
             window.onmouseup = null;
         };
+    }
+
+    function clickLine(e: React.MouseEvent) {
+        const elem = e.currentTarget as HTMLElement;
+        const coords = elem.getBoundingClientRect();
+        const line:HTMLElement = elem.querySelector(".color-picker__line")!;
+        let y:percent  = ((e.pageY-coords.top)*100)/coords.height-LINE_HEIGHT_PERCENT/2;
+        updateLine(line, y);
+    }
+
+    function updateLine(line: HTMLElement, y:percent) {
+        // Checking for coordinates less than acceptable
+        if (y < 0) y = 0;
+
+        // Checking for coordinates more than acceptable
+        if (y > 100-LINE_HEIGHT_PERCENT) y = 100-LINE_HEIGHT_PERCENT;
+
+        line.style.top = y + "%";
+
+        HSV.hue = 1 - y/(100-LINE_HEIGHT_PERCENT);
+        setGradientColor(hsvToHex(HSV.hue, 1, 1));
     }
 
 
@@ -144,16 +169,19 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
                         background: `linear-gradient(to bottom, rgba(0,0,0,0), #000),
                                     linear-gradient(to right, rgba(0,0,0,0), ${gradientColor})`
                     }}
+                    onClick={clickPicker}
                 >
                     <div
                         className="color-picker__circle"
                         onMouseDown={moveCircle}
+                        onClick={(e) => e.stopPropagation()}
                     ></div>
                 </div>
-                <div className="color-picker__rainbow">
+                <div className="color-picker__rainbow" onClick={clickLine}>
                     <div
                         className="color-picker__line"
                         onMouseDown={moveLine}
+                        onClick={(e) => e.stopPropagation()}
                     >
                     </div>
                 </div>
