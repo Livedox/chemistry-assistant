@@ -1,7 +1,7 @@
 import React from "react";
-import { IColorOptions } from "../interface";
+import { ISettingPeriodicTable } from "../interface";
 
-const setting: IColorOptions = {}
+const setting: ISettingPeriodicTable = {}
 
 const ContextSetting = React.createContext(setting);
 

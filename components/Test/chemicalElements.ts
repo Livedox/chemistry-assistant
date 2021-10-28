@@ -9,7 +9,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Водород",
         nameLa: "Hydragenium",
         radioactive: false,
-        class: "s other nonmetals",
+        class: "s other no-metal",
     },
     {
         symbol: "He",
@@ -49,7 +49,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Бор",
         nameLa: "Borum",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "C",
@@ -59,7 +59,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Углерод",
         nameLa: "Carboneum",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "N",
@@ -69,7 +69,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Азот",
         nameLa: "Nitrogenium",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "O",
@@ -79,7 +79,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Кислород",
         nameLa: "Oxygenium",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "F",
@@ -89,7 +89,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Фтор",
         nameLa: "Fluorum",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "Ne",
@@ -139,7 +139,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Кремний",
         nameLa: "Silicium",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "P",
@@ -149,7 +149,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Фосфор",
         nameLa: "Phosphorus",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "S",
@@ -159,7 +159,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Сера",
         nameLa: "Sulfur",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "Cl",
@@ -169,7 +169,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Хлор",
         nameLa: "Chlorum",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "Ar",
@@ -199,7 +199,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Кальций",
         nameLa: "Calcium",
         radioactive: false,
-        class: "s alkaline earth metals",
+        class: "s alkaline earth metal",
     },
     {
         symbol: "Sc",
@@ -209,7 +209,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Скандий",
         nameLa: "Scandium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ti",
@@ -219,7 +219,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Титан",
         nameLa: "Titanium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "V",
@@ -229,7 +229,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Ванадий",
         nameLa: "Vanadium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Cr",
@@ -239,7 +239,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Хром",
         nameLa: "Cromium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Mn",
@@ -249,7 +249,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Марганец",
         nameLa: "Manganum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Fe",
@@ -259,7 +259,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Железо",
         nameLa: "Ferrum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Co",
@@ -269,7 +269,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Кобальт",
         nameLa: "Cobaltum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ni",
@@ -279,7 +279,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Никель",
         nameLa: "Niccolum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Cu",
@@ -289,7 +289,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Медь",
         nameLa: "Cuprum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Zn",
@@ -299,7 +299,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Цинк",
         nameLa: "Zincum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ga",
@@ -329,7 +329,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Мышьяк",
         nameLa: "Arsenicum",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "Se",
@@ -339,7 +339,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Селен",
         nameLa: "Selenium",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "Br",
@@ -349,7 +349,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Бром",
         nameLa: "Bromum",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "Kr",
@@ -379,7 +379,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Стронций",
         nameLa: "Strontium",
         radioactive: false,
-        class: "s alkaline earth metals",
+        class: "s alkaline earth metal",
     },
     {
         symbol: "Y",
@@ -389,7 +389,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Иттрий",
         nameLa: "Yttrium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Zr",
@@ -399,7 +399,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Цирконий",
         nameLa: "Zirconium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Nb",
@@ -409,7 +409,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Ниобий",
         nameLa: "Niobium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Mo",
@@ -419,7 +419,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Молибден",
         nameLa: "Molybdaenum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Tc",
@@ -429,7 +429,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Технеций",
         nameLa: "Technetium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ru",
@@ -439,7 +439,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Рутений",
         nameLa: "Ruthenium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Rh",
@@ -449,7 +449,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Родий",
         nameLa: "Rhodium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Pd",
@@ -459,7 +459,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Палладий",
         nameLa: "Palladium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ag",
@@ -469,7 +469,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Серебро",
         nameLa: "Argentum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Cd",
@@ -479,7 +479,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Кадмий",
         nameLa: "Cadmium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "In",
@@ -519,7 +519,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Теллур",
         nameLa: "Tellurium",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "I",
@@ -529,7 +529,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Йод",
         nameLa: "Iodum",
         radioactive: false,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "Xe",
@@ -559,7 +559,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Барий",
         nameLa: "Barium",
         radioactive: false,
-        class: "s alkaline earth metals",
+        class: "s alkaline earth metal",
     },
     {
         symbol: "La",
@@ -569,7 +569,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Лантан",
         nameLa: "Lanthanum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ce",
@@ -719,7 +719,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Гафний",
         nameLa: "Hafnium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ta",
@@ -729,7 +729,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Тантал",
         nameLa: "Tantalum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "W",
@@ -739,7 +739,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Вольфрам",
         nameLa: "Wolframium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Re",
@@ -749,7 +749,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Рений",
         nameLa: "Rhenium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Os",
@@ -759,7 +759,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Осмий",
         nameLa: "Osmium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ir",
@@ -769,7 +769,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Иридий",
         nameLa: "Iridium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Pt",
@@ -779,7 +779,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Платина",
         nameLa: "Platinum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Au",
@@ -789,7 +789,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Золото",
         nameLa: "Aurum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Hg",
@@ -799,7 +799,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Ртуть",
         nameLa: "Hydrargyrum",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Tl",
@@ -849,7 +849,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Астат",
         nameLa: "Astatium",
         radioactive: true,
-        class: "p other nonmetals",
+        class: "p other no-metal",
     },
     {
         symbol: "Rn",
@@ -879,7 +879,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Радий",
         nameLa: "Radium",
         radioactive: true,
-        class: "s alkaline earth metals",
+        class: "s alkaline earth metal",
     },
     {
         symbol: "Ac",
@@ -889,7 +889,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Актиний",
         nameLa: "Actinium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Th",
@@ -1039,7 +1039,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Резерфордий",
         nameLa: "Rutherfordium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Db",
@@ -1049,7 +1049,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Дубний",
         nameLa: "Dubnium",
         radioactive: false,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Sg",
@@ -1059,7 +1059,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Сиборгий",
         nameLa: "Seaborgium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Bh",
@@ -1069,7 +1069,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Борий",
         nameLa: "Bohrium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Hs",
@@ -1079,7 +1079,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Хассий",
         nameLa: "Hassium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Mt",
@@ -1089,7 +1089,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Мейтнерий",
         nameLa: "Meitnerium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Ds",
@@ -1099,7 +1099,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Дармштадтий",
         nameLa: "Darmstadtium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Rg",
@@ -1109,7 +1109,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Рентгений",
         nameLa: "Roentgenium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Cn",
@@ -1119,7 +1119,7 @@ const chemicalElements: IChemicalElement[] = [
         nameRu: "Коперниций",
         nameLa: "Copernicium",
         radioactive: true,
-        class: "d transition metals",
+        class: "d transition metal",
     },
     {
         symbol: "Nh",

@@ -21,4 +21,15 @@ export interface IColorOptions {
     fBottom?: IColor
 }
 
-export interface ISettingPeriodicTable extends IColorOptions {}
+export interface ISettingPeriodicTable {
+    color?: IColorOptions;
+    hidden?: {
+        mass?: boolean;
+        number?: boolean;
+        radiation?: boolean;
+        nameRu?: boolean;
+        nameLa?: boolean;
+        oxidation?: boolean;
+    }
+    highlight?: string;
+}

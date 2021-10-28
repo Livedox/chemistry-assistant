@@ -2,9 +2,9 @@ import '../styles/globals.css'
 import "../styles/style.css";
 import "../styles/Header/style.css";
 import "../styles/Caluclator/style.css";
-import "../styles/Setting/style.css";
+import "../styles/Setting/style.scss";
 import "../styles/Setting/checkboxStyle.css";
-import "../styles/Picker/style.css";
+import "../styles/Picker/style.scss";
 import "../styles/Canvas/style.css";
 import "../styles/PeriodicTable/style.scss";
 import "../styles/Alert/style.css";

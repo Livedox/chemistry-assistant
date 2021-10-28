@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
+import ContextSetting from "../Context/ContextSetting";
+import {ISetting} from "../Context/ContextSetting";
 
-
-export default function Head() {
+interface IProps{
+    toggleCalculator:()=>void;
+}
+const Head:React.FC<IProps> = ({toggleCalculator}) => {
     const [active, setActive] = useState(false);
+    const context: ISetting = useContext(ContextSetting);
     return (
         <header className={"header" + (active ? " active":"")}>
             <div className="header__container">     
@@ -40,13 +45,13 @@ export default function Head() {
                     </Link>
                 </nav>
                 <nav className="nav">
-                    <span className="nav__link">
+                    <span className="nav__link" onClick={() => toggleCalculator()}>
                         <span className="nav__logo-link">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 16 16"><g><path stroke-width="0" d="M12.997,0H3.003C2.449,0,2,0.444,2,1.001v13.998C2,15.552,2.456,16,3.003,16h9.994 C13.551,16,14,15.556,14,14.999V1.001C14,0.448,13.544,0,12.997,0z M6,14H4v-2h2V14z M6,11H4V9h2V11z M6,8H4V6h2V8z M9,14H7v-2h2 V14z M9,11H7V9h2V11z M9,8H7V6h2V8z M12,14h-2v-2h2V14z M12,11h-2V9h2V11z M12,8h-2V6h2V8z M13,4H3V1h10V4z"/></g></svg>
                         </span>
                         <span className="nav__link-text">Калькулятор</span>
                     </span>
-                    <span className="nav__link">
+                    <span className={"nav__link nav__link-setting " + (context.visible ? "active" : "")} onClick={() => context.active = !context.active}>
                         <span className="nav__logo-link">
                             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m499.95 197.7-39.352-8.5547c-3.4219-10.477-7.6602-20.695-12.664-30.539l21.785-33.887c3.8906-6.0547 3.0352-14.004-2.0508-19.09l-61.305-61.305c-5.0859-5.0859-13.035-5.9414-19.09-2.0508l-33.887 21.785c-9.8438-5.0039-20.062-9.2422-30.539-12.664l-8.5547-39.352c-1.5273-7.0312-7.7539-12.047-14.949-12.047h-86.695c-7.1953 0-13.422 5.0156-14.949 12.047l-8.5547 39.352c-10.477 3.4219-20.695 7.6602-30.539 12.664l-33.887-21.785c-6.0547-3.8906-14.004-3.0352-19.09 2.0508l-61.305 61.305c-5.0859 5.0859-5.9414 13.035-2.0508 19.09l21.785 33.887c-5.0039 9.8438-9.2422 20.062-12.664 30.539l-39.352 8.5547c-7.0312 1.5312-12.047 7.7539-12.047 14.949v86.695c0 7.1953 5.0156 13.418 12.047 14.949l39.352 8.5547c3.4219 10.477 7.6602 20.695 12.664 30.539l-21.785 33.887c-3.8906 6.0547-3.0352 14.004 2.0508 19.09l61.305 61.305c5.0859 5.0859 13.035 5.9414 19.09 2.0508l33.887-21.785c9.8438 5.0039 20.062 9.2422 30.539 12.664l8.5547 39.352c1.5273 7.0312 7.7539 12.047 14.949 12.047h86.695c7.1953 0 13.422-5.0156 14.949-12.047l8.5547-39.352c10.477-3.4219 20.695-7.6602 30.539-12.664l33.887 21.785c6.0547 3.8906 14.004 3.0391 19.09-2.0508l61.305-61.305c5.0859-5.0859 5.9414-13.035 2.0508-19.09l-21.785-33.887c5.0039-9.8438 9.2422-20.062 12.664-30.539l39.352-8.5547c7.0312-1.5312 12.047-7.7539 12.047-14.949v-86.695c0-7.1953-5.0156-13.418-12.047-14.949zm-152.16 58.297c0 50.613-41.18 91.793-91.793 91.793s-91.793-41.18-91.793-91.793 41.18-91.793 91.793-91.793 91.793 41.18 91.793 91.793z"/></svg>
                         </span>
@@ -63,3 +68,5 @@ export default function Head() {
         </header>
     )
 }
+
+export default Head;

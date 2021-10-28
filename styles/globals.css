@@ -17,6 +17,7 @@ font { color: inherit !important; font: inherit !important; color: inherit !impo
 marquee { overflow: inherit !important; -moz-binding: none; }
 blink { text-decoration: none; }
 nobr { white-space: normal; }
+input{ border: none; background: none; }
 
 
 body{
@@ -26,8 +27,9 @@ body{
 }
 
 #main , .main{
+  display: flex;
   position: fixed;
-  left: 50px;
+  left: 60px;
   right: 0;
   top: 0;
   bottom: 0;

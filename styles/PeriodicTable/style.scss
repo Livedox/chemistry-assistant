@@ -8,11 +8,6 @@
     scrollbar-width: thin;
 }
 
-.periodic-table {
-    display: flex;
-    margin: 15px 0;
-}
-
 .element-storage {
     box-sizing: border-box;
     height: 5vw;
@@ -418,13 +413,113 @@
     &__row-bottom_top{
         margin-top: 1vw;
     }
+    &_metal-highlighted{
+        .chemical-element:not(.metal){
+            opacity: 0.9;
+            background-color: grey !important;
+        }
+    }
+    &_no-metal-highlighted{
+        .chemical-element:not(.no-metal){
+            opacity: 0.9;
+            background-color: grey !important;
+        }
+    }
+
+    &_no-mass{      .chemical-element{                                 &__ar{ visibility: hidden; }}}
+    &_no-oxidation{ .chemical-element{                          &__oxidation{ visibility: hidden; }}}
+    &_no-name-la{   .chemical-element{ justify-content: space-around;  &__name-la{ display: none; }}}
+    &_no-name-ru{   .chemical-element{ justify-content: space-around;  &__name-ru{ display: none; }}}
+    &_no-radiation{ .chemical-element{                          &__radiation{ visibility: hidden; }}}
+    &_no-number{    .chemical-element{                             &__number{ visibility: hidden; }}}
+
+
+    &_no-mass.periodic-table_no-oxidation{
+        .chemical-element{
+            justify-content: space-between;
+            &__symbol{
+                font-size: 62em;
+            }
+            &__storage-center{
+                display: none;
+            }
+        }
+    }
+    &_no-oxidation.periodic-table_no-radiation.periodic-table_no-number{
+        .chemical-element{
+            align-items: center;
+            &__storage-column{
+                display: none;
+            }
+        }
+    }
+    &_no-mass.periodic-table_no-name-ru.periodic-table_no-name-la.periodic-table_no-oxidation{
+        .chemical-element{
+            justify-content: center;
+            &__storage-row{
+                flex-direction: column;
+                align-items: center;
+            }
+            &__number{
+                font-size: 16em;
+                margin-top: 0.5em;
+            }
+            &__storage-column{
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+    &_no-mass.periodic-table_no-name-ru.periodic-table_no-name-la.periodic-table_no-oxidation.periodic-table_no-radiation{
+        .chemical-element{
+            &__radiation{
+                display: none;
+            }
+        }
+    }
+    &_no-mass.periodic-table_no-oxidation.periodic-table_no-radiation.periodic-table_no-number.periodic-table_no-name-ru{
+        .chemical-element{
+            justify-content: space-around;
+            &__name-ru{
+                display: none;   
+            }
+            &__name-la{
+                font-size: 15em;  
+            }
+        }
+    }
+    &_no-mass.periodic-table_no-oxidation.periodic-table_no-radiation.periodic-table_no-number.periodic-table_no-name-la{
+        .chemical-element{
+            justify-content: space-around;
+            &__name-la{
+                display: none;  
+            }
+            &__name-ru{
+                font-size: 15em;
+            }
+        }
+    }
+
+    &_no-mass.periodic-table_no-oxidation.periodic-table_no-name-la.periodic-table_no-name-ru.periodic-table_no-radiation.periodic-table_no-number{
+        .chemical-element{
+            justify-content: center;
+            &__name-ru, &__name-la, &__oxidation, &__ar, &__number, &__radiation{
+                display: none;
+            }
+            &__symbol{
+                width: 100%;
+                font-size: 70em;
+                text-align: center;
+            }
+        }
+    }
 }
 
 .chemical-element{
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
-    height: 5.3vw;
+    height: 5.05vw;
     width: 5.2vw;
     font-size: 0.05vw;
     padding: 0.1vw;
@@ -435,14 +530,21 @@
     box-sizing: border-box;
     &:hover{
         transform: scale(1.3);
+        z-index: 1;
     }
     &__name-ru, &__name-la, &__oxidation, &__ar, &__number{
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 14.6em;
+        font-size: 14em;
+        line-height: 0.95;
+    }
+    &__name-ru{
+        font-weight: bold;
     }
     &__symbol{
         font-size: 53em;
         line-height: 0.8;
+        font-family: "Times New Roman";
+        letter-spacing: -0.1em;
     }
     &__storage-row{
         display: flex;
@@ -455,6 +557,7 @@
     }
     &__storage-center{
         height: 20%;
+        margin-top: 5em;
     }
     &__radiation{
         width: 1.5vw;
@@ -597,6 +700,12 @@
         visibility: hidden;
         flex: 0 0 auto;
     }
+    &__link-setting{
+        display: none;
+        &.active{
+            display: flex;
+        }
+    }
 }
 
 @media screen and (max-height: 400px) {
@@ -609,6 +718,9 @@
     }
 }
 @media screen and (orientation: portrait) {
+    .periodic-table{
+        margin: 0 auto;
+    }
     .header{
         height: 50px;
         width: 100%;
@@ -617,11 +729,10 @@
         &__container{
             height: 50px;
             padding: 0;
-            
         }
         &.active{
             width: 100%;
-            height: 100%;
+            height: 340px;
         }
     }
     .nav{
@@ -631,6 +742,23 @@
         }
         &__link-text{
             visibility: visible;
+        }
+    }
+}
+@media screen and (max-width: 950px) {
+    .periodic-table__group{
+        width: 4.95vw;
+    }
+    .chemical-element{
+        justify-content: center;
+        align-items: center;
+        width: 4.95vw;
+        &__symbol{
+            margin-top: 0.25em;
+            font-size: 70em;
+        }
+        &__oxidation, &__name-ru, &__name-la, &__ar, &__storage-column{
+            display: none;
         }
     }
 }

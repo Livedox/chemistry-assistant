@@ -7,11 +7,19 @@ interface IProps {
     element: IChemicalElement
 }
 
+
+function camelCase(input:string):string { 
+    return input.toLowerCase().replace(/-(.)/g, function(match, group1) {
+        return group1.toUpperCase();
+    });
+}
+
+
 const ChemicalElement: React.FC<IProps> = ({element}) => {
     const classElement: string = "chemical-element " + element.class;
     const context = useContext(SettingContext);
-    const key: keyof IColorOptions = element.class.split(" ")[0] as keyof IColorOptions;
-    const style: undefined | React.CSSProperties = context[key];
+    const key: keyof IColorOptions = camelCase(element.class.split(" ")[0]) as keyof IColorOptions;
+    const style: undefined | React.CSSProperties = context.color ? context.color[key] : undefined;
     return (
         <div className={classElement} id={element.symbol} style={style}>
             <div className="chemical-element__storage-row">
