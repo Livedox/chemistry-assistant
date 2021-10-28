@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Picker from "../Picker/ColorPicker";
 import { ISettingPeriodicTable, IColor, IColorOptions } from "../interface";
-
+import Context from "../Context/ContextSetting";
 
 interface IBlocksColor {
     class: keyof IColorOptions;
@@ -17,6 +17,8 @@ let setting:ISettingPeriodicTable = {};
 
 const SettingPeriodicTable:React.FC<IProps> = ({callback}) => {
     let counter = 0;
+    const context = useContext(Context);
+    const [isOpacity, setOpactiy] = useState(false);
     const [hidden, setHidden] = useState<any>({});
     const [numberActiveElement, setNumberActiveElement] = useState(0);
     const [blocksColor, setBlocksColor] = useState<IBlocksColor[]>([
@@ -59,6 +61,13 @@ const SettingPeriodicTable:React.FC<IProps> = ({callback}) => {
         updateLocalStorage();
     }
 
+    function toggleDisplay(e:React.MouseEvent) {
+        (e.currentTarget as HTMLElement).classList.toggle("sizing-block_active");
+        setting = {...setting, mobileIsWidth: !setting.mobileIsWidth};
+        callback(setting);
+        updateLocalStorage();
+    }
+
     function updateLocalStorage() {
         localStorage.setItem("periodicTable", JSON.stringify(setting));
     }
@@ -94,13 +103,7 @@ const SettingPeriodicTable:React.FC<IProps> = ({callback}) => {
     }, []);
     return (
         <>
-            <div className="setting">
-                <div className="setting__opacity">
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 12 12" style={{width: "20px"}}>
-                        <path fill="#030104" d="M6,0c0,0-4,5.685-4,8.211C2,10.305,3.791,12,6,12s4-1.695,4-3.789C10,5.685,6,0,6,0z"/>
-                    </svg>
-                    <input type="range" className="setting__opacity-input" />
-                </div>
+            <div className={"setting " + (isOpacity ? "setting_opacity " : "") + (context.settingActive.active ? "setting_active " : "")}>
                 <div className="setting__top-container">
                     <div className="color-picker-container">
                         <Picker callback={updateColor} />
@@ -141,24 +144,38 @@ const SettingPeriodicTable:React.FC<IProps> = ({callback}) => {
                 </div>
                     
                 <div className="setting__excretion-block-container">
-                    <label>
-                        Выделить элементы 
-                        <select onChange={(e) => setHighlightedElems(e.target.value)} value={setting.highlight || ""}>
-                            <option value="">Ничего</option>
-                            <option value="metal-highlighted">Металлы</option>
-                            <option value="no-metal-highlighted">Неметаллы</option> 
-                        </select>
-                    </label>
+                    <div>Выделить элементы </div>
+                    <select className="setting__select" onChange={(e) => setHighlightedElems(e.target.value)} value={setting.highlight || ""}>
+                        <option value="">Ничего</option>
+                        <option value="metal-highlighted">Металлы</option>
+                        <option value="no-metal-highlighted">Неметаллы</option> 
+                    </select>
                 </div>
                 <div className="setting__hidden-block-container">
-                    <div><label><input type="checkbox" checked={hidden.mass} onClick={() => setHiddenElems("mass")}/>Скрыть массу</label></div>
-                    <div><label><input type="checkbox" checked={hidden.number} onClick={() => setHiddenElems("number")}/>Скрыть номер</label></div>
-                    <div><label><input type="checkbox" checked={hidden.nameLa} onClick={() => setHiddenElems("nameLa")}/>Скрыть название на латинском</label></div>
-                    <div><label><input type="checkbox" checked={hidden.nameRu} onClick={() => setHiddenElems("nameRu")}/>Скрыть название на русском</label></div>
-                    <div><label><input type="checkbox" checked={hidden.radiation} onClick={() => setHiddenElems("radiation")}/>Скрыть знак радиации</label></div>
-                    <div><label><input type="checkbox" checked={hidden.oxidation} onClick={() => setHiddenElems("oxidation")}/>Скрыть окисление</label></div>
+                    <div><label className="setting__label"><input type="checkbox" checked={hidden.mass} onClick={() => setHiddenElems("mass")}/><span> Скрыть массу</span></label></div>
+                    <div><label className="setting__label"><input type="checkbox" checked={hidden.number} onClick={() => setHiddenElems("number")}/><span> Скрыть номер</span></label></div>
+                    <div><label className="setting__label"><input type="checkbox" checked={hidden.nameLa} onClick={() => setHiddenElems("nameLa")}/><span> Скрыть название на латинском</span></label></div>
+                    <div><label className="setting__label"><input type="checkbox" checked={hidden.nameRu} onClick={() => setHiddenElems("nameRu")}/><span> Скрыть название на русском</span></label></div>
+                    <div><label className="setting__label"><input type="checkbox" checked={hidden.radiation} onClick={() => setHiddenElems("radiation")}/><span> Скрыть знак радиации</span></label></div>
+                    <div><label className="setting__label"><input type="checkbox" checked={hidden.oxidation} onClick={() => setHiddenElems("oxidation")}/><span> Скрыть окисление</span></label></div>
                 </div>
-                <button onClick={toDefault}>По умолчанию</button>
+                <div className="setting__bottom-container">
+                    <button onClick={toDefault} className="setting__button-default">По умолчанию</button>
+                    <svg onClick={() => {setOpactiy(!isOpacity)}} x="0px" y="0px" viewBox="0 0 12 12" className="setting__button-opacity">
+                        <path d="M6,0c0,0-4,5.685-4,8.211C2,10.305,3.791,12,6,12s4-1.695,4-3.789C10,5.685,6,0,6,0z"/>
+                    </svg>  
+                </div> 
+            </div>
+            <div className={"sizing-block " + (setting.mobileIsWidth ? "sizing-block_active" : "")} onClick={toggleDisplay}>
+                <svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" fill="#000"
+                    viewBox="0 0 175 208">
+                    <path d="M80.5-8.5"/>
+                    <path d="M0.5,207.5h68v-27h-41c0,0,0,1,0-41h-27C0.5,207.5,0.5,207.5,0.5,207.5z"/>
+                    <path d="M0.5,0.5l0,68h27l0-41c0,0-1,0,41,0v-27C0.5,0.5,0.5,0.5,0.5,0.5z"/>
+                    <path d="M61.1-3"/>
+                    <path d="M174.5,207.5v-68h-27v41c0,0,1,0-41,0v27C174.5,207.5,174.5,207.5,174.5,207.5z"/>
+                    <path d="M174.5,0.5l-68,0l0,27l41,0c0,0,0-1,0,41l27,0C174.5,0.5,174.5,0.5,174.5,0.5z"/>
+                </svg>
             </div>
         </>
     )

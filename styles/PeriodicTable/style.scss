@@ -381,14 +381,16 @@
 
 .periodic-table{
     display: flex;
+    margin-top: 5px;
     &__period-container{
-        margin: 20px 3px 0 0;
+        margin: 1.4vw 3px 0 0;
     }
     &__period, &__group, &__main-container, &__row, &__row-inner, &__row-bottom{
         display: flex;
     }
     &__period{
-        height: 5.3vw;
+        height: 5.1vw;
+        font-size: 1.4vw;
         align-items: center;
         box-sizing: border-box;
         margin-top: -1px;
@@ -397,7 +399,9 @@
         justify-content: center;
         align-items: flex-end;
         width: 5.2vw;
+        font-size: 1.4vw;
         box-sizing: border-box;
+        line-height: 1;
         margin-left: -1px;
     }
     &__main-container{

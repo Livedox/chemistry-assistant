@@ -32,4 +32,5 @@ export interface ISettingPeriodicTable {
         oxidation?: boolean;
     }
     highlight?: string;
+    mobileIsWidth?: boolean;
 }

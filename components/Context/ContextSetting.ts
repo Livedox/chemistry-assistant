@@ -1,14 +1,14 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 export interface ISetting {
     visible: boolean;
     active: boolean;
 };
 
-const setting: ISetting = {
-    visible: false,
-    active: false,
-};
+interface ISettingMemo {
+    settingActive: ISetting;
+    setSettingActiveState?: Dispatch<SetStateAction<ISetting>>;
+}
 
-const ContextSetting = React.createContext(setting);
+const ContextSetting = React.createContext<ISettingMemo>({settingActive:{visible:false, active:false}});
 
 export default ContextSetting;

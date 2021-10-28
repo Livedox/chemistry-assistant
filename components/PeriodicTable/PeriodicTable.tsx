@@ -17,6 +17,7 @@ export default function Table() {
     if(context.hidden.nameRu) classTable += "periodic-table_no-name-ru ";
     if(context.hidden.oxidation) classTable += "periodic-table_no-oxidation ";
     if(context.highlight) classTable += `periodic-table_${context.highlight} `;
+    if(!context.mobileIsWidth) classTable += "periodic-table_height";
     return (
     <div className={classTable}>
         <div className="periodic-table__period-container">

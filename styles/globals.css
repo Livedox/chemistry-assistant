@@ -18,7 +18,7 @@ marquee { overflow: inherit !important; -moz-binding: none; }
 blink { text-decoration: none; }
 nobr { white-space: normal; }
 input{ border: none; background: none; }
-
+button{border: none;outline:none}
 
 body{
   font-family: 'Montserrat', sans-serif;
@@ -105,7 +105,7 @@ i{
 }
 
 
-@media screen and (max-width: 460px), (orientation: portrait) {
+@media screen and (orientation: portrait) {
 #main{
       left: 0;
       right: 0;

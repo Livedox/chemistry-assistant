@@ -1,0 +1,45 @@
+@media screen and (orientation: portrait) {
+    .periodic-table{
+        .chemical-element{
+            width: 5.5vw;
+        }
+        &__group{
+            width: 5.5vw;
+        }
+        margin: 5px auto 0 auto;
+        &_height{
+            align-items: center;
+            .periodic-table__period{
+                height: 7vh;
+                font-size: 2vh;
+            }
+            .periodic-table__period-container{
+                margin-top: -13vh;
+            }
+            .periodic-table__group{
+                width: 7.2vh;
+                font-size: 2vh;
+            }
+            .chemical-element{
+                height: 7vh;
+                width: 7.2vh;
+                font-size: 0.07vh;
+                padding: 0.1vh;
+            }
+            .periodic-table__row-bottom_top{
+                margin-top: 1vh;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .periodic-table{
+        &__period, &__group{
+            font-size: 12px;
+        }
+        &__period-container{
+            margin-top: 12px;
+        }
+    }
+}
