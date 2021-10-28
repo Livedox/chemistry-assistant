@@ -80,7 +80,7 @@ const SettingPeriodicTable:React.FC<IProps> = ({callback}) => {
     }
 
     useEffect(() => {
-        setting = JSON.parse(localStorage.getItem("periodicTable") ?? "{color:{}}");
+        setting = JSON.parse(localStorage.getItem("periodicTable") ?? "{}");
         setHidden(setting.hidden ? setting.hidden : {});
         let cls:keyof IColorOptions;
         for(cls in setting.color) {
