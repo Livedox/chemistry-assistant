@@ -12,6 +12,7 @@ import "../styles/Help/style.css";
 import "../styles/PopUp/style.css";
 import "../styles/Info/style.scss";
 import "../styles/PeriodicTable/media.style.scss";
+import "../styles/Info/media.style.scss";
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />

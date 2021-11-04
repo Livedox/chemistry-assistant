@@ -10,6 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
         <script async src={"https://www.googletagmanager.com/gtag/js?id=" + process.env.GOOGLE_TAG_CODE}></script>
         <script dangerouslySetInnerHTML={{__html: `
         window.dataLayer = window.dataLayer || [];
