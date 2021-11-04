@@ -1,0 +1,59 @@
+@media screen and (max-width: 1150px) {
+    .info{
+        &__inner{
+            flex-direction: column-reverse;
+        }
+        &__main{
+            width: 100%;
+            margin: 2rem 0;
+        }
+        &__container{
+            width: 100%;
+            margin: 0;
+            padding: 1rem;
+        }
+        &__link-container{
+            display: none;
+            &_active{
+                display: flex;
+            }
+        }
+        &__link-container-active{
+            display: block;
+            user-select: none;
+        }
+        &__triangle{
+            position: relative;
+            &_active{
+                transform: rotate(90deg);
+            }
+        }
+        img{
+            max-height: 40vw;
+        }
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .info{
+        width: 100%;
+        font-size: 0.9rem;
+        &__inner{
+            margin: 0;
+            padding: 0;
+        }
+        &__main{
+            margin: 0;
+            padding: 0.5rem;
+            border-radius: 0;
+        }
+        &__container{
+            margin: 1rem 0;
+            border-radius: 0;
+        }
+        img{
+            margin: 0.8rem 0;
+            max-height: 50vw;
+        }
+    }
+}

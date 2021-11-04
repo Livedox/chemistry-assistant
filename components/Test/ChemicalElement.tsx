@@ -29,7 +29,7 @@ const ChemicalElement: React.FC<IProps> = ({element}) => {
                 <div className="chemical-element__symbol">{element.symbol}</div>
                 <div className="chemical-element__storage-column">
                     <div className="chemical-element__number">{element.number}</div>
-                    {element.radioactive && <img className="chemical-element__radiation" src="./img/radiation.svg" alt="" />}
+                    {element.radioactive && <img className="chemical-element__radiation" src="/static/radiation.svg" alt="" />}
                 </div>
             </div>
             <div className="chemical-element__storage-row chemical-element__storage-center">

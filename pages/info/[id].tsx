@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 import Layout from "../../components/HeaderTest/Layout";
 import { server } from "../../config";
 import { IInfo } from "../../models/Info";
@@ -10,16 +11,23 @@ interface Props {
 }
 
 const Info:React.FC<Props> = ({ data }) => {
+    const [active, setActive] = useState(false);
     return(
         <>
         <Head>
             <title>{data.title}</title>
         </Head>
         <Layout>
-            <div className="main">
-                <div className="info">
-                    <div className="info__inner">
-                        <nav className="info__link-container">
+            <div className="info">               
+                <div className="info__inner">
+                    <div className="info__main" dangerouslySetInnerHTML={{__html: data.data}}>
+                        
+                    </div>
+                    <nav className="info__container">
+                        <div className="info__link-container-active" onClick={() => setActive(!active)}>
+                            <div className={"info__triangle " + (active ? "info__triangle_active" : "")}>▸</div><span> {active ? "Скрыть список статей" : "Показать список статей"}</span>
+                        </div>
+                        <div className={"info__link-container " + (active ? "info__link-container_active" : "")}>
                             <Link href="./Fe"><a className="info__link">Железо</a></Link>
                             <Link href="./Zn"><a className="info__link">Цинк</a></Link>
                             <Link href="./H"><a className="info__link">Водород</a></Link>
@@ -28,11 +36,8 @@ const Info:React.FC<Props> = ({ data }) => {
                             <Link href="./alkaline-earth"><a className="info__link">Be, Mg и щелочноземельные металлы</a></Link>
                             <Link href="./chalcogene"><a className="info__link">Халькогены</a></Link>
                             <Link href="./halogen"><a className="info__link">Галогены</a></Link>
-                        </nav>
-                        <div className="info__main" dangerouslySetInnerHTML={{__html: data.data}}>
-                            
-                        </div>
-                    </div>
+                        </div>    
+                    </nav>
                 </div>
             </div>
         </Layout>
