@@ -1,33 +1,37 @@
-import { NextPage, NextPageContext } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import Header from "../../components/HeaderTest/Header";
 import Layout from "../../components/HeaderTest/Layout";
 import { server } from "../../config";
+import { IInfo } from "../../models/Info";
 
 interface Props {
-    pageData?: any;
+    data: IInfo;
 }
 
-const Info:NextPage<Props> = ({ pageData }) => {
+const Info:React.FC<Props> = ({ data }) => {
     return(
         <>
         <Head>
-            <title>{pageData.title}</title>
+            <title>{data.title}</title>
         </Head>
         <Layout>
             <div className="main">
                 <div className="info">
                     <div className="info__inner">
                         <nav className="info__link-container">
-                            <Link href="#"><a className="info__link">Основы химии</a></Link>
-                            <Link href="#"><a className="info__link">Водород</a></Link>
-                            <Link href="#"><a className="info__link">Цинк</a></Link>
+                            <Link href="./Fe"><a className="info__link">Железо</a></Link>
+                            <Link href="./Zn"><a className="info__link">Цинк</a></Link>
+                            <Link href="./H"><a className="info__link">Водород</a></Link>
+                            <Link href="./O"><a className="info__link">Кислород</a></Link>
+                            <Link href="./alkaline"><a className="info__link">Щелочные металлы</a></Link>
+                            <Link href="./alkaline-earth"><a className="info__link">Be, Mg и щелочноземельные металлы</a></Link>
+                            <Link href="./chalcogene"><a className="info__link">Халькогены</a></Link>
+                            <Link href="./halogen"><a className="info__link">Галогены</a></Link>
                         </nav>
-                        <div className="info__main" dangerouslySetInnerHTML={{__html: pageData.data || pageData.body}}>
+                        <div className="info__main" dangerouslySetInnerHTML={{__html: data.data}}>
                             
                         </div>
-                        <h2>В разработке</h2>
                     </div>
                 </div>
             </div>
@@ -37,24 +41,27 @@ const Info:NextPage<Props> = ({ pageData }) => {
 }
 
 
-Info.getInitialProps = async ({ query }: NextPageContext) => {
+export const getStaticProps: GetStaticProps = async (context) => {
     const res = await fetch(server+"/api/info", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json;charset=utf-8"
-        },
-        body: JSON.stringify({id: query.id})
+        body: JSON.stringify({id: (context.params as any).id}),
     });
-    try{
-        console.log(res);
-        const json = await res.json();
-        console.log(json);
-        const data = json;
-        return { pageData: data.data ?? {} }
-    } catch (e) {
-        console.log(e);
+
+    // returns the default 404 page
+    if(!res.ok) return { notFound: true }
+
+    const data: IInfo = await res.json();
+    return {
+        props: { data }
     }
-    return {pageData:{title:"Сейчас не доступно"}};
+    
+}
+
+export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
+    return {
+        paths: [],
+        fallback: "blocking"
+    }
 }
 
 export default Info;

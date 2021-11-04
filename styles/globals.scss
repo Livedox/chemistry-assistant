@@ -20,6 +20,7 @@ nobr { white-space: normal; }
 input{ border: none; background: none; }
 button{border: none;outline:none}
 @import "./var.scss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
 body{
   font-family: 'Montserrat', sans-serif;
   overflow-y: hidden;

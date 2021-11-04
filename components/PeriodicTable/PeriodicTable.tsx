@@ -35,20 +35,20 @@ export default function Table() {
         </div>
         <div className="periodic-table__main-container">
             <div className="periodic-table__row">
-                <div className="periodic-table__group">1</div>
+                <Link href="./info/alkaline"><a className="periodic-table__link"><div className="periodic-table__group">1</div></a></Link>
                 <div className="periodic-table__group">18</div>
             </div>
             <div className="periodic-table__row">
                 <div className="periodic-table__row-inner">
                     <ChemicalElement element={chemicalElements[0]} />
-                    <div className="periodic-table__group">2</div>
+                    <Link href="./info/alkaline-earth"><a className="periodic-table__link"><div className="periodic-table__group">2</div></a></Link>
                 </div>
                 <div className="periodic-table__row-inner">
                     <div className="periodic-table__group">13</div>
                     <div className="periodic-table__group">14</div>
                     <div className="periodic-table__group">15</div>
-                    <div className="periodic-table__group">16</div>
-                    <div className="periodic-table__group">17</div>
+                    <Link href="./info/chalcogene"><a className="periodic-table__link"><div className="periodic-table__group">16</div></a></Link>
+                    <Link href="./info/halogen"><a className="periodic-table__link"><div className="periodic-table__group">17</div></a></Link>
                     <ChemicalElement element={chemicalElements[1]} />
                 </div>
             </div>
