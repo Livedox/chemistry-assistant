@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function linkHelp() {
     return (
-        <Link href="/help.html">
+        <Link href="/help">
             <a className="link-help">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 559.393 559.393">
                 <path d="M324.45,502.477c0-7.752-1.431-15.096-4.284-22.029c-2.856-6.938-6.938-12.954-12.24-18.057
