@@ -117,6 +117,7 @@ export default function OrganicFormula({organicFormula, organicFormulaList, setO
                 height: organicFormula.getSize().height + "px",
             }}
             onTouchStart={moveOrganicFormula}
+            onMouseDown={moveOrganicFormula}
             data-id={organicFormula.id}
         >
             <div className="organic-formula__editor" onMouseDown={(e) => e.stopPropagation()}>

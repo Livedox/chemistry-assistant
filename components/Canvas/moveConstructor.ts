@@ -23,14 +23,14 @@ function moveConstructor<T> (
         }
 
         window.addEventListener("mouseup", endMove);
-        window.addEventListener("touchup", endMove);
+        window.addEventListener("touchend", endMove);
 
         function endMove() {
             document.body.style.userSelect = "auto";
             document.removeEventListener("mousemove", onMouseMove);
             document.removeEventListener("touchmove", onMouseMove);
             window.removeEventListener("mouseup", endMove);
-            window.removeEventListener("touchup", endMove);
+            window.removeEventListener("touchend", endMove);
             end(props);
         }
     }   

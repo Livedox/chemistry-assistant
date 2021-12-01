@@ -413,7 +413,7 @@ export default function Canvas() {
             <div className="canvas__select-block" />
             <div className="canvas__main-container">
                 <div className="canvas__container-organic-formula">
-                    <div className="canvas__move-block" onTouchStart={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} />
+                    <div className="canvas__move-block" onTouchStart={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} onMouseDown={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} />
                     {organicFormulaList.map(item => {
                         return <OrganicFormula organicFormula={item} organicFormulaList={organicFormulaList} setOrganicFormulaList={setOrganicFormulaList} key={id++} />
                     })}
