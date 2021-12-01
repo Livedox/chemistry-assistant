@@ -1,0 +1,14 @@
+@media screen and (max-height: 400px) {
+    .main, #main{
+        left: 55px;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .main, #main{
+        left: 0;
+        right: 0;
+        top: 50px;
+        bottom: 0;
+    }
+}

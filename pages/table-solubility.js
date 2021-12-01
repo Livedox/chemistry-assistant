@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import HeaderCell from "../components/TableSolubility/HeaderCell";
 import FixedCell from "../components/TableSolubility/FixedCell";
 import Cell from "../components/TableSolubility/Cell";
-import Layout from "../components/HeaderTest/Layout";
+import Layout from "../components/Header/Layout";
 import Alert from "../components/Alert/Alert";
 import Head from "next/head";
 
@@ -101,7 +101,7 @@ export default function SolubilityTable() {
                                 <Cell html="NH<sub>4</sub>OH<br>Гидроксид аммония" sol="Р" st={color.soluble}  fun={createAlert}/>
                                 <Cell html="Ba(OH)<sub>2</sub><br>Баритовая вода" sol="Р" st={color.soluble}  fun={createAlert}/>
                                 <Cell html="Ca(OH)<sub>2</sub><br>Гашеная известь<br>Известковая вода/молоко" sol="М" st={color.slightlySoluble}  fun={createAlert}/>
-                                <Cell html="Mg(OH)<sub>2</sub><br>Гидроксид магния" sol="Н" st={color.insoluble}  fun={createAlert}/>
+                                <Cell html="Mg(OH)₂<br>Гидроксид магния" sol="Н" st={color.insoluble}  fun={createAlert}/>
                                 <Cell html="Sr(OH)<sub>2</sub><br>Гидроксид стронция" sol="М" st={color.slightlySoluble}  fun={createAlert}/>
                                 <Cell html="Al(OH)<sub>3</sub><br>Гидроксид алюминия" sol="Н" st={color.insoluble}  fun={createAlert}/>
                                 <Cell html="Cr(OH)<sub>3</sub><br>Гидроксид хрома" sol="Н" st={color.insoluble}  fun={createAlert}/>

@@ -19,7 +19,7 @@ const Head:React.FC<IProps> = ({toggleCalculator}) => {
                         </span>
                         <span className="nav__link-text">Меню</span>
                     </span>
-                    <Link href={`${server}`} >
+                    <Link href={`${server}/`} >
                         <a className="nav__link">
                             <span className="nav__logo-link">
                                 <span className="nav__logo-periodic-table">Md</span>

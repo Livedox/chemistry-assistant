@@ -1,5 +1,5 @@
-import ChemicalElement from "../Test/ChemicalElement";
-import chemicalElements from "../Test/chemicalElements";
+import ChemicalElement from "./ChemicalElement";
+import chemicalElements from "./chemicalElements";
 import getId from "../getId";
 import Context from "../Context/ContextSettingPeriodicTabe";
 import ContextElement from "../Context/ContextElement";
