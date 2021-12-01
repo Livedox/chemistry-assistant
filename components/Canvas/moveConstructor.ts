@@ -10,7 +10,7 @@ function moveConstructor<T> (
     move: (e: globalThis.MouseEvent | TouchEvent, props: IMoveConstructorProps<T>) => void,
     end: (props: IMoveConstructorProps<T>) => void
 ) {
-    return function(e: MouseEvent | React.MouseEvent | globalThis.MouseEvent | TouchEvent) {
+    return function(e: MouseEvent | React.MouseEvent | globalThis.MouseEvent | TouchEvent | React.TouchEvent) {
         const props = start(e as (MouseEvent | TouchEvent));
         document.body.style.userSelect = "none";
 
