@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
-import Layout from "../../components/HeaderTest/Layout";
+import Layout from "../../components/Header/Layout";
 import { server } from "../../config";
 import { IInfo } from "../../models/Info";
 

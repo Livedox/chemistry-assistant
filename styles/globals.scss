@@ -37,13 +37,14 @@ body{
 #main , .main{
   display: flex;
   position: fixed;
-  left: 60px;
+  z-index: 2;
+  left: 50px;
   right: 0;
   top: 0;
   bottom: 0;
   background-color: #dfe6e9;
   scrollbar-width: thin;
-  scrollbar-color: #2d3436 rgba(0,0,0,0);
+  scrollbar-color: #171a1b rgba(0,0,0,0);
   overflow-y: auto;
 }
 
@@ -93,31 +94,21 @@ p{
 }
 
 p.m{
-  margin-bottom: 0.5em;
+  margin: 0.5em 0;
 }
 
 p.m-small{
-  margin-bottom: 0.2em;
+  margin: 0.2em 0;
 }
 
 p.m-big{
-  margin-bottom: 0.8em;
+  margin: 0.8em 0;
 }
 
 p.m-little{
-  margin-bottom: 0.05em;
+  margin: 0.05em 0;
 }
 
 i{
   font-style: italic;
-}
-
-
-@media screen and (orientation: portrait) {
-#main{
-      left: 0;
-      right: 0;
-      top: 50px;
-      bottom: 0;
-  } 
 }

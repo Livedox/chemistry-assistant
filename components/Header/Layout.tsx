@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "../Header/headerTest";
+import Header from "./Header";
 import Calculator from "../Calculator/Calculator";
 
 interface IProps{

@@ -1,0 +1,411 @@
+@import "../var.scss";
+
+.canvas{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    &__main-container{
+        position: absolute;
+        display: flex;
+        flex-shrink: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+    }
+    &__container-organic-formula{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+    }
+    &__move-block{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+    &__list{
+        position: relative;
+        z-index: 24;
+        padding: 10px;
+        box-sizing: border-box;
+        height: 100%;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.219);
+        direction: rtl;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        width: 250px;
+    }
+    &__list-container{
+        direction: ltr;
+    }
+    &__list-item{
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+        svg{
+            margin-right: 8px;
+            width: 30px;
+            height: 30px;
+        }
+    }
+    &__list-item-delete{
+        height: 18px;
+        box-sizing: border-box;
+        svg{
+            width: 18px;
+            height: 18px;
+            margin-right: 0;
+            &:hover{
+                cursor: pointer;
+                fill: red;
+            }
+        }
+    }
+    &__add-organic-formula-block{
+        box-sizing: border-box;
+        position: relative;
+        z-index: 25;
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        padding: 5px;
+        right: 0;
+        height: 100%;
+        background-color: #fff;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.233);
+        direction: rtl;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        svg{
+            width: 40px;
+            height: 40px;
+            stroke: #000;
+            cursor: pointer;
+        }
+    }
+    &__add-organic-formula-block-container{
+        direction: ltr;
+        display: flex;
+        flex-wrap: wrap-reverse;
+        flex-direction: column;
+        justify-content: center;
+        width: 90px;
+        height: 100%;
+    }
+    &__organic-formula{
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        z-index: 2;
+        transform-origin: center;
+        border: 1px dashed rgba(0, 0, 0, 0);
+        svg{
+            user-select: none;
+        }
+        &_text{
+            z-index: 3;
+        }
+        &_active{
+            z-index: 5;
+            g, .CA_SVG{
+                stroke: $blue !important;
+            }
+            .CA__fillable-part{
+                fill: $blue !important;
+            }
+        }
+        &_moved{
+            z-index: 4;
+            border: 1px dashed black;
+            g, .CA_SVG{
+                stroke: $yellow !important;
+            }
+            .CA__fillable-part{
+                fill: $yellow !important;
+            }
+            .organic-formula__editor{
+                visibility: visible;
+            }
+        }
+    }
+    &__select-block{
+        visibility: hidden;
+        z-index: 10;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 2px solid $blue;
+        &_active{
+            visibility: visible;
+            z-index: 11;
+        }
+    }
+    &__open-modal-add-text{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+        cursor: pointer;
+        font-family: 'Times New Roman', Times, serif;
+        color: #fff;
+        bottom: 20px;
+        z-index: 20;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: $pink;
+        font-size: 36px;
+        border-radius: 50%;
+    }
+    &__modal-add-text{
+        visibility: hidden;
+        position: absolute;
+        z-index: 20;
+        bottom: 80px;
+        left: 10px;
+        display: flex;
+        flex-direction: column;
+        &_active{
+            visibility: visible;
+        }
+    }
+    &__modal-add-text-container{
+        width: 435px;
+        background-color: $pink;
+        border-radius: 10px;
+        padding: 8px;
+    }
+    &__modal-add-text-inner{
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        svg{
+            width: 44px;
+        }
+    }
+    &__modal-add-text-triangle{
+        width: 0;
+        height: 0;
+        margin-left: 15px;
+        margin-top: -3px;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-top: 20px solid $pink;
+    }
+    &__example-modal-add-text{
+        display: flex;
+        align-items: center;
+    }
+    &__modal-add-text-input-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    &__modal-add-text-submit{
+        background-color: $pink;
+        cursor: pointer;
+        padding: 5px;
+        color: #fff;
+        border-radius: 5px;
+    }
+    &__download{
+        position: absolute;
+        left: 80px;
+        bottom: 20px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: $yellow;
+    }
+    &__import{
+        position: absolute;
+        left: 140px;
+        bottom: 20px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: $yellow;
+    }
+    &__input-file{
+        position: relative;
+        z-index: 100;
+    }
+}
+
+.organic-formula{
+    user-select: none;
+    &__editor{
+        position: absolute;
+        z-index: 6;
+        opacity: 0.7;
+        display: flex;
+        justify-content: flex-end;
+        top: -21px;
+        right: 0;
+        box-sizing: border-box;
+        visibility: hidden;
+    }
+    
+    &__sign{
+        box-sizing: border-box;
+        width: 20px;
+        height: 20px;
+        padding: 2.5px;
+        cursor: pointer;
+        background-color: $color-dracula-orchid;
+        fill: $color-city-lights;
+        &:hover{
+            background-color: #5f6c70;
+        }
+    }
+
+    &__input{
+        width: 40px;
+        border-bottom: 1px solid $color-dracula-orchid;
+        box-sizing: border-box;
+        text-align: right;
+        padding-right: 3px;
+        margin: 0 1px;
+        color: $blue;
+        &::placeholder{
+            color: $color-soothing-breeze;
+        }
+    }
+}
+
+.modal-upload-canvas{
+    position: fixed;
+    display: none;
+    z-index: 100;
+    left: 0;right: 0;
+    top: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    &_open{
+        display: flex;
+    }
+    &__inner{
+        border-radius: 5px;
+        background-color: #fff;
+        width: 300px;
+        max-width: 100%;
+        margin: auto;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    &__input-file{
+        display: none;
+    }
+    &__custom-input-file{
+        cursor: pointer;
+        display: inline-block;
+        border-radius: 4px;
+        padding: 10px;
+        background-color: $yellow;
+        margin-bottom: 35px;
+    }
+    &__buttons-container{
+        display: flex;
+        justify-content: space-between;
+        button{
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: $blue;
+            color: #fff;
+        }
+    }
+}
+
+.modal-download-canvas{
+    position: fixed;
+    display: none;
+    z-index: 100;
+    left: 0;right: 0;
+    top: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    &_open{
+        display: flex;
+    }
+    &__svg-container{
+        position: relative;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+    }
+    &__svg{
+        width: 100%;
+        height: 100%;
+    }
+    &__inner{
+        border-radius: 5px;
+        background-color: #fff;
+        width: 80%;
+        min-height: 80%;
+        margin: 2% auto 2% auto;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    &__bottom{
+        display: flex;
+        flex-direction: column;
+    }
+    &__setting{
+        height: 50%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__input-container{
+        input {
+            text-align: center;
+            width: 100px;
+        }
+        &_disable{
+            display: none;
+        }
+    }
+    &__button{
+        display: flex;
+        margin-top: 20px;
+        justify-content: space-between;
+    }
+    &__svg-button, &__png-button, &__cancel-button, &__download-button{
+        padding: 10px;   
+        margin: 5px;
+        font-size: 18px;
+        border-radius: 15px;
+        color: #fff;
+        cursor: pointer;
+    }
+    &__cancel-button, &__download-button{
+        background-color: $pink;
+    }
+    &__svg-button, &__png-button{
+        background-color: #be6488;
+    }
+    &__svg-button, &__png-button{
+        &_active{
+            background-color: $pink;
+        }
+    }
+}

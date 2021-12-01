@@ -5,7 +5,7 @@ import VectorBox from "../components/Canvas/VectorBox";
 import MenuItem from "../components/Canvas/MenuItem";
 import RightBarHead from "../components/Canvas/RightBarHead";
 import RightBarBottom from "../components/Canvas/RightBarBottom";
-import Layout from "../components/HeaderTest/Layout";
+import Layout from "../components/Header/Layout";
 import Head from "next/head";
 
 export default function Canvas() {

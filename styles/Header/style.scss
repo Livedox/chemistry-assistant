@@ -1,0 +1,132 @@
+@import "../var.scss";
+
+.header{
+    font-family: sans-serif;
+    position: fixed;
+    left: 0;top:0;
+    background: $color-dracula-orchid;
+    box-shadow: 0 0 10px 0 #000;
+    width: 50px;
+    height: 100%;
+    z-index: 1;
+    transition: 0.2s ease-in-out;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+        width: 5px; 
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        border: 3px solid $color-city-lights;
+    }
+    &__container{
+        width: 100%;
+        min-height: 100%;
+        max-width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    &__menu{
+        .menu-icon-dash {
+            fill: #dfe6e9;
+            transform-origin: 50% 50%;
+            opacity: 100;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        &.menuexpanded .dash-top {
+            transform: translateY(16.75%) translateX(-16.9%) rotate(45deg);
+        }
+        &.menuexpanded .dash-bottom {
+            transform: translateY(16.75%) translateX(16.9%) rotate(135deg);
+        }
+        &.menuexpanded .dash-middle {
+            transform: rotate(135deg);
+            opacity: 0;
+        }
+        
+    }
+    &.active{
+        width: 310px;
+        z-index: 101;
+        .nav__link-text{
+            visibility: visible;
+            background: none;
+        }
+        .nav__link:hover{
+            background: #5c696d;
+        }
+    }
+}
+
+.nav{
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 5px 0;
+    &__logo-link{
+        max-width: 40px;
+        max-height: 40px;
+        padding: 0 5px;    
+    }
+    &__logo-periodic-table{
+        font-size: 30px;
+        line-height: 0.9;
+        color: $color-city-lights;
+        font-family: sans-serif !important;
+        &:hover{
+            color: $color-soothing-breeze; 
+        }
+    }
+    &__menu-icon{
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+        cursor: pointer;
+        fill: $color-city-lights;
+        &:hover{
+            fill: $color-soothing-breeze;
+        }
+    }
+    &__link{
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+        flex: 0 0 auto;
+        cursor: pointer;
+        svg{
+            fill: $color-city-lights;
+            stroke: $color-city-lights;
+            max-width: 40px;
+            max-height: 40px;
+            width: 40px;
+            height: 40px;
+            &:hover{
+                fill: $color-soothing-breeze;
+                stroke: $color-city-lights; 
+            }
+        }
+        &:hover{
+            .nav__link-text{
+                visibility: visible;
+            }
+        }
+    }
+    &__link-text{
+        background-color: $color-dracula-orchid;
+        color: $color-city-lights;
+        margin-left: 4px;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 1.05rem;
+        display: flex;
+        visibility: hidden;
+        flex: 0 0 auto;
+    }
+    &__link-setting{
+        display: none;
+        &.active{
+            display: flex;
+        }
+    }
+}
