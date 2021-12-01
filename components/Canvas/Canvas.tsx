@@ -201,6 +201,7 @@ export default function Canvas() {
             }
             const moveFunction = moveConstructor<IMoveSelectBlock>(start, move, end);
             props.data.canvSelectBlock.addEventListener("mousedown", moveFunction);
+            props.data.canvSelectBlock.addEventListener("touchstart", moveFunction);
         }
     }
 
