@@ -93,7 +93,7 @@ const SettingPeriodicTable:React.FC<IProps> = ({callback}) => {
         setHidden(setting.hidden ? setting.hidden : {});
         let cls:keyof IColorOptions;
         for(cls in setting.color) {
-            for(let typ in setting.color![cls]) {
+            for(const typ in setting.color![cls]) {
                 setBlocksColor(blocksColor.map((item) => {
                     if(item.class === cls && item.type === typ) item.color = setting.color![cls]![typ] ?? "#000";
                     return item;

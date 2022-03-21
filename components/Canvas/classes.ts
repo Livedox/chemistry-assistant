@@ -39,7 +39,7 @@ export class ChemicalOrganicFormula {
         this.size = size;
         this.viewBox = size;
         this.name = name;
-    };
+    }
 
     resize(scale: number) {
         this.scale = scale;
@@ -164,7 +164,7 @@ export class TextChemicalOrganicFormula extends ChemicalOrganicFormula {
 
     constructor(
         readonly id:number = 0,
-        text:string = "",
+        text = "",
     ) {
         super(id,"text","<text x='0' y='15'>Error text<text>",[[filterTextLength(text)*15/2, 11]],{width: filterTextLength(text)*15, height: 22});
         this.text = text;
@@ -181,7 +181,7 @@ export class CustomChemicalOrganicFormula extends ChemicalOrganicFormula {
         template: string, 
         points: number[][],
         size: ISize = {width: 100, height: 100},
-        name: string = "",
+        name = "",
     ) {
         super(id,"custom",template, points, size, name);
     }

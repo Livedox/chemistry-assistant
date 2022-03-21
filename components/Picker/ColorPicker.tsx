@@ -19,9 +19,9 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
     const CIRCLE_HEIGHT_PERCENT:percent = 4.7;
     const LINE_HEIGHT_PERCENT:percent = 2;
     
-    let [value, setValue] = useState("");
-    let [color, setColor] = useState("#ff0000");
-    let [gradientColor, setGradientColor] = useState("#ff0000");
+    const [value, setValue] = useState("");
+    const [color, setColor] = useState("#ff0000");
+    const [gradientColor, setGradientColor] = useState("#ff0000");
 
 
     function processInput(e: React.KeyboardEvent) {
@@ -40,8 +40,8 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
         const shiftY = e.clientY - circle.getBoundingClientRect().top + parent.top;
 
         function onMouseMove(e: any) {
-            let x:percent = (e.pageX - shiftX)*100/parent.width;
-            let y:percent  = (e.pageY - shiftY)*100/parent.height;
+            const x:percent = (e.pageX - shiftX)*100/parent.width;
+            const y:percent  = (e.pageY - shiftY)*100/parent.height;
 
             updateCircleAndColor(circle, x, y);
         }
@@ -59,8 +59,8 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
         const coords = elem.getBoundingClientRect();
         const circle:HTMLElement = elem.querySelector(".color-picker__circle")!;
 
-        let x:percent = ((e.pageX-coords.left)*100)/coords.width-CIRCLE_WIDTH_PERCENT/2;
-        let y:percent  = ((e.pageY-coords.top)*100)/coords.height-CIRCLE_HEIGHT_PERCENT/2;
+        const x:percent = ((e.pageX-coords.left)*100)/coords.width-CIRCLE_WIDTH_PERCENT/2;
+        const y:percent  = ((e.pageY-coords.top)*100)/coords.height-CIRCLE_HEIGHT_PERCENT/2;
 
         updateCircleAndColor(circle, x, y);
     }
@@ -93,10 +93,10 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
     function moveLine(e: React.MouseEvent) {
         const parent = (e.target as HTMLElement).parentElement!.getBoundingClientRect();
         const line = e.currentTarget as HTMLElement;
-        let shiftY = e.pageY - line.getBoundingClientRect().top + parent.top;
+        const shiftY = e.pageY - line.getBoundingClientRect().top + parent.top;
 
         function onMouseMove(e: any) {
-            let y:percent  = (e.pageY - shiftY)*100/parent.height;
+            const y:percent  = (e.pageY - shiftY)*100/parent.height;
 
             updateLine(line, y);
         }
@@ -113,7 +113,7 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
         const elem = e.currentTarget as HTMLElement;
         const coords = elem.getBoundingClientRect();
         const line:HTMLElement = elem.querySelector(".color-picker__line")!;
-        let y:percent  = ((e.pageY-coords.top)*100)/coords.height-LINE_HEIGHT_PERCENT/2;
+        const y:percent  = ((e.pageY-coords.top)*100)/coords.height-LINE_HEIGHT_PERCENT/2;
         updateLine(line, y);
     }
 

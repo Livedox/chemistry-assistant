@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 export interface ISetting {
     visible: boolean;
     active: boolean;
-};
+}
 
 interface ISettingMemo {
     settingActive: ISetting;
