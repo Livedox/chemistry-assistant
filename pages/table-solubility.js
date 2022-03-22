@@ -19,6 +19,12 @@ async function highlightColumnAndRow(e) {
     e.target.classList.toggle("active");
 }
 
+const k = [];
+let iii = 0;
+
+String.prototype.replaceAll = function(search, replace){
+    return this.split(search).join(replace);
+}
 
 export default function SolubilityTable() {
     const [color, setColor] = useState({});
@@ -27,26 +33,32 @@ export default function SolubilityTable() {
     const [htmlAlert, setHtmlAlert] = useState("");
     const [coords, setCoords] = useState({});
 
-    function createAlert(e, html) {
-        setHtmlAlert(html);
-        const width = document.querySelector(".alert").offsetWidth;
-        const targetCoords = e.currentTarget.getBoundingClientRect();
-        let left = targetCoords.right + 3;
-        if(left + width > document.documentElement.offsetWidth) {
-            left = targetCoords.left - width - 3;
-            SetAlertClass("active right");
-        } else {
-            SetAlertClass("active left");
+    k.push([]);
+    k[iii].push({
+        formula: "H₂O",
+        names: [],
+        solubility: "",
+        additionalInformation: null,
+        color: null,
+    });
+    function createAlert(data) {
+        data.replaceAll("<sub>2</sub>", "₂").replaceAll("<sub>3</sub>", "₃").replaceAll("<sub>4</sub>", "₄").replaceAll("<sub>5</sub>", "₅");
+        const b = data.str.split("<br>");
+        if(k[iii].length % 20 == 0) {
+            k.push([]);
+            ++iii;
         }
-        setCoords({left, top: targetCoords.y});
-        e.currentTarget.onmouseleave = () => {
-            SetAlertClass("");
-        }
+        k[iii].push({
+            formula: b[0],
+            names: b.map((val, i)  => {if(i) return val}).filter(Boolean),
+            solubility: data.sol,
+            additionalInformation: null,
+            color: null,
+        });
     }
     const toggleSetting = () => setSettingAcitve(!isSettingActive);
     useEffect(() => {
-        const color = JSON.parse(localStorage.getItem("solubilityTableColor"));
-        if (color) setColor(color);
+        console.log(k);
     }, []);
     return (
         <>

@@ -68,22 +68,44 @@ tr{
 }
 
 .solubility-table{
-    position: absolute;
+	$left-title-width: 6.875em;
+	$top-title-height: 1.875em;
+	$item-width: 3.75em;
+	$item-height: $top-title-height;
+
+	font-size: 1.04vw;//1.04vw
+    position: relative;
 	user-select: none;
     width: 100%;
-	height: 100%;
-	$left-title-width: 110px;
-	$top-title-height: 30px;
-	$item-width: 60px;
-	$item-height: $top-title-height;
+	height: 22*$item-height;
+	max-height: 100%;
+	display: flex;
+	justify-content: center;
+	box-sizing: content-box;
+  	
     &__container{
-        position: absolute;
+        position: relative;
 		height: 100%;
-		width: 100%;
+		width: $item-width*20 + $left-title-width;
+		box-shadow: 0 0 15px 0 rgb(0, 0, 0);
+		box-sizing: content-box;
 		overflow: auto;
+		font-size: 1.1em;
+		scrollbar-width: thin;
+		scrollbar-color: $color-dracula-orchid $color-city-lights;
+		border: 1px solid $color-dracula-orchid;//hides micro bug(№1) in chrome
+		background: $color-dracula-orchid;//hides micro bug(№1) in chrome
     }
+	&__container::-webkit-scrollbar {
+		background-color: $color-city-lights;
+		width: 8px;
+		height: 8px;
+	}
+	&__container::-webkit-scrollbar-corner {
+		display: none;
+	}
 	&__left-column {
-		z-index: 1;
+		z-index: 4;
 		position: sticky;
 		left: 0;
 		width: $left-title-width;
@@ -98,6 +120,7 @@ tr{
 	&__top-row {
 		position: sticky;
 		top: 0;
+		z-index: 3;
 		margin-left: $left-title-width;
 		height: $top-title-height;
 		display: flex;
@@ -116,58 +139,80 @@ tr{
 		display: flex;
 	}
 
-	&__wraper2 {
+	&__item-title, &__title, &__item {
+		flex-shrink: 0;
 		display: flex;
-		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 
-	&__title {
+	&__item-title, &__title {
 		color: $color-city-lights;
 		background: $color-dracula-orchid;
+		height: $item-height;
+	}
+
+	&__item-title {
+		width: $item-width;
 	}
 
 	&__item {
+		position: relative;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+		border-right: 1px solid rgba(0, 0, 0, 0.3);
 		width: $item-width;
 		height: $item-height;
-		flex-shrink: 0;
+		cursor: pointer;
+		background: $color-city-lights;//hides micro bug(№1) in chrome
+		&_soluble{
+			background: #fe83b5;
+		}
+		&_slightly-soluble{
+			background: #5ca7e0;
+		}
+		&_insoluble{
+			background: #90cd8e;
+		}
+		&_decomposes{
+			background: #ffd737;
+		}
+		&:hover {
+			border: 2px solid $purple;
+		}
+		&:hover::after, &:hover::before{
+			content: "";
+			position: absolute;
+			z-index: 1;
+			background-color: rgba(255, 255, 255, 0.369);
+			pointer-events: none;
+		}
+		&:hover::after {
+			width: $item-width;
+			bottom: 100%;
+			height: 100%*20;
+		}
+		&:hover::before {
+			width: 100%*20;
+			right: 100%;
+			height: $item-height;
+		}
 	}
 
-    &__column{
-        display: flex;
-        flex-direction: column;
-        width: 60px;
-        flex-shrink: 0;
-    }
-    &__header{
-        position: absolute;
-		z-index: 1;
-        width: 110px;
-    }
-	&__outer{
-		margin-left: 110px;
-		position: relative;
+	&__hint{
+		position: absolute;
+		z-index: 4;
+		background-color: red;
 	}
-    &__inner{
-		margin-top: 30px;
-        max-width: 100%;
-        display: flex;
-        overflow-x: auto;
-    }
-    &__column-heading, &__title{
-        background-color: $color-dracula-orchid;
-        color: #fff;
-    }
-    &__column-heading, &__title, &__item{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        height: 30px;
-    }
-	&__column-heading{
-		width: 60px;
+}
+
+@media screen and (max-width: 1300px) {
+	.solubility-table {
+		font-size: 14px;
 	}
-	&__first-item {
-		margin-top: 30px;
+}
+
+@media screen and (max-width: 700px) {
+	.solubility-table {
+		font-size: 13px;
 	}
 }
