@@ -241,6 +241,12 @@ tr{
 
 @media (pointer: coarse) {
 	.solubility-table__item {
+		&:hover {
+			border: none;
+		}
+		&_active {
+			border: 2px solid $purple;
+		}
 		&:hover::after, &:hover::before {
 			display: none;
 		}

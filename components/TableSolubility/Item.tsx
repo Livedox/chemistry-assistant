@@ -6,6 +6,7 @@ interface Props {
     createHint: (e: React.PointerEvent | React.MouseEvent, data: Cell) => void;
 }
 
+let tempItem: HTMLDivElement | null = null;
 function Item({cell, createHint}: Props) {
     const [isMobile, setMobile] = useState(false);
 
@@ -19,6 +20,13 @@ function Item({cell, createHint}: Props) {
         createHint(e, cell);
     }
 
+    const wrapperMobile = (e: React.PointerEvent | React.MouseEvent) => {
+        if(tempItem) tempItem.classList.remove("solubility-table__item_active");
+        tempItem = e.target as HTMLDivElement;
+        tempItem.classList.add("solubility-table__item_active");
+        createHint(e, cell);
+    }
+
     useEffect(() => {
         setMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent));
     });
@@ -26,7 +34,7 @@ function Item({cell, createHint}: Props) {
         <div
           className={"solubility-table__item " + classAdditional}
           onPointerEnter={isMobile ? undefined : wrapper}
-          onClick={isMobile ? wrapper : undefined}>
+          onClick={isMobile ? wrapperMobile : undefined}>
             {cell.solubility}
         </div>
     );

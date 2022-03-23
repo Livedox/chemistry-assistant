@@ -46,7 +46,10 @@ export default function SolubilityTable() {
     }
     return (
         <>
-            <div className="solubility-table">
+            <div
+              className="solubility-table"
+              onTouchMove={hideHint}
+              onTouchStart={hideHint}>
                 <div className="solubility-table__container">
                     <div className="solubility-table__left-column">
                         {leftHeaders.map(item => {
@@ -61,8 +64,7 @@ export default function SolubilityTable() {
                         </div>
                         <div
                           className="solubility-table__main"
-                          onMouseLeave={hideHint}
-                          onTouchMove={hideHint}>
+                          onMouseLeave={hideHint}>
                             {items.map(cells => {
                                 return <ItemsContainer createHint={createHint} cells={cells} key={getId()} />
                             })}
