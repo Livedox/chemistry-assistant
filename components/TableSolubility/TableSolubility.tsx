@@ -43,12 +43,6 @@ export default function SolubilityTable() {
             return;
         }
         hint.style.left = coords.left+coords.width + "px";
-
-        useEffect(() => {
-            document.body.addEventListener("touchstart", () => {
-                hideHint();
-            }, {capture: true});
-        }, []);
     }
     return (
         <>

@@ -7,18 +7,18 @@ interface Props {
     createHint: (e: React.PointerEvent, data: Cell) => void;
 }
 
-let tempItem: HTMLElement | null = null;
 function ItemsContainer({cells, createHint}:Props) {
-    const onTouchActive = (e: React.TouchEvent) => {    
-        if(tempItem) {
-            tempItem.classList.remove("solubility-table__item_active");
-            tempItem.removeEventListener("touchend", touchEnd);
+    const wrapper = (e: React.PointerEvent, data: Cell) => {
+        const target = e.target as HTMLElement;
+        function mobile() {
+            document.body.removeEventListener("touchstart", mobile);
+            target.classList.remove("solubility-table__item_active");
         }
-        tempItem = e.target as HTMLElement;
-        tempItem.addEventListener("touchend", touchEnd);
-        function touchEnd(e: TouchEvent) {
-            tempItem!.classList.add("solubility-table__item_active");
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+            target.classList.add("solubility-table__item_active");
+            document.body.addEventListener("touchstart", mobile);
         }
+        createHint(e, data);
     }
     return (
         <div className="solubility-table__items-container">
@@ -32,8 +32,7 @@ function ItemsContainer({cells, createHint}:Props) {
                     <div
                       className={"solubility-table__item " + classAdditional}
                       key={getId()}
-                      onPointerEnter={(e: React.PointerEvent) => createHint(e, cell)}
-                      onTouchStart={onTouchActive}>
+                      onPointerEnter={(e: React.PointerEvent) => wrapper(e, cell)}>
                         {cell.solubility}
                     </div>
                 );
