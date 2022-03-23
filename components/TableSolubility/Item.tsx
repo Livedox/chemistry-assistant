@@ -21,7 +21,6 @@ function Item({cell, createHint}: Props) {
     }
 
     const wrapperMobile = (e: React.PointerEvent | React.MouseEvent) => {
-        alert(12);
         if(tempItem) tempItem.classList.remove("solubility-table__item_active");
         tempItem = e.target as HTMLDivElement;
         tempItem.classList.add("solubility-table__item_active");

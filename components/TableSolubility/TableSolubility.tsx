@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import useToggle from "../../hooks/useToggle";
+import React, { useState } from "react";
 import getId from "../getId";
+import ElectrochemicalVoltageSeriesMetals from "./ElectrochemicalVoltageSeriesMetals";
+import Explanation from "./Explanation";
 import Hint from "./Hint";
 import items, { Cell } from "./items";
 import ItemsContainer from "./ItemsContainer";
@@ -73,6 +74,8 @@ export default function SolubilityTable() {
                 </div>
                 <Hint active={isHintActive}/>
             </div>
+            <ElectrochemicalVoltageSeriesMetals />
+            <Explanation />
         </>
     )
 }

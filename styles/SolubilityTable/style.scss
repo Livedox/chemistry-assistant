@@ -66,14 +66,15 @@ tr{
 		width: 80px;
 	}
 }
-
+$size: 1.04vw;
+$left-title-width: 6.875em;
+$top-title-height: 1.875em;
+$item-width: 3.75em;
+$item-height: $top-title-height;
 .solubility-table{
-	$left-title-width: 6.875em;
-	$top-title-height: 1.875em;
-	$item-width: 3.75em;
-	$item-height: $top-title-height;
+	
 
-	font-size: 1.04vw;//1.04vw
+	font-size: $size;//1.04vw
     position: relative;
 	user-select: none;
     width: 100%;
@@ -189,7 +190,7 @@ tr{
 		&:hover::after, &_active::after {
 			width: $item-width;
 			bottom: 100%;
-			height: 100%*20;
+			height: 100%*22;
 		}
 		&:hover::before, &_active::before {
 			width: 100%*20;
@@ -227,15 +228,79 @@ tr{
 	}
 }
 
+.electrochemical-voltage-series-metals {
+	margin: 1.5rem 0.0rem 0 0.0rem;
+	display: flex;
+	justify-content: center;
+	font-size: $size*2;
+	flex-direction: column;
+	width: 100%;
+	&__description {
+		display: flex;
+		justify-content: space-around;
+		font-size: 0.6em;
+		text-align: center;
+	}
+	&__elements {
+		display: flex;
+		justify-content: center;
+		overflow: auto;
+		scrollbar-width: thin;
+		span {
+			margin: 0 0.5em;
+		}
+	}
+	&__red {
+		color: $red;
+	}
+}
+
+.explanation {
+	margin: 1.5rem 0;
+	display: flex;
+	justify-content: center;
+	font-size: $size;
+	&__container {
+		display: flex;
+		flex-direction: column;
+		width: $item-width*22 + $left-title-width;
+	}
+
+	&__item-container {
+		display: flex;
+		align-items: center;
+	}
+	
+	&__item {
+		display: flex;
+		margin: 0.3rem 0.6rem;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		width: $item-width;
+		height: $item-height;
+		flex-shrink: 0;
+	}
+}
+
 @media screen and (max-width: 1300px) {
-	.solubility-table {
+	.explanation, .solubility-table {
 		font-size: 14px;
+	}
+	.electrochemical-voltage-series-metals {
+		font-size: 20px;
+		&__elements {
+			justify-content: start;
+		}
 	}
 }
 
 @media screen and (max-width: 700px) {
-	.solubility-table {
+	.explanation, .solubility-table {
 		font-size: 13px;
+	}
+	.electrochemical-voltage-series-metals {
+		font-size: 16px;
 	}
 }
 
