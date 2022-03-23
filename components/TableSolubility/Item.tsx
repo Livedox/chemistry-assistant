@@ -35,7 +35,7 @@ function Item({cell, createHint}: Props) {
         <div
           className={"solubility-table__item " + classAdditional}
           onPointerEnter={isMobile ? undefined : wrapper}
-          onClick={isMobile ? wrapperMobile : undefined}>
+          onMouseDown={isMobile ? wrapperMobile : undefined}>
             {cell.solubility}
         </div>
     );
