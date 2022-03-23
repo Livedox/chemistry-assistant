@@ -61,7 +61,8 @@ export default function SolubilityTable() {
                         </div>
                         <div
                           className="solubility-table__main"
-                          onMouseLeave={hideHint}>
+                          onMouseLeave={hideHint}
+                          onTouchMove={hideHint}>
                             {items.map(cells => {
                                 return <ItemsContainer createHint={createHint} cells={cells} key={getId()} />
                             })}

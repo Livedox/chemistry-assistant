@@ -16,7 +16,7 @@ function ItemsContainer({cells, createHint}:Props) {
         }
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
             target.classList.add("solubility-table__item_active");
-            document.body.addEventListener("pointerdown", mobile);
+            // document.body.addEventListener("pointerdown", mobile);
         }
         createHint(e, data);
     }
