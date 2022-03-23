@@ -238,3 +238,11 @@ tr{
 		font-size: 13px;
 	}
 }
+
+@media (pointer: coarse) {
+	.solubility-table__item {
+		&:hover::after, &:hover::before {
+			display: none;
+		}
+	}
+}
