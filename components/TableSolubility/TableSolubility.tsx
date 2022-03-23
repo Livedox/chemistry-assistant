@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useToggle from "../../hooks/useToggle";
 import getId from "../getId";
 import Hint from "./Hint";
@@ -23,7 +23,7 @@ export default function SolubilityTable() {
     const [isHintActive, setHint] = useState(false);
     const activeHint = () => setHint(true);
     const hideHint = () => setHint(false);
-    function createHint(e: React.MouseEvent, data: Cell) {
+    function createHint(e: React.PointerEvent, data: Cell) {
         if(!data.formula) {
             hideHint();
             return;
@@ -43,6 +43,12 @@ export default function SolubilityTable() {
             return;
         }
         hint.style.left = coords.left+coords.width + "px";
+
+        useEffect(() => {
+            document.body.addEventListener("touchstart", () => {
+                hideHint();
+            }, {capture: true});
+        }, []);
     }
     return (
         <>

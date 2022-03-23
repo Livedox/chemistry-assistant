@@ -4,10 +4,16 @@ import { Cell } from "./items";
 
 interface Props {
     cells: Cell[];
-    createHint: (e: React.MouseEvent, data: Cell) => void;
+    createHint: (e: React.PointerEvent, data: Cell) => void;
 }
 
+let tempItem: HTMLElement | null = null;
 function ItemsContainer({cells, createHint}:Props) {
+    const onTouchActive = (e: React.TouchEvent) => {
+        if(tempItem) tempItem.classList.remove("solubility-table__item_active");
+        tempItem = e.target as HTMLElement;
+        tempItem.classList.add("solubility-table__item_active");
+    }
     return (
         <div className="solubility-table__items-container">
             {cells.map(cell => {
@@ -20,7 +26,8 @@ function ItemsContainer({cells, createHint}:Props) {
                     <div
                       className={"solubility-table__item " + classAdditional}
                       key={getId()}
-                      onMouseEnter={(e: React.MouseEvent) => createHint(e, cell)}>
+                      onPointerEnter={(e: React.PointerEvent) => createHint(e, cell)}
+                      onTouchStart={onTouchActive}>
                         {cell.solubility}
                     </div>
                 );
