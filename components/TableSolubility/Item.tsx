@@ -5,9 +5,10 @@ interface Props {
     cell: Cell;
     createHint: (e: React.PointerEvent | React.MouseEvent, data: Cell) => void;
 }
-
+let tempItem: HTMLDivElement | null = null;
 function Item({cell, createHint}: Props) {
     const [isMobile, setMobile] = useState(false);
+    // const [active, setActive] = useState("solubility-table__item_active ")
 
     let classAdditional = "";
     if(cell.solubility === "Р") classAdditional = "solubility-table__item_soluble";
@@ -18,18 +19,16 @@ function Item({cell, createHint}: Props) {
     const wrapper = (e: React.PointerEvent | React.MouseEvent) => {
         createHint(e, cell);
     }
-    let tempItem: HTMLDivElement | null = null;
     const wrapperMobile = (e: React.PointerEvent | React.MouseEvent) => {
         if(tempItem) tempItem.classList.remove("solubility-table__item_active");
         tempItem = e.target as HTMLDivElement;
         tempItem.classList.add("solubility-table__item_active");
-        console.log(tempItem);
         createHint(e, cell);
     }
 
     useEffect(() => {
         setMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent));
-    });
+    }, []);
     return(
         <div
           className={"solubility-table__item " + classAdditional}

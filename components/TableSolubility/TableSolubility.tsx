@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import getId from "../getId";
+import AllItems from "./AllItems";
 import ElectrochemicalVoltageSeriesMetals from "./ElectrochemicalVoltageSeriesMetals";
 import Explanation from "./Explanation";
 import Hint from "./Hint";
@@ -22,8 +23,8 @@ const topHeaders: string[][] = [
 
 export default function SolubilityTable() {
     const [isHintActive, setHint] = useState(false);
-    const activeHint = () => setHint(true);
     const hideHint = () => setHint(false);
+    const activeHint = () => setHint(true);
     function createHint(e: React.PointerEvent | React.MouseEvent, data: Cell) {
         if(!data.formula) {
             hideHint();
@@ -45,6 +46,7 @@ export default function SolubilityTable() {
         }
         hint.style.left = coords.left+coords.width + "px";
     }
+    const memoizedCreateHint = useCallback(createHint, []);
     useEffect(() => {
         document.body.addEventListener("touchmove", hideHint);
         document.body.addEventListener("touchstart", hideHint);
@@ -67,9 +69,7 @@ export default function SolubilityTable() {
                         <div
                           className="solubility-table__main"
                           onMouseLeave={hideHint}>
-                            {items.map(cells => {
-                                return <ItemsContainer createHint={createHint} cells={cells} key={getId()} />
-                            })}
+                            <AllItems items={items} createHint={memoizedCreateHint} />
                         </div>
                     </div>
                 </div>
