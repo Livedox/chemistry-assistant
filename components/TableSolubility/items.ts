@@ -9,7 +9,7 @@ export interface Cell{
 const data: Cell[][] = [
     [
       {
-        formula: "H₂O",
+        formula: "",
         names: [],
         solubility: "",
         additionalInformation: null,
@@ -1103,8 +1103,8 @@ const data: Cell[][] = [
     ],
     [
       {
-        formula: "ll",
-        names: [],
+        formula: "H₂S",
+        names: ["Сероводород"],
         solubility: "Р",
         additionalInformation: null,
         color: null
@@ -1830,7 +1830,7 @@ const data: Cell[][] = [
     ],
     [
       {
-        formula: "ll",
+        formula: "",
         names: [],
         solubility: "Р",
         additionalInformation: null,

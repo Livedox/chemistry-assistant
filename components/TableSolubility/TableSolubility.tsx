@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useToggle from "../../hooks/useToggle";
 import getId from "../getId";
 import Hint from "./Hint";
-import items from "./items";
+import items, { Cell } from "./items";
 import ItemsContainer from "./ItemsContainer";
 
 const leftHeaders: string[][] = [
@@ -20,13 +20,29 @@ const topHeaders: string[][] = [
 ];
 
 export default function SolubilityTable() {
-    const [isHintActive, toggleHint] = useToggle();
-    function createHint(e: React.MouseEvent) {
+    const [isHintActive, setHint] = useState(false);
+    const activeHint = () => setHint(true);
+    const hideHint = () => setHint(false);
+    function createHint(e: React.MouseEvent, data: Cell) {
+        if(!data.formula) {
+            hideHint();
+            return;
+        }
+        if(!isHintActive) activeHint();//speed
         //Native is faster than react 
         const hint = document.querySelector<HTMLElement>(".solubility-table__hint")!;
         const target = e.target as HTMLElement;
-        hint.style.left = target.getBoundingClientRect().left+15 + "px";
-        hint.style.top = target.getBoundingClientRect().top + "px";
+        const coords = target.getBoundingClientRect();
+
+        hint.querySelector<HTMLElement>(".solubility-table__hint-title")!.innerText = data.formula!;
+        hint.querySelector<HTMLElement>(".solubility-table__hint-text")!.innerText = data.names!.join("\n");
+        
+        hint.style.top = coords.top + "px";
+        if(coords.left + hint.clientWidth > window.innerWidth/1.2) {
+            hint.style.left = coords.left-hint.clientWidth + "px";
+            return;
+        }
+        hint.style.left = coords.left+coords.width + "px";
     }
     return (
         <>
@@ -43,14 +59,16 @@ export default function SolubilityTable() {
                                 return <div className="solubility-table__item-title" key={getId()}>{item[0]}<sup>{item[1]}</sup></div>
                             })}
                         </div>
-                        <div className="solubility-table__main">
+                        <div
+                          className="solubility-table__main"
+                          onMouseLeave={hideHint}>
                             {items.map(cells => {
                                 return <ItemsContainer createHint={createHint} cells={cells} key={getId()} />
                             })}
                         </div>
                     </div>
                 </div>
-                <Hint active={isHintActive} data={items[0][1]}/>
+                <Hint active={isHintActive}/>
             </div>
         </>
     )

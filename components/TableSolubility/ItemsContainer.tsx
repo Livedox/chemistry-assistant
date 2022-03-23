@@ -1,9 +1,10 @@
+import React from "react";
 import getId from "../getId";
 import { Cell } from "./items";
 
 interface Props {
     cells: Cell[];
-    createHint: (e: React.MouseEvent) => void;
+    createHint: (e: React.MouseEvent, data: Cell) => void;
 }
 
 function ItemsContainer({cells, createHint}:Props) {
@@ -19,7 +20,7 @@ function ItemsContainer({cells, createHint}:Props) {
                     <div
                       className={"solubility-table__item " + classAdditional}
                       key={getId()}
-                      onMouseEnter={createHint}>
+                      onMouseEnter={(e: React.MouseEvent) => createHint(e, cell)}>
                         {cell.solubility}
                     </div>
                 );

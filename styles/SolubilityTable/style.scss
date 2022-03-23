@@ -199,9 +199,31 @@ tr{
 	}
 
 	&__hint{
-		position: absolute;
+		position: fixed;
+		visibility: hidden;
+		pointer-events: none;
 		z-index: 4;
-		background-color: red;
+		background: #fff;
+		padding: 1rem;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.39);
+		opacity: 0.95;
+		border-radius: 10px;
+		&_active {
+			visibility: visible;
+		}
+		&-title, &-text, &-color{
+			margin: 0;
+		}
+		&-title {
+			font-size: 1.3rem;
+		}
+		&-text {
+			color: $font-color1;
+			margin-bottom: 0.7rem;
+		}
+		&-color {
+			color: $font-color2;
+		}
 	}
 }
 
