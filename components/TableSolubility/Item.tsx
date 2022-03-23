@@ -6,7 +6,6 @@ interface Props {
     createHint: (e: React.PointerEvent | React.MouseEvent, data: Cell) => void;
 }
 
-let tempItem: HTMLDivElement | null = null;
 function Item({cell, createHint}: Props) {
     const [isMobile, setMobile] = useState(false);
 
@@ -19,12 +18,12 @@ function Item({cell, createHint}: Props) {
     const wrapper = (e: React.PointerEvent | React.MouseEvent) => {
         createHint(e, cell);
     }
-
+    let tempItem: HTMLDivElement | null = null;
     const wrapperMobile = (e: React.PointerEvent | React.MouseEvent) => {
-        alert(12);
         if(tempItem) tempItem.classList.remove("solubility-table__item_active");
         tempItem = e.target as HTMLDivElement;
         tempItem.classList.add("solubility-table__item_active");
+        console.log(tempItem);
         createHint(e, cell);
     }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import getId from "../getId";
 import ElectrochemicalVoltageSeriesMetals from "./ElectrochemicalVoltageSeriesMetals";
 import Explanation from "./Explanation";
@@ -45,12 +45,13 @@ export default function SolubilityTable() {
         }
         hint.style.left = coords.left+coords.width + "px";
     }
+    useEffect(() => {
+        document.body.addEventListener("touchmove", hideHint);
+        document.body.addEventListener("touchstart", hideHint);
+    })
     return (
         <>
-            <div
-              className="solubility-table"
-              onTouchMove={hideHint}
-              onTouchStart={hideHint}>
+            <div className="solubility-table">
                 <div className="solubility-table__container">
                     <div className="solubility-table__left-column">
                         {leftHeaders.map(item => {
