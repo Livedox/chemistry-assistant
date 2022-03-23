@@ -9,10 +9,16 @@ interface Props {
 
 let tempItem: HTMLElement | null = null;
 function ItemsContainer({cells, createHint}:Props) {
-    const onTouchActive = (e: React.TouchEvent) => {
-        if(tempItem) tempItem.classList.remove("solubility-table__item_active");
+    const onTouchActive = (e: React.TouchEvent) => {    
+        if(tempItem) {
+            tempItem.classList.remove("solubility-table__item_active");
+            tempItem.removeEventListener("touchend", touchEnd);
+        }
         tempItem = e.target as HTMLElement;
-        tempItem.classList.add("solubility-table__item_active");
+        tempItem.addEventListener("touchend", touchEnd);
+        function touchEnd(e: TouchEvent) {
+            tempItem!.classList.add("solubility-table__item_active");
+        }
     }
     return (
         <div className="solubility-table__items-container">
