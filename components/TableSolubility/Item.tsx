@@ -1,13 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Cell } from "./items";
 
 interface Props {
     cell: Cell;
-    createHint: (e: PointerEvent, data: Cell) => void;
+    createHint: (e: React.PointerEvent, data: Cell) => void;
 }
 
 function Item({cell, createHint}: Props) {
-    const itemRef = useRef<HTMLDivElement>(null);
+    const [isMobile, setMobile] = useState(false);
 
     let classAdditional = "";
     if(cell.solubility === "Р") classAdditional = "solubility-table__item_soluble";
@@ -15,19 +15,18 @@ function Item({cell, createHint}: Props) {
     if(cell.solubility === "Н") classAdditional = "solubility-table__item_insoluble";
     if(cell.solubility === "-") classAdditional = "solubility-table__item_decomposes";
 
+    const wrapper = (e: React.PointerEvent) => {
+        createHint(e, cell);
+    }
 
     useEffect(() => {
-        const wraper = (e: PointerEvent) => {
-            createHint(e, cell);
-        }
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-            itemRef.current!.addEventListener("pointerdown", wraper);
-        } else {
-            itemRef.current!.addEventListener("pointerenter", wraper);
-        }
-    }, []);
+        setMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent));
+    });
     return(
-        <div ref={itemRef} className={"solubility-table__item " + classAdditional}>
+        <div
+          className={"solubility-table__item " + classAdditional}
+          onPointerEnter={isMobile ? undefined : wrapper}
+          onPointerDown={isMobile ? wrapper : undefined}>
             {cell.solubility}
         </div>
     );

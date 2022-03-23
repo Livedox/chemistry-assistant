@@ -5,7 +5,7 @@ import { Cell } from "./items";
 
 interface Props {
     cells: Cell[];
-    createHint: (e: PointerEvent, data: Cell) => void;
+    createHint: (e: React.PointerEvent, data: Cell) => void;
 }
 
 function ItemsContainer({cells, createHint}:Props) {
@@ -18,7 +18,7 @@ function ItemsContainer({cells, createHint}:Props) {
                 if(cell.solubility === "Н") classAdditional = "solubility-table__item_insoluble";
                 if(cell.solubility === "-") classAdditional = "solubility-table__item_decomposes";
                 return (
-                    <Item cell={cell} createHint={createHint} />
+                    <Item cell={cell} createHint={createHint} key={getId()} />
                 );
             })}
        </div>

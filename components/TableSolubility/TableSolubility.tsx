@@ -23,7 +23,7 @@ export default function SolubilityTable() {
     const [isHintActive, setHint] = useState(false);
     const activeHint = () => setHint(true);
     const hideHint = () => setHint(false);
-    function createHint(e: PointerEvent, data: Cell) {
+    function createHint(e: React.PointerEvent, data: Cell) {
         if(!data.formula) {
             hideHint();
             return;
