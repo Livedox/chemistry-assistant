@@ -9,7 +9,7 @@ let tempItem: HTMLDivElement | null = null;
 function Item({cell, createHint}: Props) {
     const [isMobile, setMobile] = useState(false);
     // const [active, setActive] = useState("solubility-table__item_active ")
-
+    
     let classAdditional = "";
     if(cell.solubility === "Р") classAdditional = "solubility-table__item_soluble";
     if(cell.solubility === "М") classAdditional = "solubility-table__item_slightly-soluble";
@@ -28,6 +28,8 @@ function Item({cell, createHint}: Props) {
 
     useEffect(() => {
         setMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent));
+        document.body.addEventListener("touchstart",() => {if(tempItem) tempItem.classList.remove("solubility-table__item_active")});
+        document.body.addEventListener("touchmove",() => {if(tempItem) tempItem.classList.remove("solubility-table__item_active")});
     }, []);
     return(
         <div
