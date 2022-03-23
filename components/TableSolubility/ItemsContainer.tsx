@@ -5,7 +5,7 @@ import { Cell } from "./items";
 
 interface Props {
     cells: Cell[];
-    createHint: (e: React.PointerEvent, data: Cell) => void;
+    createHint: (e: React.PointerEvent | React.MouseEvent, data: Cell) => void;
 }
 
 function ItemsContainer({cells, createHint}:Props) {

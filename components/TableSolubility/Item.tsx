@@ -1,9 +1,9 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Cell } from "./items";
 
 interface Props {
     cell: Cell;
-    createHint: (e: React.PointerEvent, data: Cell) => void;
+    createHint: (e: React.PointerEvent | React.MouseEvent, data: Cell) => void;
 }
 
 function Item({cell, createHint}: Props) {
@@ -15,7 +15,7 @@ function Item({cell, createHint}: Props) {
     if(cell.solubility === "Н") classAdditional = "solubility-table__item_insoluble";
     if(cell.solubility === "-") classAdditional = "solubility-table__item_decomposes";
 
-    const wrapper = (e: React.PointerEvent) => {
+    const wrapper = (e: React.PointerEvent | React.MouseEvent) => {
         createHint(e, cell);
     }
 
@@ -26,7 +26,7 @@ function Item({cell, createHint}: Props) {
         <div
           className={"solubility-table__item " + classAdditional}
           onPointerEnter={isMobile ? undefined : wrapper}
-          onPointerDown={isMobile ? wrapper : undefined}>
+          onClick={isMobile ? wrapper : undefined}>
             {cell.solubility}
         </div>
     );
