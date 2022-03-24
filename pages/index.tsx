@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import Layout from "../components/Header/Layout";
 import PeriodicTable from "../components/PeriodicTable/PeriodicTable";
 import ContextSetting from "../components/Context/ContextSetting";

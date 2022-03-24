@@ -75,7 +75,7 @@ export default function OrganicFormula({organicFormula, organicFormulaList, setO
     }
 
     function inputResize(e: ChangeEvent) {
-        let val = (e.currentTarget as HTMLInputElement).value;
+        const val = (e.currentTarget as HTMLInputElement).value;
         const num = parseFloat(val);
         setInputScaleValue(val);
         if(isNaN(num)) {
@@ -88,7 +88,7 @@ export default function OrganicFormula({organicFormula, organicFormulaList, setO
     }
 
     function inputTurn(e: ChangeEvent) {
-        let val = (e.currentTarget as HTMLInputElement).value;
+        const val = (e.currentTarget as HTMLInputElement).value;
         const num = parseFloat(val);
         setInputResizeValue(val);
         if(isNaN(num)) {

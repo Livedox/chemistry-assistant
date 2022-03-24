@@ -1,6 +1,8 @@
 import "../styles/globals.scss";
 import "../styles/globals.media.scss";
-import "../styles/style.css";
+
+
+import "../styles/SolubilityTable/style.scss";
 
 import "../styles/Header/style.scss";
 import "../styles/Header/style.media.scss";

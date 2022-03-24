@@ -8,9 +8,10 @@
     box-shadow: 0 0 10px 0 #000;
     width: 50px;
     height: 100%;
-    z-index: 1;
+    z-index: 3;
     transition: 0.2s ease-in-out;
     scrollbar-width: thin;
+    box-shadow: 0 0 5px 0 rgba(110,110,110,0.3);
     &::-webkit-scrollbar {
         width: 5px; 
     }
