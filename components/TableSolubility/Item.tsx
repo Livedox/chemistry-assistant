@@ -18,12 +18,12 @@ function Item({cell, createHint}: Props) {
 
     const wrapper = (e: React.PointerEvent | React.MouseEvent) => {
         createHint(e, cell);
-    }
-    const wrapperMobile = (e: React.PointerEvent | React.MouseEvent) => {
-        if(tempItem) tempItem.classList.remove("solubility-table__item_active");
-        tempItem = e.target as HTMLDivElement;
-        tempItem.classList.add("solubility-table__item_active");
-        createHint(e, cell);
+        if(isMobile) {
+            alert(tempItem);
+            if(tempItem) tempItem.classList.remove("solubility-table__item_active");
+            tempItem = e.target as HTMLDivElement;
+            tempItem.classList.add("solubility-table__item_active");
+        }
     }
 
     useEffect(() => {
@@ -34,8 +34,8 @@ function Item({cell, createHint}: Props) {
     return(
         <div
           className={"solubility-table__item " + classAdditional}
-          onPointerEnter={isMobile ? undefined : wrapper}
-          onMouseDown={isMobile ? wrapperMobile : undefined}>
+          onPointerEnter={wrapper}
+          onMouseDown={isMobile ? undefined : undefined}>
             {cell.solubility}
         </div>
     );
