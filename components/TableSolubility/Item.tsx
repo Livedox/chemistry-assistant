@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cell } from "./items";
 
 interface Props {
@@ -8,7 +8,6 @@ interface Props {
 let tempItem: HTMLDivElement | null = null;
 function Item({cell, createHint}: Props) {
     const [isMobile, setMobile] = useState(false);
-    // const [active, setActive] = useState("solubility-table__item_active ")
     
     let classAdditional = "";
     if(cell.solubility === "Р") classAdditional = "solubility-table__item_soluble";
@@ -19,7 +18,6 @@ function Item({cell, createHint}: Props) {
     const wrapper = (e: React.PointerEvent | React.MouseEvent) => {
         createHint(e, cell);
         if(isMobile) {
-            alert(tempItem);
             if(tempItem) tempItem.classList.remove("solubility-table__item_active");
             tempItem = e.target as HTMLDivElement;
             tempItem.classList.add("solubility-table__item_active");
@@ -34,8 +32,7 @@ function Item({cell, createHint}: Props) {
     return(
         <div
           className={"solubility-table__item " + classAdditional}
-          onPointerEnter={wrapper}
-          onMouseDown={isMobile ? undefined : undefined}>
+          onPointerEnter={wrapper}>
             {cell.solubility}
         </div>
     );
