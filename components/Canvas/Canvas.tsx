@@ -1,16 +1,31 @@
 import React, { MouseEvent, useRef, useState } from "react";
 import { getNumberId } from "../getId";
-import AddOrganicFormulaBlock from "./AddOrganicFormulaBlock";
-import { ChemicalOrganicFormula, TextChemicalOrganicFormula, ICoords, ISize, CustomChemicalOrganicFormula } from "./classes";
+import FormulaSelection from "./FormulaSelection";
+import { ChemicalOrganicFormula, TextChemicalOrganicFormula, ICoords, ISize, CustomOrganicFormula } from "./classes";
 import moveConstructor, { IMoveConstructorProps } from "./moveConstructor";
 import OrganicFormula from "./OrganicFormula";
 import { ITemplateOrganicFormula } from "./templatesOrganicFormula";
+import uploadAndDownload from "./uploadAndDownload";
+import FormulaList from "./FormulaList";
+import TextCreator from "./TextCreator";
+
+
+export interface Setting {
+    name: string;
+    type: string;
+    width: number;
+    height: number;
+    topSVG: string;
+    rawSVG: string;
+    viewBoxWidth: number;
+    viewBoxHeight: number;
+}
 
 export default function Canvas() {
     let id = 0;
-    const [organicFormulaList, setOrganicFormulaList] = useState<ChemicalOrganicFormula[]>([]);
+    const [organicFormulaList, setFormulaList] = useState<ChemicalOrganicFormula[]>([]);
     const [value, setValue] = useState("");
-    const [openModal, setModal] = useState(false);
+    const [isTextCreator, setTextCreator] = useState(false);
     
     const uploadFileRef = useRef(null);
 
@@ -18,7 +33,7 @@ export default function Canvas() {
     const [openDownloadModal, setOpenDownloadModal] = useState(false);
     const [openUploadModal, setOpenUploadModal] = useState(false);
     const [inputFileMessage, setInputFileMessage] = useState("");
-    const [downloadSetting, setDownloadSetting] = useState({
+    const [downloadSetting, setDownloadSetting] = useState<Setting>({
         name: "",
         type: "svg",
         width: 100,
@@ -127,7 +142,7 @@ export default function Canvas() {
                 return item;
             })
 
-            setOrganicFormulaList(newOrganicFormulaList);
+            setFormulaList(newOrganicFormulaList);
             return coords;
         }
         
@@ -142,7 +157,7 @@ export default function Canvas() {
 
         function deleteActiveClass() {
             activeOrganicFormulaList.forEach(item => item.active = false);
-            setOrganicFormulaList([...organicFormulaList]);
+            setFormulaList([...organicFormulaList]);
             props.data.canvSelectBlock.classList.remove("canvas__select-block_active");
         }
 
@@ -206,17 +221,14 @@ export default function Canvas() {
     }
 
     function addOrganicFormula(template: ITemplateOrganicFormula) {
-        setOrganicFormulaList([...organicFormulaList, new ChemicalOrganicFormula(getNumberId(), template.type, template.svg, template.points, template.viewBox)]);
+        setFormulaList([...organicFormulaList, new ChemicalOrganicFormula(getNumberId(), template.type, template.svg, template.points, template.viewBox)]);
     }
 
-    function deleteOrganicFormula(id: number) {
-        setOrganicFormulaList(organicFormulaList.filter(item => item.id !== id));
-    }
+    const deleteFormula = (id: number) => setFormulaList(organicFormulaList.filter(item => item.id !== id));
 
-    function addOrganicFormulaText() {
-        setOrganicFormulaList([...organicFormulaList, new TextChemicalOrganicFormula(getNumberId(), value)]);
-        setValue("");
-    }
+    const addFormulaText = (text: string) => setFormulaList(
+        [...organicFormulaList, new TextChemicalOrganicFormula(getNumberId(), text)]
+    );
 
     function changeInputFileMessage() {
         const input = uploadFileRef!.current! as HTMLInputElement;
@@ -309,176 +321,33 @@ export default function Canvas() {
         }
     }
 
-    function download() {
-        try{
-            const width = downloadSetting.width;
-            const height = downloadSetting.height;
-            const finaleSVG = downloadSetting.topSVG+`width="${width}" height="${height}">`+downloadSetting.rawSVG;
-            if(downloadSetting.type === "svg") {
-                downloadSVG();
-            } else {
-                downloadPNG();
-            }
-            
-            function downloadSVG() {
-                downloadFile("svg", window.URL.createObjectURL(new Blob([finaleSVG])));
-            }
-
-            function downloadPNG() {
-                const image = new Image();
-                image.src = "data:image/svg+xml;base64," + window.btoa(unescape(encodeURIComponent(finaleSVG)));
-                image.onload = function() {
-                    const canvas = document.createElement("canvas");
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    const context = canvas.getContext("2d");
-                    context!.drawImage(image, 0, 0);
-                
-                    downloadFile("png", canvas.toDataURL("image/png"));
-                }
-            }
-
-            function downloadFile(type: "svg" | "png", url: string) {
-                const a = document.createElement("a");
-                a.download = (downloadSetting.name || "formula") + "." + type;
-                a.href = url;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-            }
-        } catch(e) {
-            alert("Ошибка загрузки (Загрузка в IE не работает, обновите браузер)" + e);
-        }  
-    }
-
-    function upload() {
-        function processSvgAndAddFormula(file: File) {
-            const reader = new FileReader();
-            reader.readAsText(file);
-            reader.onload = function() {
-                const result = reader.result as string;
-
-                const widthMatch = result.match(/width="(\d*.\d+)"/);
-                const width = widthMatch ? +widthMatch[1] : 100;
-
-                const heightMatch = result.match(/height="(\d*.\d+)"/);
-                const height = heightMatch ? +heightMatch[1] : 100;
-
-                const pointsMatch = result.match(/points="(.*?)"/);
-                const points: number[][] = [];
-                if(result.includes("CA_SVG") && pointsMatch) {
-                    pointsMatch[1].split(" ").forEach(item => {
-                        const point = item.split(",");
-                        points.push([+point[0], +point[1]]);
-                    })
-                }
-
-                setOrganicFormulaList([
-                    ...organicFormulaList,
-                    new CustomChemicalOrganicFormula(getNumberId(), result, points, {width, height}, file.name)
-                ]);
-            }
-        }
-        function processImgAndAddFormula(file: File) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = function() {
-                const img = new Image();
-                img.src = reader.result as string;
-                img.onload = function () {
-                    const template = `<svg><image width="100%" height="100%" xlink:href="${reader.result}"></image></svg>`;
-                    const width = img.width < 400 ? img.width : 400;
-                    const height = img.height < 400 ? img.height : 400;
-                    setOrganicFormulaList([
-                        ...organicFormulaList,
-                        new CustomChemicalOrganicFormula(getNumberId(), template, [], {width, height}, file.name)
-                    ]);
-                };              
-            }  
-        }
+    const download = () => uploadAndDownload.download.run(downloadSetting);
+    const upload = () => {
         const input = uploadFileRef!.current! as HTMLInputElement;
         if(!input.files) return;
         if(!input.files.length) return;
-
-
-        const file = input.files[0];
-        if(file.type === "image/svg+xml") {
-            processSvgAndAddFormula(file);
-        } else {
-            processImgAndAddFormula(file);
-        }
+        uploadAndDownload.upload.run(input.files[0], (organicFormula: CustomOrganicFormula) => {
+            setFormulaList([...organicFormulaList, organicFormula]);
+        });
     }
     return(
         <>
         <div className="canvas">
             <div className="canvas__select-block" />
             <div className="canvas__main-container">
+                {organicFormulaList.length ? <FormulaList formulaList={organicFormulaList} deleteFormula={deleteFormula} /> : ""}
                 <div className="canvas__container-organic-formula">
                     <div className="canvas__move-block" onTouchStart={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} onMouseDown={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} />
                     {organicFormulaList.map(item => {
-                        return <OrganicFormula organicFormula={item} organicFormulaList={organicFormulaList} setOrganicFormulaList={setOrganicFormulaList} key={id++} />
+                        return <OrganicFormula organicFormula={item} organicFormulaList={organicFormulaList} setOrganicFormulaList={setFormulaList} key={id++} />
                     })}
                 </div>
-                {organicFormulaList.length ?
-                <div className="canvas__list">
-                    <div className="canvas__list-container">
-                        {organicFormulaList.map(item => {
-                            return (
-                            <div className="canvas__list-item" key={id++}>
-                                <svg x="0" y="0" viewBox={"0 0 " + item.getViewBoxSize().width + " " + item.getViewBoxSize().height} >
-                                    <g fill="none" stroke="#000" strokeWidth="2" dangerouslySetInnerHTML={{__html: item.getTemplate()}} />
-                                </svg>
-                                <div className="canvas__list-item-name">{item.name ? item.name : item.id}</div>
-                                <div style={{flexGrow: 1}}/>
-                                <div className="canvas__list-item-delete" onClick={() => deleteOrganicFormula(item.id)}>
-                                    <svg x="0px" y="0px" viewBox="0 0 496.096 496.096">
-                                        <path d="M259.41,247.998L493.754,13.654c3.123-3.124,3.123-8.188,0-11.312c-3.124-3.123-8.188-3.123-11.312,0L248.098,236.686
-                                            L13.754,2.342C10.576-0.727,5.512-0.639,2.442,2.539c-2.994,3.1-2.994,8.015,0,11.115l234.344,234.344L2.442,482.342
-                                            c-3.178,3.07-3.266,8.134-0.196,11.312s8.134,3.266,11.312,0.196c0.067-0.064,0.132-0.13,0.196-0.196L248.098,259.31
-                                            l234.344,234.344c3.178,3.07,8.242,2.982,11.312-0.196c2.995-3.1,2.995-8.016,0-11.116L259.41,247.998z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            )
-                        })}
-                    </div>
-                </div> : ""
-                }
-                
-                <AddOrganicFormulaBlock addOrganicFormula={addOrganicFormula} />
+                <FormulaSelection addOrganicFormula={addOrganicFormula} />
             </div>
             <div className="canvas__download" onClick={openModalAndCreatePreview}>Down</div>
             <div className="canvas__import" onClick={() => setOpenUploadModal(true)}>Imprt</div>
-            <div className="canvas__open-modal-add-text" onClick={() => setModal(!openModal)}>T</div>
-            <div className={"canvas__modal-add-text " + (openModal ? "canvas__modal-add-text_active " : "")}>
-                <div className="canvas__modal-add-text-container">
-                    <div className="canvas__modal-add-text-inner">
-                        <div className="canvas__modal-add-text-input-container">
-                            <input
-                                placeholder="Введите формулу"
-                                className="canvas__modal-add-text-input"
-                                value={value}
-                                onChange={(e) => setValue((e.currentTarget as HTMLInputElement).value)}
-                            />
-                            <input type="submit" value="Создать" onClick={addOrganicFormulaText} className="canvas__modal-add-text-submit" />
-                        </div>
-                        <h4>Примечание</h4>
-                        <p className="m">Для верхнего и нижнего регистра используйте $+{"{Верхний регистр}"} и $-{"{Нижний регистр}"}</p>
-                        <p className="m canvas__example-modal-add-text">H$+{"{1}"}$-{"{2}"} = 
-                            <svg x="0" y="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 22">
-                                <g>
-                                    <text x="50%" textAnchor="middle" y="17" strokeWidth="0" fill="black" fontFamily="Arial">
-                                        <tspan dy="0" style={{fontSize: "18px"}}>H</tspan>
-                                        <tspan dy="-7" style={{fontSize: "14px"}}>1</tspan>
-                                        <tspan dy="10" style={{fontSize: "14px"}}>2</tspan>
-                                    </text>
-                                </g>
-                            </svg>
-                        </p>
-                    </div>
-                </div>
-                <div className="canvas__modal-add-text-triangle" />
-            </div>
+            <div className="canvas__open-modal-add-text" onClick={() => setTextCreator(!isTextCreator)}>T</div>
+            <TextCreator isActive={isTextCreator} addFormulaText={addFormulaText} />
             
         </div>
         <div className={"modal-download-canvas " + (openDownloadModal ? "modal-download-canvas_open" : "")} onClick={() => setOpenDownloadModal(false)}>

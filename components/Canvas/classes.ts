@@ -175,7 +175,7 @@ function filterTextLength(text: string) {
     return text.split(/\$\+{|\$-{|}/).filter(Boolean).join("").length;
 }
 
-export class CustomChemicalOrganicFormula extends ChemicalOrganicFormula {
+export class CustomOrganicFormula extends ChemicalOrganicFormula {
     constructor(
         readonly id:number = 0,
         template: string, 

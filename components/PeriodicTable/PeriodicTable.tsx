@@ -3,7 +3,7 @@ import chemicalElements from "./chemicalElements";
 import getId from "../getId";
 import Context from "../Context/ContextSettingPeriodicTabe";
 import ContextElement from "../Context/ContextElement";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useState, useCallback } from "react";
 import chemicalData from "./chemicalData";
 import Link from "next/link";
 

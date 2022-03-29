@@ -65,36 +65,37 @@
             }
         }
     }
-    &__add-organic-formula-block{
+    &__formula-selection{
         box-sizing: border-box;
         position: relative;
         z-index: 25;
         display: flex;
         flex-shrink: 0;
         align-items: center;
-        padding: 5px;
         right: 0;
         height: 100%;
-        background-color: #fff;
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.233);
-        direction: rtl;
+        background-color: $color-dracula-orchid;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
         overflow-y: auto;
         overflow-x: hidden;
-        scrollbar-width: thin;
+        scrollbar-width: none;
         svg{
-            width: 40px;
-            height: 40px;
-            stroke: #000;
+            flex-shrink: 0;
+            border-radius: 5px;
+            margin-left: 5px;
+            width: 35px;
+            height: 35px;
+            stroke: #fff;
             cursor: pointer;
+            &:hover {
+                background-color: #4b5052;
+            }
         }
     }
-    &__add-organic-formula-block-container{
-        direction: ltr;
+    &__formula-selection-container{
         display: flex;
-        flex-wrap: wrap-reverse;
         flex-direction: column;
-        justify-content: center;
-        width: 90px;
+        width: 45px;
         height: 100%;
     }
     &__organic-formula{
@@ -162,58 +163,6 @@
         background-color: $pink;
         font-size: 36px;
         border-radius: 50%;
-    }
-    &__modal-add-text{
-        visibility: hidden;
-        position: absolute;
-        z-index: 20;
-        bottom: 80px;
-        left: 10px;
-        display: flex;
-        flex-direction: column;
-        &_active{
-            visibility: visible;
-        }
-    }
-    &__modal-add-text-container{
-        width: 435px;
-        background-color: $pink;
-        border-radius: 10px;
-        padding: 8px;
-    }
-    &__modal-add-text-inner{
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        svg{
-            width: 44px;
-        }
-    }
-    &__modal-add-text-triangle{
-        width: 0;
-        height: 0;
-        margin-left: 15px;
-        margin-top: -3px;
-        border-left: 20px solid transparent;
-        border-right: 20px solid transparent;
-        border-top: 20px solid $pink;
-    }
-    &__example-modal-add-text{
-        display: flex;
-        align-items: center;
-    }
-    &__modal-add-text-input-container{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-    &__modal-add-text-submit{
-        background-color: $pink;
-        cursor: pointer;
-        padding: 5px;
-        color: #fff;
-        border-radius: 5px;
     }
     &__download{
         position: absolute;
@@ -285,6 +234,84 @@
         }
     }
 }
+
+.text-creator{
+    visibility: hidden;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.342);
+    z-index: 20;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    &_active{
+        visibility: visible;
+    }
+    &__container{
+        margin: 2rem 0;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 8px;
+    }
+    &__inner{
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        svg{
+            width: 44px;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+    }
+
+    &__button {
+        background-color: $color-dracula-orchid;
+        color: $color-city-lights;
+        cursor: pointer;
+        padding: 0.3rem 0.7rem;
+        &_active {
+            background-color: $american-river;
+        }
+    }
+
+    &__input-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    &__input {
+        background-color: #fff;
+        font-size: 1rem;
+        color: #000;
+        width: 100%;
+        height: 2rem;
+    }
+
+    &__preview {
+        position: absolute;
+        background-color: #fff;
+        pointer-events: none;
+        font-size: 1rem;
+        sup, sub {
+            font-size: 1rem;
+        }
+    }
+
+    &__submit{
+        background-color: $pink;
+        cursor: pointer;
+        padding: 5px;
+        color: #fff;
+        border-radius: 5px;
+    }
+}
+
 
 .modal-upload-canvas{
     position: fixed;

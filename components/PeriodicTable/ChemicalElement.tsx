@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { IColorOptions } from "../interface";
 import getId from "../getId";
 import ContextElement from "../Context/ContextElement";
+import React from "react";
 interface IProps {
     element: IChemicalElement
 }
@@ -21,7 +22,7 @@ const ChemicalElement: React.FC<IProps> = ({element}) => {
     const context = useContext(SettingContext);
     const key: keyof IColorOptions = camelCase(element.class.split(" ")[0]) as keyof IColorOptions;
     const style: undefined | React.CSSProperties = context.color ? context.color[key] : undefined;
-
+    console.log(1);
     const ctxElement = useContext(ContextElement);
     return (
         <div className={classElement} id={element.symbol} style={style} onClick={() => ctxElement.setElement!({...element})}>
@@ -44,4 +45,4 @@ const ChemicalElement: React.FC<IProps> = ({element}) => {
     )
 }
 
-export default ChemicalElement;
+export default React.memo(ChemicalElement);
