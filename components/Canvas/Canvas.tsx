@@ -1,13 +1,14 @@
 import React, { MouseEvent, useRef, useState } from "react";
 import { getNumberId } from "../getId";
 import FormulaSelection from "./FormulaSelection";
-import { ChemicalOrganicFormula, TextChemicalOrganicFormula, ICoords, ISize, CustomOrganicFormula } from "./classes";
+import { ChemicalOrganicFormula, TextChemicalOrganicFormula, ICoords, ISize, CustomOrganicFormula, PartText } from "./classes";
 import moveConstructor, { IMoveConstructorProps } from "./moveConstructor";
 import OrganicFormula from "./OrganicFormula";
 import { ITemplateOrganicFormula } from "./templatesOrganicFormula";
 import uploadAndDownload from "./uploadAndDownload";
 import FormulaList from "./FormulaList";
 import TextCreator from "./TextCreator";
+import useToggle from "../../hooks/useToggle";
 
 
 export interface Setting {
@@ -24,8 +25,7 @@ export interface Setting {
 export default function Canvas() {
     let id = 0;
     const [organicFormulaList, setFormulaList] = useState<ChemicalOrganicFormula[]>([]);
-    const [value, setValue] = useState("");
-    const [isTextCreator, setTextCreator] = useState(false);
+    const [isTextCreator, toggleTextCreator] = useToggle();
     
     const uploadFileRef = useRef(null);
 
@@ -221,13 +221,13 @@ export default function Canvas() {
     }
 
     function addOrganicFormula(template: ITemplateOrganicFormula) {
-        setFormulaList([...organicFormulaList, new ChemicalOrganicFormula(getNumberId(), template.type, template.svg, template.points, template.viewBox)]);
+        setFormulaList([...organicFormulaList, new ChemicalOrganicFormula(template.type, template.svg, template.points, template.viewBox)]);
     }
 
     const deleteFormula = (id: number) => setFormulaList(organicFormulaList.filter(item => item.id !== id));
 
-    const addFormulaText = (text: string) => setFormulaList(
-        [...organicFormulaList, new TextChemicalOrganicFormula(getNumberId(), text)]
+    const addFormulaText = (parts: PartText[]) => setFormulaList(
+        [...organicFormulaList, new TextChemicalOrganicFormula(parts)]
     );
 
     function changeInputFileMessage() {
@@ -342,11 +342,10 @@ export default function Canvas() {
                         return <OrganicFormula organicFormula={item} organicFormulaList={organicFormulaList} setOrganicFormulaList={setFormulaList} key={id++} />
                     })}
                 </div>
-                <FormulaSelection addOrganicFormula={addOrganicFormula} />
+                <FormulaSelection toggleTextCreator={toggleTextCreator} addOrganicFormula={addOrganicFormula} />
             </div>
             <div className="canvas__download" onClick={openModalAndCreatePreview}>Down</div>
             <div className="canvas__import" onClick={() => setOpenUploadModal(true)}>Imprt</div>
-            <div className="canvas__open-modal-add-text" onClick={() => setTextCreator(!isTextCreator)}>T</div>
             <TextCreator isActive={isTextCreator} addFormulaText={addFormulaText} />
             
         </div>

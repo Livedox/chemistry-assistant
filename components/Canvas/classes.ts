@@ -1,3 +1,5 @@
+import { getNumberId } from "../getId";
+
 export interface ISize {
     width:number;
     height: number;
@@ -21,19 +23,18 @@ export class ChemicalOrganicFormula {
         y: 0
     }
     private rotation = 0;
+    readonly id = getNumberId();
     scale = 1;
     size = BASE_SIZE;
     viewBox = BASE_SIZE;
     active = false;
     constructor(
-        readonly id: number = 0,
         readonly type: string = "hexagon",
         readonly template: string = BASE_SVG_TEMPLATE,
         readonly points: number[][] = BASE_POINTS,
         size: ISize = BASE_SIZE,  
         readonly name: string = ""
     ) {
-        this.id = id;
         this.type = type;
         this.template = template;
         this.size = size;
@@ -131,58 +132,58 @@ export class ChemicalOrganicFormula {
     } 
 }
 
+export type fontCase = "up" | "normal" | "down";
+
+export interface PartText {
+    fontCase: fontCase;
+    text: string;
+}
+
 export class TextChemicalOrganicFormula extends ChemicalOrganicFormula {
-    text = "";
+    private parts: PartText[];
+    private length: number;
     getTemplate(): string {
-        const textLength = filterTextLength(this.text)*15;
-        return `<rect x="0" y="0" width="${textLength}" height="22" fill="#fff" stroke-width="0" rx="5" ry="5"></rect>` + this.getRawTemplate();
+        return `<rect x="0" y="0" width="${this.length}" height="22" fill="#fff" stroke-width="0" rx="5" ry="5"></rect>` + this.getRawTemplate();
     }
 
     getRawTemplate() {
-        const textArray = this.getArrayText(this.text);
         let text = `<text x="50%" text-anchor="middle" y="17" stroke-width="0" fill="black" font-family="Arial" class="CA__fillable-part">`;
         let prevDy = 0;
-        textArray.forEach(item => {
-            const fontSize = item.dy !== 0 ? "14px" : "18px";
-            text += `<tspan dy="${item.dy-prevDy}" style="font-size:${fontSize}">${item.text}</tspan>`;
-            prevDy = item.dy;
+        this.parts.forEach(item => {
+            let fontSize = "18px";
+            let dy = 0;
+            if(item.fontCase === "up" || item.fontCase === "down") {
+                fontSize = "14px";
+                if(item.fontCase === "up") dy = -7;
+                else dy = 5;
+            }
+            text += `<tspan dy="${dy-prevDy}" style="font-size:${fontSize}">${item.text}</tspan>`;
+            prevDy = dy;
         });
         text += "</text>";
         return text;
     }
 
-    getArrayText(text:string) {
-        const arr = text.split(/(\$\+{)|(\$-{)|(})/).filter(Boolean);
-        const result = [];
-        for(let i = 0; i < arr.length; i++) {
-            if (arr[i] === "$+{")      result.push({dy: -6, text: arr[++i]});
-            else if (arr[i] === "$-{") result.push({dy: 4, text: arr[++i]});
-            else if (arr[i] !== "}")   result.push({dy: 0, text: arr[i]});
-        }
-        return result;
-    }
-
     constructor(
-        readonly id:number = 0,
-        text = "",
+      parts: PartText[] = [],
     ) {
-        super(id,"text","<text x='0' y='15'>Error text<text>",[[filterTextLength(text)*15/2, 11]],{width: filterTextLength(text)*15, height: 22});
-        this.text = text;
+        super("text","<text x='0' y='15'>Error text<text>",[[getLength(parts)/2, 11]],{width: getLength(parts), height: 22});
+        this.parts = parts;
+        this.length = getLength(this.parts);
     }
 }
 
-function filterTextLength(text: string) {
-    return text.split(/\$\+{|\$-{|}/).filter(Boolean).join("").length;
+function getLength(parts: PartText[]) {
+    return parts.reduce((prev, item) => prev + item.text.length, 0)*15;
 }
 
 export class CustomOrganicFormula extends ChemicalOrganicFormula {
     constructor(
-        readonly id:number = 0,
-        template: string, 
-        points: number[][],
-        size: ISize = {width: 100, height: 100},
-        name = "",
+      template: string, 
+      points: number[][],
+      size: ISize = {width: 100, height: 100},
+      name = "",
     ) {
-        super(id,"custom",template, points, size, name);
+        super("custom",template, points, size, name);
     }
 }

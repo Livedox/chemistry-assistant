@@ -1,19 +1,14 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import getId from "../getId";
+import { fontCase, PartText } from "./classes";
 
 interface Props {
     isActive: boolean;
-    addFormulaText: (text: string) => void;
-}
-
-type fontCase = "up" | "normal" | "down";
-
-interface PartText {
-    fontCase: fontCase;
-    text: string;
+    addFormulaText: (parts: PartText[]) => void;
 }
 
 function TextCreator({isActive, addFormulaText}: Props) {
+    const [activeCase, setActiveCase] = useState<fontCase>("normal");
     const [formulaLabeling, setFormulaLabeling] = useState<Map<number, fontCase>>(new Map());
     const [formula, setFormula] = useState("");
 
@@ -22,65 +17,82 @@ function TextCreator({isActive, addFormulaText}: Props) {
         const value = (e.currentTarget as HTMLInputElement).value;
         setFormula(value);
         formulaLabeling.forEach((_, key) => {
-            if(key > value.length) formulaLabeling.delete(key);
+            if(key > value.length) {
+                setActiveCase("normal");
+                formulaLabeling.delete(key);
+            }
         });
         setFormulaLabeling(formulaLabeling);
-        console.log(formulaLabeling);
     }
 
 
-    const setCase = (fontCase: fontCase) => () => {
+    const defocus = (e: React.MouseEvent) => e.preventDefault();
+    const setCase = (fontCase: fontCase) => (e: React.MouseEvent) => {
+        e.preventDefault();
         setFormulaLabeling(formulaLabeling.set(formula.length, fontCase));
+        setActiveCase(fontCase);
     }
     
 
     const add = () => {
-        if("formula") addFormulaText("formula");
+        const parts = getProcessedFormula(formula, formulaLabeling);
+        console.log(parts);
+        if(parts) addFormulaText(parts);
     }
 
 
-    function getProcessedFormula(formula: string, formulaLabeling: Map<number, fontCase>) {
+    function getProcessedFormula(
+      formula: string,
+      formulaLabeling: Map<number, fontCase>
+    ) {
         let copy = formula;
         let fontCase: fontCase = "normal";
         let temp: PartText[] = [];
         let count = 0;
         formulaLabeling.forEach((value, key) => {
-            temp.push({text: copy.slice(0, key-count), fontCase});
-            copy = copy.slice(key-count, copy.length);
-            console.log(copy);
-            fontCase = value;
-            count += key;
+            const text = copy.slice(0, key-count);
+            if(text) {
+                temp.push({text, fontCase});
+                copy = copy.slice(key-count);
+                fontCase = value;
+                count = key;
+            } 
         });
-        temp.push({text: copy, fontCase});
+        if(copy) temp.push({text: copy, fontCase});
         return temp;
     }
     return(
         <div className={"text-creator " + (isActive ? "text-creator_active " : "")}>
-            <div className="text-creator__container">
-                <div className="text-creator__inner">
-                    <div className="text-creator__buttons">
-                        <button className="text-creator__button" onClick={setCase("normal")}>Стандартный регистр</button>
-                        <button className="text-creator__button" onClick={setCase("up")}>Верхний регистр</button>
-                        <button className="text-creator__button" onClick={setCase("down")}>Нижний регистр</button>
-                        
-                    </div>
-                    <div className="text-creator__input-container">
-                        <div className="text-creator__">
-                            <input
-                                placeholder="Введите формулу"
-                                className="text-creator__input"
-                                value={formula}
-                                onChange={setWrapperFormula}
-                            />
-                            <div className="text-creator__preview">
-                                {getProcessedFormula(formula, formulaLabeling).map(item => {
-                                    if(item.fontCase === "up") return <sup key={getId()}>{item.text}</sup>
-                                    if(item.fontCase === "down") return <sub key={getId()}>{item.text}</sub>
-                                    return <span key={getId()}>{item.text}</span>
-                                })}
-                            </div>
-                        </div>
-                        <input type="submit" value="Создать" onClick={add} className="text-creator__submit" />
+            <div className="text-creator__buttons">
+                <div>
+                    {["normal", "up", "down"].map(item =>
+                        <button
+                            className={"text-creator__button " + (activeCase === item ? "text-creator__button_active":"")}
+                            onMouseDown={defocus}
+                            onClick={setCase(item as fontCase)}
+                        >
+                            x
+                            {item === "up" ? <sup>2</sup>: ""}
+                            {item === "down" ? <sub>2</sub>: ""}
+                        </button>
+                    )}
+                </div>
+                <button className="text-creator__submit" onClick={add}>Добавить</button>
+            </div>
+            <div className="text-creator__input-container">
+                <div className="text-creator__input-outer">
+                    <input
+                        placeholder="Введите формулу"
+                        className="text-creator__input"
+                        value={formula}
+                        onChange={setWrapperFormula}
+                    />
+                    <div className="text-creator__preview">
+                        {getProcessedFormula(formula, formulaLabeling).map(item => {
+                            if(item.fontCase === "up") return <sup key={getId()}>{item.text}</sup>
+                            if(item.fontCase === "down") return <sub key={getId()}>{item.text}</sub>
+                            return <span key={getId()}>{item.text}</span>
+                        })}
                     </div>
                 </div>
             </div>
