@@ -3,8 +3,10 @@ import SettingContext from "../Context/ContextSettingPeriodicTabe";
 import { useContext } from "react";
 import { IColorOptions } from "../interface";
 import getId from "../getId";
-import ContextElement from "../Context/ContextElement";
+import ContextSetElement from "../Context/ContextSetElement";
 import React from "react";
+
+
 interface IProps {
     element: IChemicalElement
 }
@@ -22,10 +24,9 @@ const ChemicalElement: React.FC<IProps> = ({element}) => {
     const context = useContext(SettingContext);
     const key: keyof IColorOptions = camelCase(element.class.split(" ")[0]) as keyof IColorOptions;
     const style: undefined | React.CSSProperties = context.color ? context.color[key] : undefined;
-    console.log(1);
-    const ctxElement = useContext(ContextElement);
+    const ctxElement = useContext(ContextSetElement);
     return (
-        <div className={classElement} id={element.symbol} style={style} onClick={() => ctxElement.setElement!({...element})}>
+        <div className={classElement} id={element.symbol} style={style} onClick={() => ctxElement({...element})}>
             <div className="chemical-element__storage-row">
                 <div className="chemical-element__symbol">{element.symbol}</div>
                 <div className="chemical-element__storage-column">
