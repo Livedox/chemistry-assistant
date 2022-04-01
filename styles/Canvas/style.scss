@@ -29,18 +29,34 @@
     &__list{
         position: relative;
         z-index: 24;
-        padding: 10px;
         box-sizing: border-box;
         height: 100%;
         box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.219);
-        direction: rtl;
+        width: 20rem;
+    }
+    &__list-container{
+        position: absolute;
+        top: 1.3rem;
+        bottom: 0;
+        width: 100%;
+        padding: 10px;
         overflow-y: auto;
         overflow-x: hidden;
         scrollbar-width: thin;
-        width: 250px;
     }
-    &__list-container{
-        direction: ltr;
+    &__list-buttons {
+        display: flex;
+        justify-content: space-between;
+        background-color: $color-dracula-orchid;
+    }
+    &__list-button {
+        background-color: $color-dracula-orchid;
+        color: #fff;
+        padding: 0.3rem 0.6rem;
+        cursor: pointer;
+        &:hover {
+            background-color: #3d4547;
+        }
     }
     &__list-item{
         display: flex;
@@ -87,6 +103,9 @@
             height: 35px;
             stroke: #fff;
             cursor: pointer;
+            .CA__fillable-part {
+                fill: #fff !important;
+            }
             &:hover {
                 background-color: #4b5052;
             }
@@ -254,17 +273,19 @@
 .text-creator{
     transform-origin: top right;
     transform: rotate(-90deg);
+    opacity: 0;
     position: fixed;
     z-index: 20;
     top: 0;
     right: 45px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.219);
-    transition: transform 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
     background-color: #3d4547;
     padding: 1rem;
     border-radius: 0 0 0 5px;
     &_active{
         transform: rotate(0deg);
+        opacity: 1;
     }
 
     &__buttons {

@@ -30,7 +30,7 @@ class Upload {
                     points.push([+point[0], +point[1]]);
                 })
             }
-            callback(new CustomOrganicFormula(getNumberId(), result, points, {width, height}, file.name));
+            callback(new CustomOrganicFormula(result, points, {width, height}, file.name));
         }
     }
     private processImgAndAddFormula(file: File, callback: (organicFormula: CustomOrganicFormula) => void) {
@@ -44,7 +44,7 @@ class Upload {
                 const width = img.width < 400 ? img.width : 400;
                 const height = img.height < 400 ? img.height : 400;
                 
-                callback(new CustomOrganicFormula(getNumberId(), template, [], {width, height}, file.name));  
+                callback(new CustomOrganicFormula(template, [], {width, height}, file.name));  
             };              
         }  
     }

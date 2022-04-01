@@ -196,6 +196,7 @@
     transition: transform 0.2s ease-in-out;
     border: 1px solid $color-dracula-orchid;
     margin: -1px 0 0 -1px;
+    user-select: none;
     box-sizing: border-box;
     &:hover{
         transform: scale(1.3);

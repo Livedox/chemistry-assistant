@@ -3,12 +3,18 @@ import { ChemicalOrganicFormula } from "./classes";
 
 interface Props {
     formulaList: ChemicalOrganicFormula[],
-    deleteFormula: (id: number) => void
+    deleteFormula: (id: number) => void,
+    toggleDownload: () => void,
+    toggleUpload: () => void,
 }
 
-function FormulaList({formulaList, deleteFormula}:Props) {
+function FormulaList({formulaList, deleteFormula, toggleDownload, toggleUpload}:Props) {
     return(
         <div className="canvas__list">
+            <div className="canvas__list-buttons">
+                <button className="canvas__list-button" onClick={toggleDownload}>Скачать</button>
+                <button className="canvas__list-button" onClick={toggleUpload}>Добавить</button>
+            </div>
             <div className="canvas__list-container">
                 {formulaList.map(item => {
                     return (
@@ -16,7 +22,7 @@ function FormulaList({formulaList, deleteFormula}:Props) {
                         <svg x="0" y="0" viewBox={"0 0 " + item.getViewBoxSize().width + " " + item.getViewBoxSize().height} >
                             <g fill="none" stroke="#000" strokeWidth="2" dangerouslySetInnerHTML={{__html: item.getTemplate()}} />
                         </svg>
-                        <div className="canvas__list-item-name">{item.name ? item.name : item.id}</div>
+                        <div className="canvas__list-item-name">{item.name ? item.name : "id – " + item.id}</div>
                         <div style={{flexGrow: 1}}/>
                         <div className="canvas__list-item-delete" onClick={() => deleteFormula(item.id)}>
                             <svg x="0px" y="0px" viewBox="0 0 496.096 496.096">

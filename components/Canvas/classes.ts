@@ -174,7 +174,22 @@ export class TextChemicalOrganicFormula extends ChemicalOrganicFormula {
 }
 
 function getLength(parts: PartText[]) {
-    return parts.reduce((prev, item) => prev + item.text.length, 0)*15;
+    return parts.reduce((prev, item) => {
+        let fontSize = "18px";
+        if(item.fontCase === "up" || item.fontCase === "down") fontSize = "14px";
+        return prev + getWidthOfText(item.text, fontSize);
+    }, 0);
+}
+
+function getWidthOfText(txt: string, fontsize: string) {
+    const el = document.createElement('span');
+    el.style.fontSize = fontsize;
+    el.style.fontFamily = "Arial";
+    el.innerHTML = txt;
+    document.body.appendChild(el);
+    const result = el.offsetWidth;
+    document.body.removeChild(el);
+    return result;
 }
 
 export class CustomOrganicFormula extends ChemicalOrganicFormula {

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import getId from "../getId";
 import { fontCase, PartText } from "./classes";
 
@@ -36,7 +36,6 @@ function TextCreator({isActive, addFormulaText}: Props) {
 
     const add = () => {
         const parts = getProcessedFormula(formula, formulaLabeling);
-        console.log(parts);
         if(parts) addFormulaText(parts);
     }
 
@@ -46,7 +45,7 @@ function TextCreator({isActive, addFormulaText}: Props) {
       formulaLabeling: Map<number, fontCase>
     ) {
         let copy = formula;
-        let fontCase: fontCase = "normal";
+        let fontCase: fontCase = formulaLabeling.get(0) || "normal";
         let temp: PartText[] = [];
         let count = 0;
         formulaLabeling.forEach((value, key) => {
@@ -61,6 +60,19 @@ function TextCreator({isActive, addFormulaText}: Props) {
         if(copy) temp.push({text: copy, fontCase});
         return temp;
     }
+
+
+    const inputDown = (e: React.KeyboardEvent) => {
+        const changeCase = (c: fontCase) => {
+            e.preventDefault();
+            setActiveCase(c);
+            setFormulaLabeling(formulaLabeling.set(formula.length, c));
+        }
+        if(e.shiftKey && e.code === "Digit1") changeCase("normal");
+        if(e.shiftKey && e.code === "Digit2") changeCase("up");
+        if(e.shiftKey && e.code === "Digit3") changeCase("down");
+        if(e.code === "Enter") add();
+    }
     return(
         <div className={"text-creator " + (isActive ? "text-creator_active " : "")}>
             <div className="text-creator__buttons">
@@ -70,6 +82,7 @@ function TextCreator({isActive, addFormulaText}: Props) {
                             className={"text-creator__button " + (activeCase === item ? "text-creator__button_active":"")}
                             onMouseDown={defocus}
                             onClick={setCase(item as fontCase)}
+                            key={getId()}
                         >
                             x
                             {item === "up" ? <sup>2</sup>: ""}
@@ -84,6 +97,7 @@ function TextCreator({isActive, addFormulaText}: Props) {
                     <input
                         placeholder="Введите формулу"
                         className="text-creator__input"
+                        onKeyDown={inputDown}
                         value={formula}
                         onChange={setWrapperFormula}
                     />

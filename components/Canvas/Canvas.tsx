@@ -9,6 +9,7 @@ import uploadAndDownload from "./uploadAndDownload";
 import FormulaList from "./FormulaList";
 import TextCreator from "./TextCreator";
 import useToggle from "../../hooks/useToggle";
+import Upload from "./Upload";
 
 
 export interface Setting {
@@ -26,13 +27,10 @@ export default function Canvas() {
     let id = 0;
     const [organicFormulaList, setFormulaList] = useState<ChemicalOrganicFormula[]>([]);
     const [isTextCreator, toggleTextCreator] = useToggle();
-    
-    const uploadFileRef = useRef(null);
 
     const [previewSVG, setPreviewSVG] = useState("Ничего нет");
-    const [openDownloadModal, setOpenDownloadModal] = useState(false);
-    const [openUploadModal, setOpenUploadModal] = useState(false);
-    const [inputFileMessage, setInputFileMessage] = useState("");
+    const [isDownload, toggleDownload] = useToggle();
+    const [isUpload, toggleUpload] = useToggle();
     const [downloadSetting, setDownloadSetting] = useState<Setting>({
         name: "",
         type: "svg",
@@ -224,19 +222,15 @@ export default function Canvas() {
         setFormulaList([...organicFormulaList, new ChemicalOrganicFormula(template.type, template.svg, template.points, template.viewBox)]);
     }
 
+    function addCustomFormula(formula: CustomOrganicFormula) {
+        setFormulaList([...organicFormulaList, formula]);
+    }
+
     const deleteFormula = (id: number) => setFormulaList(organicFormulaList.filter(item => item.id !== id));
 
     const addFormulaText = (parts: PartText[]) => setFormulaList(
         [...organicFormulaList, new TextChemicalOrganicFormula(parts)]
     );
-
-    function changeInputFileMessage() {
-        const input = uploadFileRef!.current! as HTMLInputElement;
-        if(!input.files) return;
-        if(!input.files.length) return;
-        const file = input.files[0];
-        setInputFileMessage(file.name);
-    }
 
     function openModalAndCreatePreview() {
         if(!organicFormulaList.length) return;
@@ -322,20 +316,16 @@ export default function Canvas() {
     }
 
     const download = () => uploadAndDownload.download.run(downloadSetting);
-    const upload = () => {
-        const input = uploadFileRef!.current! as HTMLInputElement;
-        if(!input.files) return;
-        if(!input.files.length) return;
-        uploadAndDownload.upload.run(input.files[0], (organicFormula: CustomOrganicFormula) => {
-            setFormulaList([...organicFormulaList, organicFormula]);
-        });
-    }
     return(
         <>
         <div className="canvas">
             <div className="canvas__select-block" />
             <div className="canvas__main-container">
-                {organicFormulaList.length ? <FormulaList formulaList={organicFormulaList} deleteFormula={deleteFormula} /> : ""}
+                <FormulaList
+                  formulaList={organicFormulaList}
+                  deleteFormula={deleteFormula}
+                  toggleUpload={toggleUpload}
+                  toggleDownload={toggleDownload}/>
                 <div className="canvas__container-organic-formula">
                     <div className="canvas__move-block" onTouchStart={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} onMouseDown={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} />
                     {organicFormulaList.map(item => {
@@ -344,12 +334,9 @@ export default function Canvas() {
                 </div>
                 <FormulaSelection toggleTextCreator={toggleTextCreator} addOrganicFormula={addOrganicFormula} />
             </div>
-            <div className="canvas__download" onClick={openModalAndCreatePreview}>Down</div>
-            <div className="canvas__import" onClick={() => setOpenUploadModal(true)}>Imprt</div>
-            <TextCreator isActive={isTextCreator} addFormulaText={addFormulaText} />
-            
+            <TextCreator isActive={isTextCreator} addFormulaText={addFormulaText} />       
         </div>
-        <div className={"modal-download-canvas " + (openDownloadModal ? "modal-download-canvas_open" : "")} onClick={() => setOpenDownloadModal(false)}>
+        <div className={"modal-download-canvas " + (isDownload ? "modal-download-canvas_open" : "")} onClick={toggleDownload}>
             <div className="modal-download-canvas__inner" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-download-canvas__svg-container">
                     <svg className="modal-download-canvas__svg" viewBox={`0 0 ${downloadSetting.viewBoxWidth} ${downloadSetting.viewBoxHeight}`} dangerouslySetInnerHTML={{__html: previewSVG}}/>
@@ -383,26 +370,13 @@ export default function Canvas() {
                         </div>
                     </div>
                     <div className="modal-download-canvas__button">
-                        <button className="modal-download-canvas__cancel-button" onClick={() => setOpenDownloadModal(false)}>Отмена</button>
+                        <button className="modal-download-canvas__cancel-button" onClick={toggleDownload}>Отмена</button>
                         <button className="modal-download-canvas__download-button" onClick={download}>Скачать</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div className={"modal-upload-canvas " + (openUploadModal ? "modal-upload-canvas_open" : "")} onClick={() => setOpenUploadModal(false)}>
-            <div className="modal-upload-canvas__inner" onClick={(e) => e.stopPropagation()}>
-                <div>
-                    <input ref={uploadFileRef} type="file" className="modal-upload-canvas__input-file" id="modal-upload-canvas__input-file" accept="image/*" onChange={changeInputFileMessage} />
-                    <label htmlFor="modal-upload-canvas__input-file" className="modal-upload-canvas__custom-input-file">
-                        {inputFileMessage || "Выберите файл"}
-                    </label>
-                </div>
-                <div className="modal-upload-canvas__buttons-container">
-                    <button className="modal-upload-canvas__cancel-button" onClick={() => setOpenUploadModal(false)}>Отмена</button>
-                    <button className="modal-upload-canvas__add-button" onClick={() => {setOpenUploadModal(false);upload()}}>Добавить</button>
-                </div>
-            </div>
-        </div>
+        <Upload isUpload={isUpload} toggleUpload={toggleUpload} addCustomFormula={addCustomFormula} />
         </>
     )
 }
