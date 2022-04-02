@@ -2,19 +2,17 @@ import React, { useState } from "react";
 type percent = number;
 
 
-const HSV = {
-    hue: 0,
-    saturation: 1,
-    value: 1,
-}
-
-
-interface IProps {
+interface Props {
     callback: (newColor:string) => void;
 }
 
 
-const ColorPicker:React.FC<IProps> = ({callback}) => {
+const ColorPicker:React.FC<Props> = ({callback}) => {
+    const [HSV, setHSV] = useState({
+        hue: 0,
+        saturation: 1,
+        value: 1,
+    });
     const CIRCLE_WIDTH_PERCENT:percent = 4.7;
     const CIRCLE_HEIGHT_PERCENT:percent = 4.7;
     const LINE_HEIGHT_PERCENT:percent = 2;
@@ -85,6 +83,7 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
         HSV.saturation = x/(100-CIRCLE_WIDTH_PERCENT);
         HSV.value = 1 - y/(100-CIRCLE_HEIGHT_PERCENT);
         const newColor = hsvToHex(HSV.hue, HSV.saturation, HSV.value);
+        setHSV({...HSV});
         setColor(newColor);
         callback(newColor);
     }
@@ -128,6 +127,7 @@ const ColorPicker:React.FC<IProps> = ({callback}) => {
 
         HSV.hue = 1 - y/(100-LINE_HEIGHT_PERCENT);
         setGradientColor(hsvToHex(HSV.hue, 1, 1));
+        setHSV({...HSV});
     }
 
 

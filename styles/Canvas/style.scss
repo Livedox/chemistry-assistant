@@ -60,25 +60,83 @@
     }
     &__list-item{
         display: flex;
-        align-items: center;
+        flex-direction: column;
         margin: 5px 0;
-        svg{
-            margin-right: 8px;
-            width: 30px;
-            height: 30px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.219);
+        &-svg{
+            width: 2.4rem;
+            height: 2.4rem;
+            margin-right: 0.5rem;
         }
-    }
-    &__list-item-delete{
-        height: 18px;
-        box-sizing: border-box;
-        svg{
-            width: 18px;
-            height: 18px;
-            margin-right: 0;
+        &-cross {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
             &:hover{
-                cursor: pointer;
-                fill: red;
+                fill: $purple;
             }
+        }
+        &-dots {
+            cursor: pointer;
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: #000;
+            &:hover {
+                fill: $purple;
+            }
+        }
+        &-container{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &-flex{
+            display: flex;
+            align-items: center;
+        }
+        &-menu{
+            height: 0;
+            overflow: hidden;
+            padding: 0 0.2rem;
+            &_active{
+                height: auto;
+            }
+            &-color-view {
+                position: relative;
+                width: 2rem;
+                height: 2rem;
+                margin-right: 1rem;
+                box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.219);
+                border-radius: 5px;
+            }
+            &-color, &-name{
+                margin: 0.5rem 0;
+            }
+            &-color {
+                padding-bottom: 0.3rem;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                user-select: none;
+            }
+            &-color-picker {
+                background-color: #fff;
+                display: none;
+                position: absolute;
+                width: 13rem;
+                height: 13rem;
+                padding: 0.5rem;
+                border-radius: 5px;
+                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+                z-index: 10;
+                &_active {
+                    display: block;
+                }
+            }
+
         }
     }
     &__formula-selection{

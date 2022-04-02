@@ -3,10 +3,10 @@ import { getNumberId } from "../getId";
 import FormulaSelection from "./FormulaSelection";
 import { ChemicalOrganicFormula, TextChemicalOrganicFormula, ICoords, ISize, CustomOrganicFormula, PartText } from "./classes";
 import moveConstructor, { IMoveConstructorProps } from "./moveConstructor";
-import OrganicFormula from "./OrganicFormula";
+import OrganicFormula from "./Formula/OrganicFormula";
 import { ITemplateOrganicFormula } from "./templatesOrganicFormula";
 import uploadAndDownload from "./uploadAndDownload";
-import FormulaList from "./FormulaList";
+import FormulaList from "./List/FormulaList";
 import TextCreator from "./TextCreator";
 import useToggle from "../../hooks/useToggle";
 import Upload from "./Upload";
@@ -226,8 +226,6 @@ export default function Canvas() {
         setFormulaList([...organicFormulaList, formula]);
     }
 
-    const deleteFormula = (id: number) => setFormulaList(organicFormulaList.filter(item => item.id !== id));
-
     const addFormulaText = (parts: PartText[]) => setFormulaList(
         [...organicFormulaList, new TextChemicalOrganicFormula(parts)]
     );
@@ -323,7 +321,7 @@ export default function Canvas() {
             <div className="canvas__main-container">
                 <FormulaList
                   formulaList={organicFormulaList}
-                  deleteFormula={deleteFormula}
+                  setFormulaList={setFormulaList}
                   toggleUpload={toggleUpload}
                   toggleDownload={toggleDownload}/>
                 <div className="canvas__container-organic-formula">

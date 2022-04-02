@@ -1,4 +1,3 @@
-import { getNumberId } from "../getId";
 import { Setting } from "./Canvas";
 import { CustomOrganicFormula } from "./classes";
 

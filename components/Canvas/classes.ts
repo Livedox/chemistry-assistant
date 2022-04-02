@@ -22,18 +22,20 @@ export class ChemicalOrganicFormula {
         x: 0,
         y: 0
     }
-    private rotation = 0;
+    private _angle = 0;
+    private _scale = 1;
     readonly id = getNumberId();
-    scale = 1;
+    color = "#000";
     size = BASE_SIZE;
     viewBox = BASE_SIZE;
     active = false;
+    name = "";
     constructor(
-        readonly type: string = "hexagon",
-        readonly template: string = BASE_SVG_TEMPLATE,
-        readonly points: number[][] = BASE_POINTS,
-        size: ISize = BASE_SIZE,  
-        readonly name: string = ""
+      readonly type: string = "hexagon",
+      readonly template: string = BASE_SVG_TEMPLATE,
+      readonly points: number[][] = BASE_POINTS,
+      size: ISize = BASE_SIZE,  
+      name: string = ""
     ) {
         this.type = type;
         this.template = template;
@@ -42,24 +44,24 @@ export class ChemicalOrganicFormula {
         this.name = name;
     }
 
-    resize(scale: number) {
-        this.scale = scale;
-        if(this.scale > 4) this.scale = 4;
-        if(this.scale < 0.2) this.scale = 0.2;
+    get scale() {
+        return this._scale;
     }
 
-    getScale() {
-        return this.scale;
+    set scale(scale: number) {
+        this._scale = scale;
+        if(this._scale > 4) this._scale = 4;
+        if(this._scale < 0.2) this._scale = 0.2;
     }
 
-    turn(deg:number) {
-        this.rotation = deg;
-        if(this.rotation >= 360) this.rotation = 0;
-        if(this.rotation <= -360) this.rotation = 0;
+    get angle() {
+        return this._angle;
     }
 
-    getRotation() {
-        return this.rotation;
+    set angle(deg: number) {
+        this._angle = deg;
+        if(this._angle >= 360) this._angle = 0;
+        if(this._angle <= -360) this._angle = 0;
     }
 
     setPosition(x:number, y:number) {
@@ -80,22 +82,22 @@ export class ChemicalOrganicFormula {
     }
 
     getPoints() {
-        const rad = this.rotation * Math.PI/180;
+        const rad = this._angle * Math.PI/180;
         return this.points.map(item => {
             const w = this.viewBox.width/2;
             const h = this.viewBox.height/2;
             const x = (item[0] - w) * Math.cos(rad) - (item[1] - h) * Math.sin(rad) + w;
             const y = (item[1] - h) * Math.cos(rad) + (item[0] - w) * Math.sin(rad) + h;
-            return [x*this.scale, y*this.scale];
+            return [x*this._scale, y*this._scale];
         })
     }
 
     getTemplate() {
-        return this.template;
+        return this.template.replace("REPLACE_COLOR", this.color);
     }
 
     getRawTemplate() {
-        return this.template;
+        return this.template.replace("REPLACE_COLOR", this.color);;
     }
 
     getCoordinatesToNearestPointOrNull(coords: ICoords, points: number[][]) {
@@ -147,7 +149,7 @@ export class TextChemicalOrganicFormula extends ChemicalOrganicFormula {
     }
 
     getRawTemplate() {
-        let text = `<text x="50%" text-anchor="middle" y="17" stroke-width="0" fill="black" font-family="Arial" class="CA__fillable-part">`;
+        let text = `<text x="50%" text-anchor="middle" y="17" stroke-width="0" fill="${this.color}" font-family="Arial" class="CA__fillable-part">`;
         let prevDy = 0;
         this.parts.forEach(item => {
             let fontSize = "18px";

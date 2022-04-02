@@ -79,10 +79,10 @@ function TextCreator({isActive, addFormulaText}: Props) {
                 <div>
                     {["normal", "up", "down"].map(item =>
                         <button
-                            className={"text-creator__button " + (activeCase === item ? "text-creator__button_active":"")}
-                            onMouseDown={defocus}
-                            onClick={setCase(item as fontCase)}
-                            key={getId()}
+                          className={"text-creator__button " + (activeCase === item ? "text-creator__button_active":"")}
+                          onMouseDown={defocus}
+                          onClick={setCase(item as fontCase)}
+                          key={getId()}
                         >
                             x
                             {item === "up" ? <sup>2</sup>: ""}

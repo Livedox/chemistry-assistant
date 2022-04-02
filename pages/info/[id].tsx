@@ -53,7 +53,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     });
 
     // returns the default 404 page
-    if(!res.ok) return { notFound: true }
+    if(!res.ok) return { props: {
+        data: {
+            title: "В разработке",
+            path: "in-dev",
+            data: "В разработке"
+        } 
+    }}
 
     const data: IInfo = await res.json();
     return {
