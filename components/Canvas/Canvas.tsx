@@ -5,42 +5,20 @@ import { ChemicalOrganicFormula, TextChemicalOrganicFormula, ICoords, ISize, Cus
 import moveConstructor, { IMoveConstructorProps } from "./moveConstructor";
 import OrganicFormula from "./Formula/OrganicFormula";
 import { ITemplateOrganicFormula } from "./templatesOrganicFormula";
-import uploadAndDownload from "./uploadAndDownload";
+import uploadAndDownload from "./UploadAndDownload/uploadAndDownload";
 import FormulaList from "./List/FormulaList";
 import TextCreator from "./TextCreator";
 import useToggle from "../../hooks/useToggle";
-import Upload from "./Upload";
+import Upload from "./UploadAndDownload/Upload";
+import Download from "./UploadAndDownload/Download";
 
-
-export interface Setting {
-    name: string;
-    type: string;
-    width: number;
-    height: number;
-    topSVG: string;
-    rawSVG: string;
-    viewBoxWidth: number;
-    viewBoxHeight: number;
-}
 
 export default function Canvas() {
-    let id = 0;
     const [organicFormulaList, setFormulaList] = useState<ChemicalOrganicFormula[]>([]);
     const [isTextCreator, toggleTextCreator] = useToggle();
 
-    const [previewSVG, setPreviewSVG] = useState("Ничего нет");
     const [isDownload, toggleDownload] = useToggle();
     const [isUpload, toggleUpload] = useToggle();
-    const [downloadSetting, setDownloadSetting] = useState<Setting>({
-        name: "",
-        type: "svg",
-        width: 100,
-        height: 100,
-        topSVG: "",
-        rawSVG: "",
-        viewBoxWidth: 100,
-        viewBoxHeight: 100,
-    });
 
     interface ISelectBlock {
         coords: DOMRect;
@@ -230,90 +208,6 @@ export default function Canvas() {
         [...organicFormulaList, new TextChemicalOrganicFormula(parts)]
     );
 
-    function openModalAndCreatePreview() {
-        if(!organicFormulaList.length) return;
-
-        const points: number[][] = [];
-        const coords = getMinMaxCoords();
-        const width = coords.maxX-coords.minX;
-        const height = coords.maxY-coords.minY;
-        const rawSVG = getMainSVG();
-        const topSVG = `<svg class="CA_SVG" points="${points.join(" ")}" `+
-                       `version="1.1" xmlns="http://www.w3.org/2000/svg" `+
-                       `xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" `+
-                       `stroke-width="2" stroke="#000" x="0" y="0" `+
-                       `viewBox="0 0 ${width} ${height}" `;
-        const previewSVG = topSVG + `width="${width}" height="${height}">`+rawSVG;
-
-        setPreviewSVG(previewSVG);
-        setOpenDownloadModal(true);
-        setDownloadSetting({...downloadSetting, width, height, viewBoxWidth:width, viewBoxHeight: height, topSVG ,rawSVG});
-
-
-        function getMinMaxCoords() {
-            const coords = {
-                minX: 100000,
-                minY: 100000,
-                maxX: -1000000,
-                maxY: -1000000
-            }
-            organicFormulaList.forEach(item => {
-                const position = item.getPosition();
-                const size = item.getSize();
-
-                if(item.type === "text" || item.type === "custom") {
-                    if(item.size.width > item.size.height) {
-                        item.size.height = item.size.width;
-                    } else {
-                        item.size.width = item.size.height;
-                    }
-                }
-
-                if(coords.minX > position.x) coords.minX = position.x;
-                if(coords.minY > position.y) coords.minY = position.y;
-                if(coords.maxX < position.x + size.width) coords.maxX = position.x+ size.width;
-                if(coords.maxY < position.y + size.height) coords.maxY = position.y + size.height;
-            })
-
-            return coords;
-        }
-
-        function getMainSVG() {
-            const uniqId = (new Date()).getTime().toString();
-            let mainSVG = `<mask id="сlip${uniqId}"><rect x="0" y="0" width="100%" height="100%" fill="#fff" />`;
-            let custom = "";
-            let mask = "";
-            let svg = "";
-            let text = "";
-            organicFormulaList.forEach(item => {
-                const x = +(item.getPosition().x - coords.minX).toFixed(5);
-                const y = +(item.getPosition().y - coords.minY).toFixed(5);
-                const widthViewBox = item.getViewBoxSize().width;
-                const heightViewBox = item.getViewBoxSize().height;
-                const width = item.getSize().width;
-                const height = item.getSize().height;
-                if(item.type === "text") {
-                    mask += `<rect x="${x}" y="${y}" width="${width}" height="22" fill="#000" stroke-width="0" rx="5" ry="5"></rect>`;
-                    text += `<svg transform="rotate(${item.getRotation()} ${x+width/2} ${y+height/2})" x="${x}" y="${y}"  viewBox="0 0 ${widthViewBox} ${heightViewBox}" width="${width}" height="${height}">${item.getRawTemplate()}</svg>`;
-                } else if(item.type === "custom") {
-                    custom += `<svg transform="rotate(${item.getRotation()} ${x+width/2} ${y+height/2})" x="${x}" y="${y}"  viewBox="0 0 ${widthViewBox} ${heightViewBox}" width="${width}" height="${height}">${item.getRawTemplate()}</svg>`;
-                } else {
-                    svg += `<svg transform="rotate(${item.getRotation()} ${x+width/2} ${y+height/2})" x="${x}" y="${y}"  viewBox="0 0 ${widthViewBox} ${heightViewBox}" width="${width}" height="${height}">${item.getRawTemplate()}</svg>`;
-                }
-                item.getPoints().forEach(itemPoint => {
-                    if(points.every(point => {
-                        return itemPoint[0]+x !== point[0] || itemPoint[1]+y !== point[1];
-                    })) {
-                        points.push([itemPoint[0]+x, itemPoint[1]+y]);
-                    }
-                });
-            })
-            mainSVG += `${mask}</mask><svg>${text}</svg>${custom}<svg mask="url(#сlip${uniqId})">${svg}</svg></svg>`;
-            return mainSVG;
-        }
-    }
-
-    const download = () => uploadAndDownload.download.run(downloadSetting);
     return(
         <>
         <div className="canvas">
@@ -327,53 +221,14 @@ export default function Canvas() {
                 <div className="canvas__container-organic-formula">
                     <div className="canvas__move-block" onTouchStart={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} onMouseDown={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} />
                     {organicFormulaList.map(item => {
-                        return <OrganicFormula organicFormula={item} organicFormulaList={organicFormulaList} setOrganicFormulaList={setFormulaList} key={id++} />
+                        return <OrganicFormula organicFormula={item} organicFormulaList={organicFormulaList} setOrganicFormulaList={setFormulaList} key={item.id} />
                     })}
                 </div>
                 <FormulaSelection toggleTextCreator={toggleTextCreator} addOrganicFormula={addOrganicFormula} />
             </div>
             <TextCreator isActive={isTextCreator} addFormulaText={addFormulaText} />       
         </div>
-        <div className={"modal-download-canvas " + (isDownload ? "modal-download-canvas_open" : "")} onClick={toggleDownload}>
-            <div className="modal-download-canvas__inner" onClick={(e) => e.stopPropagation()}>
-                <div className="modal-download-canvas__svg-container">
-                    <svg className="modal-download-canvas__svg" viewBox={`0 0 ${downloadSetting.viewBoxWidth} ${downloadSetting.viewBoxHeight}`} dangerouslySetInnerHTML={{__html: previewSVG}}/>
-                </div>
-                <div className="modal-download-canvas__bottom">
-                    <div className="modal-download-canvas__setting">
-                        <div className="modal-download-canvas__buttons">
-                            <button
-                                onClick={() => setDownloadSetting({...downloadSetting, type: "svg"})}
-                                className={
-                                    "modal-download-canvas__svg-button " +
-                                    (downloadSetting.type === "svg" ? "modal-download-canvas__svg-button_active" : "")
-                                }
-                            >SVG</button>
-                            <button
-                                onClick={() => setDownloadSetting({...downloadSetting, type: "png"})}
-                                className={
-                                    "modal-download-canvas__png-button " +
-                                    (downloadSetting.type === "png" ? "modal-download-canvas__png-button_active" : "")
-                                }
-                            >PNG</button>
-                        </div>
-                        
-                        <input placeholder="имя" value={downloadSetting.name} onChange={(e) => setDownloadSetting({...downloadSetting, name: e.target.value})} />
-                        <div className={
-                            "modal-download-canvas__input-container " +
-                            (downloadSetting.type !== "png" ? "modal-download-canvas__input-container_disable" : "")
-                        }>
-                            <input placeholder="ширина(px)" value={downloadSetting.width} onChange={(e) => setDownloadSetting({...downloadSetting, width: +e.target.value})} />
-                            <input placeholder="высота(px)" value={downloadSetting.height} onChange={(e) => setDownloadSetting({...downloadSetting, height: +e.target.value})} />
-                        </div>
-                    </div>
-                    <div className="modal-download-canvas__button">
-                        <button className="modal-download-canvas__cancel-button" onClick={toggleDownload}>Отмена</button>
-                        <button className="modal-download-canvas__download-button" onClick={download}>Скачать</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Download isDownload={isDownload} toggleDownload={toggleDownload} formulaList={organicFormulaList} />
         <Upload isUpload={isUpload} toggleUpload={toggleUpload} addCustomFormula={addCustomFormula} />
         </>
     )

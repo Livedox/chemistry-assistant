@@ -1,5 +1,5 @@
 import { MutableRefObject, useRef, useState } from "react";
-import { CustomOrganicFormula } from "./classes";
+import { CustomOrganicFormula } from "../classes";
 import uploadAndDownload from "./uploadAndDownload";
 
 interface Props {

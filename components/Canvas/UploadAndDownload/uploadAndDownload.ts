@@ -1,5 +1,4 @@
-import { Setting } from "./Canvas";
-import { CustomOrganicFormula } from "./classes";
+import { CustomOrganicFormula } from "../classes";
 
 class Upload {
     run(file: File, callback: (organicFormula: CustomOrganicFormula) => void) {
@@ -49,24 +48,37 @@ class Upload {
     }
 }
 
+
+export interface Setting {
+    name: string;
+    type: string;
+    width: number;
+    height: number;
+    topSVG: string;
+    rawSVG: string;
+    viewBoxWidth: number;
+    viewBoxHeight: number;
+}
+
+
 class Download {
     run(setting: Setting) {
         try {
             const finaleSVG = setting.topSVG+`width="${setting.width}" height="${setting.height}">`+setting.rawSVG;
             if(setting.type === "svg")
-                this.downloadSVG(finaleSVG, setting);
+                this.downloadSVG(finaleSVG, setting.name);
             else
-                this.downloadPNG(finaleSVG, setting);
+                this.downloadPNG(finaleSVG, setting.name);
         } catch (e) {
             alert("Ошибка загрузки (Загрузка в IE не работает, обновите браузер)" + e);
         } 
     }
 
-    private downloadSVG(svg: string, setting: Setting) {
-        this.downloadFile("svg", window.URL.createObjectURL(new Blob([svg])), setting);
+    private downloadSVG(svg: string, name: string) {
+        this.downloadFile("svg", window.URL.createObjectURL(new Blob([svg])), name);
     }
 
-    private downloadPNG(svg: string, setting: Setting) {
+    private downloadPNG(svg: string, name: string) {
         const image = new Image();
         image.src = "data:image/svg+xml;base64," + window.btoa(unescape(encodeURIComponent(svg)));
         image.onload = () => {
@@ -76,13 +88,13 @@ class Download {
             const context = canvas.getContext("2d");
             context!.drawImage(image, 0, 0);
         
-            this.downloadFile("png", canvas.toDataURL("image/png"), setting);
+            this.downloadFile("png", canvas.toDataURL("image/png"), name);
         }
     }
 
-    private downloadFile(type: "svg" | "png", url: string, setting: Setting) {
+    private downloadFile(type: "svg" | "png", url: string, name: string) {
         const a = document.createElement("a");
-        a.download = (setting.name || "formula") + "." + type;
+        a.download = (name || "formula") + "." + type;
         a.href = url;
         document.body.appendChild(a);
         a.click();
