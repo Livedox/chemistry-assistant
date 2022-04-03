@@ -6,12 +6,12 @@ import Editor from "./Editor";
 
 interface IProps {
     organicFormula: ChemicalOrganicFormula;
-    organicFormulaList: ChemicalOrganicFormula[];
+    formulaList: ChemicalOrganicFormula[];
     setOrganicFormulaList: (value: React.SetStateAction<ChemicalOrganicFormula[]>) => void;
 }
 
 
-export default function OrganicFormula({organicFormula, organicFormulaList, setOrganicFormulaList}:IProps) {
+export default function OrganicFormula({organicFormula, formulaList, setOrganicFormulaList}:IProps) {
     interface IMoveProps {
         shiftX: number;
         shiftY: number;
@@ -39,7 +39,7 @@ export default function OrganicFormula({organicFormula, organicFormulaList, setO
     }
 
     function end(props: IMoveConstructorProps<IMoveProps>) {
-        organicFormulaList.forEach(item => {
+        formulaList.forEach(item => {
             if(item.id !== organicFormula.id) {
                 const nearestPoint = organicFormula.getCoordinatesToNearestPointOrNull(item.getPosition(), item.getPoints());
                 if(!nearestPoint) return;
@@ -48,7 +48,7 @@ export default function OrganicFormula({organicFormula, organicFormulaList, setO
                 props.element.style.left = organicFormula.getPosition().x + "px";
                 props.element.style.top = organicFormula.getPosition().y + "px";
             }
-        }); 
+        });
 
         document.addEventListener("mousedown", removeClass);
         function removeClass(e: MouseEvent) {
@@ -73,7 +73,7 @@ export default function OrganicFormula({organicFormula, organicFormulaList, setO
             onMouseDown={moveOrganicFormula}
             data-id={organicFormula.id}
         >
-            <Editor setFormulaList={setOrganicFormulaList} formulaList={organicFormulaList} item={organicFormula} />
+            <Editor setFormulaList={setOrganicFormulaList} formulaList={formulaList} item={organicFormula} />
             <svg
                 style={{transform: `rotate(${organicFormula.angle}deg)`}}
                 x="0" y="0"

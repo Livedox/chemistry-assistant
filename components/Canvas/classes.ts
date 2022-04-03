@@ -19,7 +19,7 @@ const BASE_SIZE:ISize = {
 
 export class ChemicalOrganicFormula {
     private coords: ICoords = {
-        x: 0,
+        x: 20,
         y: 0
     }
     private _angle = 0;
@@ -27,6 +27,7 @@ export class ChemicalOrganicFormula {
     readonly id = getNumberId();
     color = "#000";
     size = BASE_SIZE;
+    downloadSize = BASE_SIZE;
     viewBox = BASE_SIZE;
     active = false;
     name = "";

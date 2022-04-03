@@ -1,11 +1,10 @@
-import React, { MouseEvent, useRef, useState } from "react";
+import React, { MouseEvent, useMemo, useRef, useState } from "react";
 import { getNumberId } from "../getId";
 import FormulaSelection from "./FormulaSelection";
 import { ChemicalOrganicFormula, TextChemicalOrganicFormula, ICoords, ISize, CustomOrganicFormula, PartText } from "./classes";
 import moveConstructor, { IMoveConstructorProps } from "./moveConstructor";
 import OrganicFormula from "./Formula/OrganicFormula";
 import { ITemplateOrganicFormula } from "./templatesOrganicFormula";
-import uploadAndDownload from "./UploadAndDownload/uploadAndDownload";
 import FormulaList from "./List/FormulaList";
 import TextCreator from "./TextCreator";
 import useToggle from "../../hooks/useToggle";
@@ -14,8 +13,9 @@ import Download from "./UploadAndDownload/Download";
 
 
 export default function Canvas() {
-    const [organicFormulaList, setFormulaList] = useState<ChemicalOrganicFormula[]>([]);
+    const [formulaList, setFormulaList] = useState<ChemicalOrganicFormula[]>([]);
     const [isTextCreator, toggleTextCreator] = useToggle();
+
 
     const [isDownload, toggleDownload] = useToggle();
     const [isUpload, toggleUpload] = useToggle();
@@ -110,7 +110,7 @@ export default function Canvas() {
             const y = parseFloat(props.data.canvSelectBlock.style.top);
 
             const coords: (ICoords & ISize)[] = [];
-            const newOrganicFormulaList = organicFormulaList.map(item => {
+            const newOrganicFormulaList = formulaList.map(item => {
                 if(item.checkIntersectionWithRectangle(x, y, width, height)) {
                     coords.push({...item.getPosition(), ...item.getSize()});
                     item.active = true;
@@ -125,7 +125,7 @@ export default function Canvas() {
         
         function createActiveOrganicFormulaList() {
             const activeOrganicFormulaList: ChemicalOrganicFormula[] = [];
-            organicFormulaList.forEach(item => {
+            formulaList.forEach(item => {
                 if(item.active) activeOrganicFormulaList.push(item);
             });
             return activeOrganicFormulaList
@@ -133,7 +133,7 @@ export default function Canvas() {
 
         function deleteActiveClass() {
             activeOrganicFormulaList.forEach(item => item.active = false);
-            setFormulaList([...organicFormulaList]);
+            setFormulaList([...formulaList]);
             props.data.canvSelectBlock.classList.remove("canvas__select-block_active");
         }
 
@@ -197,15 +197,15 @@ export default function Canvas() {
     }
 
     function addOrganicFormula(template: ITemplateOrganicFormula) {
-        setFormulaList([...organicFormulaList, new ChemicalOrganicFormula(template.type, template.svg, template.points, template.viewBox)]);
+        setFormulaList([...formulaList, new ChemicalOrganicFormula(template.type, template.svg, template.points, template.viewBox)]);
     }
 
     function addCustomFormula(formula: CustomOrganicFormula) {
-        setFormulaList([...organicFormulaList, formula]);
+        setFormulaList([...formulaList, formula]);
     }
 
     const addFormulaText = (parts: PartText[]) => setFormulaList(
-        [...organicFormulaList, new TextChemicalOrganicFormula(parts)]
+        [...formulaList, new TextChemicalOrganicFormula(parts)]
     );
 
     return(
@@ -214,22 +214,22 @@ export default function Canvas() {
             
             <div className="canvas__main-container">
                 <FormulaList
-                  formulaList={organicFormulaList}
+                  formulaList={formulaList}
                   setFormulaList={setFormulaList}
                   toggleUpload={toggleUpload}
                   toggleDownload={toggleDownload}/>
                 <div className="canvas__container-organic-formula">
                     <div className="canvas__move-block" onTouchStart={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} onMouseDown={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} />
                     <div className="canvas__select-block" />
-                    {organicFormulaList.map(item => {
-                        return <OrganicFormula organicFormula={item} organicFormulaList={organicFormulaList} setOrganicFormulaList={setFormulaList} key={item.id} />
+                    {formulaList.map(item => {
+                        return <OrganicFormula organicFormula={item} formulaList={formulaList} setOrganicFormulaList={setFormulaList} key={item.id} />
                     })}
                 </div>
                 <FormulaSelection toggleTextCreator={toggleTextCreator} addOrganicFormula={addOrganicFormula} />
             </div>
             <TextCreator isActive={isTextCreator} addFormulaText={addFormulaText} />       
         </div>
-        <Download isDownload={isDownload} toggleDownload={toggleDownload} formulaList={organicFormulaList} />
+        <Download isDownload={isDownload} toggleDownload={toggleDownload} formulaList={formulaList} />
         <Upload isUpload={isUpload} toggleUpload={toggleUpload} addCustomFormula={addCustomFormula} />
         </>
     )
