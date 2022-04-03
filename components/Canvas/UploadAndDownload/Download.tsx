@@ -1,7 +1,5 @@
-import { useState } from "react";
-import toRad from "../../toRad";
 import { ChemicalOrganicFormula } from "../classes";
-import uploadAndDownload, { Setting } from "./uploadAndDownload";
+import uploadAndDownload from "./uploadAndDownload";
 
 
 interface Props{
@@ -23,6 +21,7 @@ const downloadSetting = {
 
 function Download({isDownload, toggleDownload, formulaList}: Props) {
     function preview(formulaList: ChemicalOrganicFormula[]) {
+        console.log(2);
         if(!formulaList.length) return;
 
         const points: number[][] = [];
@@ -116,7 +115,7 @@ function Download({isDownload, toggleDownload, formulaList}: Props) {
         <div className={"download " + (isDownload ? "download_open" : "")} onClick={toggleDownload}>
             <div className="download__inner" onClick={(e) => e.stopPropagation()}>
                 <div className="download__svg-container">
-                    <svg className="download__svg" viewBox={`0 0 ${downloadSetting.viewBoxWidth} ${downloadSetting.viewBoxHeight}`} dangerouslySetInnerHTML={{__html: preview(formulaList)+""}}/>
+                    <svg className="download__svg" viewBox={`0 0 ${downloadSetting.viewBoxWidth} ${downloadSetting.viewBoxHeight}`} dangerouslySetInnerHTML={{__html: (isDownload&&preview(formulaList))+""}}/>
                 </div>
                 <div className="download__bottom">
                     <div className="download__setting">

@@ -64,6 +64,7 @@
         margin: 5px 0;
         padding-bottom: 5px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.219);
+        user-select: none;
         &-svg{
             width: 2.4rem;
             height: 2.4rem;
@@ -207,20 +208,20 @@
         &_active{
             z-index: 5;
             g, .CA_SVG{
-                stroke: $blue !important;
+                stroke: #014b83 !important;
             }
             .CA__fillable-part{
-                fill: $blue !important;
+                fill: #014b83 !important;
             }
         }
         &_moved{
             z-index: 4;
             border: 1px dashed black;
             g, .CA_SVG{
-                stroke: $yellow !important;
+                stroke: #ddb100 !important;
             }
             .CA__fillable-part{
-                fill: $yellow !important;
+                fill: #ddb100 !important;
             }
             .organic-formula__editor{
                 visibility: visible;
@@ -233,7 +234,7 @@
         position: absolute;
         left: 0;
         top: 0;
-        border: 2px solid $blue;
+        border: 2px solid $color-dracula-orchid;
         &_active{
             visibility: visible;
             z-index: 11;

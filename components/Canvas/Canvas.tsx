@@ -51,14 +51,14 @@ export default function Canvas() {
 
         function createProps() {
             const canvSelectBlock = document.querySelector(".canvas__select-block")! as HTMLElement;
-            const el = e.currentTarget as HTMLElement;
-            const coords = el.getBoundingClientRect();
+            const shiftEl = document.querySelector(".canvas__container-organic-formula")! as HTMLElement;
+            const coords = shiftEl.getBoundingClientRect();
             const clientX = e.type === "mousedown" ? (e as MouseEvent).clientX : (e as TouchEvent).touches[0].clientX;
             const clientY = e.type === "mousedown" ? (e as MouseEvent).clientY : (e as TouchEvent).touches[0].clientY;
-            const shiftX = clientX - el.getBoundingClientRect().left;
-            const shiftY = clientY - el.getBoundingClientRect().top;
+            const shiftX = clientX - coords.left;
+            const shiftY = clientY - coords.top;
             return {
-                element: el,
+                element: shiftEl,
                 data: { coords, canvSelectBlock, shiftX, shiftY }
             };
         }   
@@ -211,7 +211,7 @@ export default function Canvas() {
     return(
         <>
         <div className="canvas">
-            <div className="canvas__select-block" />
+            
             <div className="canvas__main-container">
                 <FormulaList
                   formulaList={organicFormulaList}
@@ -220,6 +220,7 @@ export default function Canvas() {
                   toggleDownload={toggleDownload}/>
                 <div className="canvas__container-organic-formula">
                     <div className="canvas__move-block" onTouchStart={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} onMouseDown={moveConstructor<ISelectBlock>(createSelectBlock, moveSelectBlock, hideOrAddEventSelectBlock)} />
+                    <div className="canvas__select-block" />
                     {organicFormulaList.map(item => {
                         return <OrganicFormula organicFormula={item} organicFormulaList={organicFormulaList} setOrganicFormulaList={setFormulaList} key={item.id} />
                     })}
