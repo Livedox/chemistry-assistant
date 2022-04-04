@@ -12,9 +12,7 @@ import "../styles/Setting/style.scss";
 import "../styles/Setting/checkboxStyle.css";
 import "../styles/Picker/style.scss";
 import "../styles/PeriodicTable/style.scss";
-import "../styles/Alert/style.css";
 import "../styles/Help/style.css";
-import "../styles/PopUp/style.css";
 
 import "../styles/Info/style.scss";
 import "../styles/Info/style.media.scss";

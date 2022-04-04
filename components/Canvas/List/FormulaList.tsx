@@ -22,6 +22,7 @@ function FormulaList({formulaList, setFormulaList, toggleDownload, toggleUpload}
                 <button className="canvas__list-button" onClick={toggleUpload}>Добавить</button>
             </div>
             <div className="canvas__list-container">
+                {formulaList.length ? "" : "Нет элементов"}
                 {formulaList.map(item => {
                     return <Item formulaList={formulaList} item={item} setFormulaList={setFormulaList} key={"f"+item.id} />
                 })}
