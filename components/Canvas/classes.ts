@@ -27,7 +27,6 @@ export class ChemicalOrganicFormula {
     readonly id = getNumberId();
     color = "#000";
     size = BASE_SIZE;
-    downloadSize = BASE_SIZE;
     viewBox = BASE_SIZE;
     active = false;
     name = "";
@@ -94,7 +93,7 @@ export class ChemicalOrganicFormula {
     }
 
     getTemplate() {
-        return this.template.replace("REPLACE_COLOR", this.color);
+        return this.getRawTemplate();
     }
 
     getRawTemplate() {

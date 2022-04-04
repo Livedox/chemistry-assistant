@@ -11,7 +11,6 @@ import "../styles/Caluclator/style.css";
 import "../styles/Setting/style.scss";
 import "../styles/Setting/checkboxStyle.css";
 import "../styles/Picker/style.scss";
-import "../styles/Canvas/style.css";
 import "../styles/PeriodicTable/style.scss";
 import "../styles/Alert/style.css";
 import "../styles/Help/style.css";

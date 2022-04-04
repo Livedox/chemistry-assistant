@@ -41,7 +41,7 @@
         &-toggle {
             position: absolute;
             left: 100%;
-            top: 0.5rem;
+            top: 1.5rem;
             background-color: rgba(45, 52, 54, 0.9);
             box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.219);
             width: 1.8rem;
@@ -356,7 +356,7 @@
 
 .text-creator{
     transform-origin: top right;
-    transform: rotate(-90deg);
+    transform: rotate(90deg);
     opacity: 0;
     position: absolute;
     z-index: 20;
@@ -446,12 +446,13 @@
     top: 0; bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
     overflow-y: auto;
+    color: #fff;
     &_open{
         display: flex;
     }
     &__inner{
         border-radius: 5px;
-        background-color: #fff;
+        background-color: #3d4547;
         width: 300px;
         max-width: 100%;
         margin: auto;
@@ -468,8 +469,12 @@
         display: inline-block;
         border-radius: 4px;
         padding: 10px;
-        background-color: $yellow;
+        background-color: $color-dracula-orchid;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
         margin-bottom: 35px;
+        &:hover{
+            background-color: $purple;
+        }
     }
     &__buttons-container{
         display: flex;
@@ -479,8 +484,12 @@
             font-size: 18px;
             border-radius: 4px;
             cursor: pointer;
-            background-color: $blue;
+            background-color: $color-dracula-orchid;
             color: #fff;
+            box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
+            &:hover{
+                background-color: $purple;
+            }
         }
     }
 }
@@ -494,28 +503,26 @@
     background-color: rgba(0, 0, 0, 0.3);
     overflow-y: auto;
     &_open{
-        display: flex;
+        display: block;
     }
     &__svg-container{
         position: relative;
-        height: 50%;
+        max-height: 20rem;
         display: flex;
         justify-content: center;
-    }
-    &__svg{
-        width: 100%;
-        height: 100%;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
+        padding: 10px;
     }
     &__inner{
+        position: relative;
+        max-width: 100%;
+        width: 30rem;
         border-radius: 5px;
-        background-color: #fff;
-        width: 80%;
-        min-height: 80%;
-        margin: 2% auto 2% auto;
+        background-color: #3d4547;
+        margin: 50px auto 1rem auto;
         padding: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
     }
     &__bottom{
         display: flex;
@@ -524,13 +531,16 @@
     &__setting{
         height: 50%;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        color: #fff;
+        font-size: 1.1rem;
+        input{
+            color: $color-city-lights;
+        }
     }
     &__input-container{
         input {
-            text-align: center;
-            width: 100px;
+            width: 7rem;
         }
         &_disable{
             display: none;
@@ -538,26 +548,30 @@
     }
     &__button{
         display: flex;
-        margin-top: 20px;
+        margin-top: 1rem;
         justify-content: space-between;
     }
     &__svg-button, &__png-button, &__cancel-button, &__download-button{
         padding: 10px;   
         margin: 5px;
         font-size: 18px;
-        border-radius: 15px;
+        border-radius: 5px;
         color: #fff;
         cursor: pointer;
+        &:hover{
+            background-color: $purple;
+        }
     }
     &__cancel-button, &__download-button{
-        background-color: $pink;
+        background-color: $color-dracula-orchid;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
     }
     &__svg-button, &__png-button{
-        background-color: #be6488;
-    }
-    &__svg-button, &__png-button{
+        margin-bottom: 1rem;
+        background-color: #3d4547;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
         &_active{
-            background-color: $pink;
+            background-color: $purple;
         }
     }
 }

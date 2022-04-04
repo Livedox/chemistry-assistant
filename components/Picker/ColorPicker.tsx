@@ -132,7 +132,7 @@ const ColorPicker:React.FC<Props> = ({callback}) => {
 
 
     function hsvToHex(h:number, s:number, v:number) {
-        let r:number, g:number, b:number;
+        let r:number = 0, g:number = 0, b:number = 0;
       
         const i = Math.floor(h * 6);
         const f = h * 6 - i;
@@ -154,7 +154,7 @@ const ColorPicker:React.FC<Props> = ({callback}) => {
             return str.length > 1 ? str : "0" + str; 
         }
 
-        return "#" + toHex(r!) + toHex(g!) + toHex(b!);
+        return "#" + toHex(r) + toHex(g) + toHex(b);
     }
 
 

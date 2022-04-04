@@ -1,20 +1,16 @@
-@media screen and (max-height: 773px) {
-    .canvas__add-organic-formula-block-container{
-        align-items: center;
-        width: 90px;
-    }
-}
-
-@media screen and (max-height: 640px) {
-    .canvas__add-organic-formula-block-container{
-        width: 50px;
-        margin-left: 5px;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
+@media screen and (max-width: 360px) {
+    .canvas__list{
+        left: -90%;
+        &_active{
+            left: 0;
+        }
     }
 }
 
 @media screen and (orientation: portrait) {
+    .canvas{
+        overflow-y: hidden;
+    }
     .canvas__formula-selection{
         height: 45px;
         overflow-x: auto;

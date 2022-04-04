@@ -46,7 +46,7 @@ function TextCreator({isActive, addFormulaText}: Props) {
     ) {
         let copy = formula;
         let fontCase: fontCase = formulaLabeling.get(0) || "normal";
-        let temp: PartText[] = [];
+        const temp: PartText[] = [];
         let count = 0;
         formulaLabeling.forEach((value, key) => {
             const text = copy.slice(0, key-count);

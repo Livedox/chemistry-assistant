@@ -50,6 +50,8 @@ export default function OrganicFormula({organicFormula, formulaList, setOrganicF
             }
         });
 
+        setOrganicFormulaList([...formulaList]);
+
         document.addEventListener("mousedown", removeClass);
         function removeClass(e: MouseEvent) {
             document.removeEventListener("mousedown", removeClass);
