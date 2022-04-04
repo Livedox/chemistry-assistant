@@ -204,7 +204,7 @@
     }
     &_legend{
         cursor: default;
-        width: 12vw;
+        width: 13.5vw;
         height: 100%;
         font-size: 0.14vw;
         border: 0.2vw solid $color-dracula-orchid;
@@ -226,6 +226,7 @@
     }
     &__symbol{
         font-size: 53em;
+        letter-spacing: -0.08em;
         line-height: 0.8;
         font-family: "Times New Roman";
     }
