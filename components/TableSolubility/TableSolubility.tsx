@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import getId from "../getId";
 import AllItems from "./AllItems";
 import ElectrochemicalVoltageSeriesMetals from "./ElectrochemicalVoltageSeriesMetals";
 import Explanation from "./Explanation";
 import Hint from "./Hint";
 import items, { Cell } from "./items";
-import ItemsContainer from "./ItemsContainer";
+
 
 const leftHeaders: string[][] = [
     ["A/K", ""], ["OH", "-"], ["F", "-"], ["Cl", "-"], ["Br", "-"],

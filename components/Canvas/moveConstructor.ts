@@ -18,7 +18,6 @@ function moveConstructor<T> (
         document.addEventListener("touchmove", onMouseMove);
 
         function onMouseMove(e: globalThis.MouseEvent | TouchEvent) {
-            console.log(e); 
             move(e, props);      
         }
 

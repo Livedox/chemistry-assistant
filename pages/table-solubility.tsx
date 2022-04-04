@@ -2,6 +2,7 @@ import Layout from "../components/Header/Layout";
 import Head from "next/head";
 import TableSolubility from "../components/TableSolubility/TableSolubility";
 
+
 export default function SolubilityTable() {
     return (
         <>

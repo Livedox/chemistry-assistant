@@ -2,6 +2,7 @@ import Info from "../../models/Info";
 import connectDB from "../../middleware/mongodb";
 import {NextApiRequest, NextApiResponse} from "next";
 
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const id: string = JSON.parse(req.body)["id"];
     try {

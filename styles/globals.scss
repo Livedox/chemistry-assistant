@@ -19,7 +19,7 @@ marquee { overflow: inherit !important; -moz-binding: none; }
 blink { text-decoration: none; }
 nobr { white-space: normal; }
 input{ border: none; background: none; }
-button{border: none;outline:none}
+button{border: none;outline:none;background: none; font-family: inherit}
 @import "./var.scss";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
 body{

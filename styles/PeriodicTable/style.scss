@@ -196,6 +196,7 @@
     transition: transform 0.2s ease-in-out;
     border: 1px solid $color-dracula-orchid;
     margin: -1px 0 0 -1px;
+    user-select: none;
     box-sizing: border-box;
     &:hover{
         transform: scale(1.3);
@@ -203,7 +204,7 @@
     }
     &_legend{
         cursor: default;
-        width: 12vw;
+        width: 13.5vw;
         height: 100%;
         font-size: 0.14vw;
         border: 0.2vw solid $color-dracula-orchid;
@@ -225,6 +226,7 @@
     }
     &__symbol{
         font-size: 53em;
+        letter-spacing: -0.08em;
         line-height: 0.8;
         font-family: "Times New Roman";
     }

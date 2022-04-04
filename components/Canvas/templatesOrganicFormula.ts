@@ -146,7 +146,7 @@ const templates: ITemplateOrganicFormula[] = [
     },
     {
         type: "b1",
-        svg: `<path d="M 2 14 L 2 25 L 38 20 z" fill="#000000" class="CA__fillable-part" />`,
+        svg: `<path d="M 2 14 L 2 25 L 38 20 z" fill="REPLACE_COLOR" class="CA__fillable-part" />`,
         points: [[0,20]],
         viewBox: {width: 40, height: 40}
     },
@@ -154,19 +154,19 @@ const templates: ITemplateOrganicFormula[] = [
         type: "b2",
         svg: `<path d="M 2 14 L 2 26 L 4 25.65 L 4 14.35 z M 6 14.7 L 6 25.3 L 8 24.95 L 8 15.05 z M 10 15.4 L 10 24.6 L 12 24.25 L 12 15.75 z
             M 14 16.1 L 14 23.9 L 16 23.55 L 16 16.45 z M 18 16.8 L 18 23.2 L 20 22.85 L 20 17.15 z M 22 17.5 L 22 22.5 L 24 22.15 L 24 17.85 z
-            M 26 18.2 L 26 21.8 L 28 21.45 L 28 18.55 z M 30 18.9 L 30 21.1 L 37 20" fill="#000000" stroke-width="0"  class="CA__fillable-part" />`,
+            M 26 18.2 L 26 21.8 L 28 21.45 L 28 18.55 z M 30 18.9 L 30 21.1 L 37 20" fill="REPLACE_COLOR" stroke-width="0"  class="CA__fillable-part" />`,
         points: [[0,20]],
         viewBox: {width: 40, height: 40}
     },
     {
         type: "c1",
-        svg: `<path d="M 0 114 L 76 56 L 182 56 L 257 114" /><path d="M 0 113 L 66 179 L 192 179 L 257 113 L 197 194 L 60 194 z" fill="#000000" class="CA__fillable-part" />`,
+        svg: `<path d="M 0 114 L 76 56 L 182 56 L 257 114" /><path d="M 0 113 L 66 179 L 192 179 L 257 113 L 197 194 L 60 194 z" fill="REPLACE_COLOR" class="CA__fillable-part" />`,
         points: [[0, 114], [76, 56], [182, 56], [257, 114]],
         viewBox: {width: 265, height: 265}
     },
     {
         type: "c2",
-        svg: `<path d="M 0 114 L 76 56 L 182 56 L 257 114" /><path d="M 0 113 L 66 179 L 60 194 z M 192 179 L 257 113 L 197 194 z" fill="#000000" class="CA__fillable-part" />`,
+        svg: `<path d="M 0 114 L 76 56 L 182 56 L 257 114" /><path d="M 0 113 L 66 179 L 60 194 z M 192 179 L 257 113 L 197 194 z" fill="REPLACE_COLOR" class="CA__fillable-part" />`,
         points: [[0, 114], [76, 56], [182, 56], [257, 114]],
         viewBox: {width: 265, height: 265}
     },

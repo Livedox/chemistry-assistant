@@ -27,74 +27,194 @@
         bottom: 0;
     }
     &__list{
-        position: relative;
+        position: absolute;
         z-index: 24;
-        padding: 10px;
         box-sizing: border-box;
         height: 100%;
         box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.219);
-        direction: rtl;
-        overflow-y: auto;
-        overflow-x: hidden;
-        scrollbar-width: thin;
-        width: 250px;
-    }
-    &__list-container{
-        direction: ltr;
-    }
-    &__list-item{
-        display: flex;
-        align-items: center;
-        margin: 5px 0;
-        svg{
-            margin-right: 8px;
-            width: 30px;
-            height: 30px;
+        width: 20rem;
+        left: -20rem;
+        transition: left 0.2s;
+        &_active {
+            left: 0;
         }
-    }
-    &__list-item-delete{
-        height: 18px;
-        box-sizing: border-box;
-        svg{
-            width: 18px;
-            height: 18px;
-            margin-right: 0;
-            &:hover{
-                cursor: pointer;
-                fill: red;
+        &-toggle {
+            position: absolute;
+            left: 100%;
+            top: 1.5rem;
+            background-color: rgba(45, 52, 54, 0.9);
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.219);
+            width: 1.8rem;
+            height: 2.2rem;
+            cursor: pointer;
+            border-radius: 0 10px 10px 0;
+            color: #fff;
+            &_active span{
+                height: 100%;
+                line-height: 2.2rem;
+                display: block;
+                transform: rotate(180deg);
             }
         }
     }
-    &__add-organic-formula-block{
+
+    &__list-container{
+        position: absolute;
+        top: 1.8rem;
+        bottom: 0;
+        width: 100%;
+        padding: 10px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+    &__list-buttons {
+        display: flex;
+        justify-content: space-between;
+        background-color: $color-dracula-orchid;
+    }
+    &__list-button {
+        background-color: $color-dracula-orchid;
+        color: #fff;
+        padding: 0.3rem 0.6rem;
+        cursor: pointer;
+        &:hover {
+            background-color: #3d4547;
+        }
+    }
+    &__list-item{
+        display: flex;
+        flex-direction: column;
+        margin: 5px 0;
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.219);
+        user-select: none;
+        &-svg{
+            width: 2.4rem;
+            height: 2.4rem;
+            margin-right: 0.5rem;
+        }
+        &-cross {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
+            &:hover{
+                fill: $purple;
+            }
+        }
+        &-dots {
+            cursor: pointer;
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: #000;
+            &:hover {
+                fill: $purple;
+            }
+        }
+        &-container{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &-flex{
+            display: flex;
+            align-items: center;
+        }
+        &-menu{
+            height: 0;
+            overflow: hidden;
+            padding: 0 0.2rem;
+            &_active{
+                height: auto;
+            }
+            &-color-view {
+                position: relative;
+                width: 2rem;
+                height: 2rem;
+                margin-right: 1rem;
+                box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.219);
+                border-radius: 5px;
+            }
+            &-color, &-name{
+                margin: 0.5rem 0;
+            }
+            &-color {
+                padding-bottom: 0.3rem;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                user-select: none;
+            }
+            &-color-picker {
+                background-color: #fff;
+                display: none;
+                position: absolute;
+                width: 13rem;
+                height: 13rem;
+                padding: 0.5rem;
+                border-radius: 5px;
+                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+                z-index: 10;
+                &_active {
+                    display: block;
+                }
+            }
+
+        }
+    }
+    &__formula-selection{
         box-sizing: border-box;
         position: relative;
         z-index: 25;
         display: flex;
         flex-shrink: 0;
         align-items: center;
-        padding: 5px;
         right: 0;
         height: 100%;
-        background-color: #fff;
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.233);
-        direction: rtl;
+        background-color: $color-dracula-orchid;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
         overflow-y: auto;
         overflow-x: hidden;
-        scrollbar-width: thin;
+        scrollbar-width: none;
         svg{
-            width: 40px;
-            height: 40px;
-            stroke: #000;
+            flex-shrink: 0;
+            border-radius: 5px;
+            margin-left: 5px;
+            width: 35px;
+            height: 35px;
+            stroke: #fff;
             cursor: pointer;
+            .CA__fillable-part {
+                fill: #fff !important;
+            }
+            &:hover {
+                background-color: #4b5052;
+            }
         }
     }
-    &__add-organic-formula-block-container{
-        direction: ltr;
+    &__toggler-text-editor{
         display: flex;
-        flex-wrap: wrap-reverse;
-        flex-direction: column;
         justify-content: center;
-        width: 90px;
+        align-items: center;
+        font-size: 27px;
+        color: #fff;
+        user-select: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-left: 5px;
+        width: 35px;
+        height: 35px;
+        &:hover {
+            background-color: #4b5052;
+        }
+    }
+    &__formula-selection-container{
+        display: flex;
+        flex-direction: column;
+        width: 45px;
         height: 100%;
     }
     &__organic-formula{
@@ -113,20 +233,20 @@
         &_active{
             z-index: 5;
             g, .CA_SVG{
-                stroke: $blue !important;
+                stroke: #014b83 !important;
             }
             .CA__fillable-part{
-                fill: $blue !important;
+                fill: #014b83 !important;
             }
         }
         &_moved{
             z-index: 4;
             border: 1px dashed black;
             g, .CA_SVG{
-                stroke: $yellow !important;
+                stroke: #ddb100 !important;
             }
             .CA__fillable-part{
-                fill: $yellow !important;
+                fill: #ddb100 !important;
             }
             .organic-formula__editor{
                 visibility: visible;
@@ -139,7 +259,7 @@
         position: absolute;
         left: 0;
         top: 0;
-        border: 2px solid $blue;
+        border: 2px solid $color-dracula-orchid;
         &_active{
             visibility: visible;
             z-index: 11;
@@ -162,58 +282,6 @@
         background-color: $pink;
         font-size: 36px;
         border-radius: 50%;
-    }
-    &__modal-add-text{
-        visibility: hidden;
-        position: absolute;
-        z-index: 20;
-        bottom: 80px;
-        left: 10px;
-        display: flex;
-        flex-direction: column;
-        &_active{
-            visibility: visible;
-        }
-    }
-    &__modal-add-text-container{
-        width: 435px;
-        background-color: $pink;
-        border-radius: 10px;
-        padding: 8px;
-    }
-    &__modal-add-text-inner{
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        svg{
-            width: 44px;
-        }
-    }
-    &__modal-add-text-triangle{
-        width: 0;
-        height: 0;
-        margin-left: 15px;
-        margin-top: -3px;
-        border-left: 20px solid transparent;
-        border-right: 20px solid transparent;
-        border-top: 20px solid $pink;
-    }
-    &__example-modal-add-text{
-        display: flex;
-        align-items: center;
-    }
-    &__modal-add-text-input-container{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-    &__modal-add-text-submit{
-        background-color: $pink;
-        cursor: pointer;
-        padding: 5px;
-        color: #fff;
-        border-radius: 5px;
     }
     &__download{
         position: absolute;
@@ -286,6 +354,90 @@
     }
 }
 
+.text-creator{
+    transform-origin: top right;
+    transform: rotate(90deg);
+    opacity: 0;
+    position: absolute;
+    z-index: 20;
+    top: 0;
+    right: 45px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.219);
+    transition: transform 0.2s, opacity 0.2s;
+    background-color: #3d4547;
+    padding: 1rem;
+    border-radius: 0 0 0 5px;
+    &_active{
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__button {
+        background-color: #3d4547;
+        color: $color-city-lights;
+        cursor: pointer;
+        padding: 0.1rem 0.4rem;
+        margin-right: 0.2rem;
+        transition: 0.2s;
+        border-radius: 5px;
+        width: 2rem;
+        height: 2rem;
+        &_active {
+            text-decoration: underline;
+        }
+        &:hover {
+            background-color: $american-river;
+        }
+    }
+
+    &__input-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+
+    &__input-outer{
+        position: relative;
+        width: 100%;
+    }
+
+    &__input {
+        max-width: 15rem;
+        width: 100%;
+        font-size: 1rem;
+        color: $color-city-lights;
+        width: 100%;
+        height: 2rem;
+    }
+
+    &__preview {
+        max-width: 15rem;
+        pointer-events: none;
+        font-size: 1rem;
+        color: $color-city-lights;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        sup, sub {
+            font-size: 0.8rem;
+        }
+    }
+
+    &__submit{
+        background-color: $purple;
+        cursor: pointer;
+        padding: 5px 10px;
+        color: #fff;
+    }
+}
+
+
 .modal-upload-canvas{
     position: fixed;
     display: none;
@@ -294,12 +446,13 @@
     top: 0; bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
     overflow-y: auto;
+    color: #fff;
     &_open{
         display: flex;
     }
     &__inner{
         border-radius: 5px;
-        background-color: #fff;
+        background-color: #3d4547;
         width: 300px;
         max-width: 100%;
         margin: auto;
@@ -316,8 +469,12 @@
         display: inline-block;
         border-radius: 4px;
         padding: 10px;
-        background-color: $yellow;
+        background-color: $color-dracula-orchid;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
         margin-bottom: 35px;
+        &:hover{
+            background-color: $purple;
+        }
     }
     &__buttons-container{
         display: flex;
@@ -327,13 +484,17 @@
             font-size: 18px;
             border-radius: 4px;
             cursor: pointer;
-            background-color: $blue;
+            background-color: $color-dracula-orchid;
             color: #fff;
+            box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
+            &:hover{
+                background-color: $purple;
+            }
         }
     }
 }
 
-.modal-download-canvas{
+.download{
     position: fixed;
     display: none;
     z-index: 100;
@@ -342,28 +503,26 @@
     background-color: rgba(0, 0, 0, 0.3);
     overflow-y: auto;
     &_open{
-        display: flex;
+        display: block;
     }
     &__svg-container{
         position: relative;
-        height: 50%;
+        max-height: 20rem;
         display: flex;
         justify-content: center;
-    }
-    &__svg{
-        width: 100%;
-        height: 100%;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
+        padding: 10px;
     }
     &__inner{
+        position: relative;
+        max-width: 100%;
+        width: 30rem;
         border-radius: 5px;
-        background-color: #fff;
-        width: 80%;
-        min-height: 80%;
-        margin: 2% auto 2% auto;
+        background-color: #3d4547;
+        margin: 50px auto 1rem auto;
         padding: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
     }
     &__bottom{
         display: flex;
@@ -372,13 +531,16 @@
     &__setting{
         height: 50%;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        color: #fff;
+        font-size: 1.1rem;
+        input{
+            color: $color-city-lights;
+        }
     }
     &__input-container{
         input {
-            text-align: center;
-            width: 100px;
+            width: 7rem;
         }
         &_disable{
             display: none;
@@ -386,26 +548,30 @@
     }
     &__button{
         display: flex;
-        margin-top: 20px;
+        margin-top: 1rem;
         justify-content: space-between;
     }
     &__svg-button, &__png-button, &__cancel-button, &__download-button{
         padding: 10px;   
         margin: 5px;
         font-size: 18px;
-        border-radius: 15px;
+        border-radius: 5px;
         color: #fff;
         cursor: pointer;
+        &:hover{
+            background-color: $purple;
+        }
     }
     &__cancel-button, &__download-button{
-        background-color: $pink;
+        background-color: $color-dracula-orchid;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
     }
     &__svg-button, &__png-button{
-        background-color: #be6488;
-    }
-    &__svg-button, &__png-button{
+        margin-bottom: 1rem;
+        background-color: #3d4547;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
         &_active{
-            background-color: $pink;
+            background-color: $purple;
         }
     }
 }

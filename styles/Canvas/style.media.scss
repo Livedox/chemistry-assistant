@@ -1,34 +1,44 @@
-@media screen and (max-height: 773px) {
-    .canvas__add-organic-formula-block-container{
-        align-items: center;
-        width: 90px;
-    }
-}
-
-@media screen and (max-height: 640px) {
-    .canvas__add-organic-formula-block-container{
-        width: 50px;
-        margin-left: 5px;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
+@media screen and (max-width: 360px) {
+    .canvas__list{
+        left: -90%;
+        &_active{
+            left: 0;
+        }
     }
 }
 
 @media screen and (orientation: portrait) {
-    .canvas__main-container{
-        flex-direction: column;
+    .canvas{
+        overflow-y: hidden;
     }
-    .canvas__add-organic-formula-block{
-        height: 50px;
-        width: 100%;
+    .canvas__formula-selection{
+        height: 45px;
         overflow-x: auto;
         overflow-y: hidden;
-        direction: ltr;
+        &-container{
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+        }
     }
-    .canvas__add-organic-formula-block-container{
-        flex-direction: row;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
+    .canvas__list{
+        max-width: 90%;
+        height: auto;
+        top: 0;
+        bottom: 45px;
+    }
+
+    .text-creator {
+        bottom: 45px;
+        left: 0;
+        right: 0;
+        top: auto;
+        border-radius: 0;
+        transform-origin: bottom left;
+    }
+
+    .canvas__main-container{
+        flex-direction: column;
     }
     .canvas__open-modal-add-text, .canvas__download, .canvas__import{
         bottom: 60px;
@@ -44,10 +54,7 @@
     .canvas__modal-add-text-input{
         max-width: 50%;
     }
-    .canvas__list{
-        display: none;
-    }
-    .modal-download-canvas__setting{
+    .download__setting{
         flex-direction: column;
         align-items: center;
         text-align: center;
